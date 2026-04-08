@@ -44,12 +44,12 @@ export const SLIDES: SlideData[] = [
     id: 'que-es-fyo',
     type: 'info',
     title: '¿QUÉ ES FYO? 🤔',
-    subtitle: 'Nuestra esencia y propósito',
+    subtitle: 'Nuestra esencia y propósito ✨',
     theme: 'light',
     content: {
-      mainText: 'Potenciamos el crecimiento de nuestros clientes y de nuestra gente, transformando el agro con pasión y tecnología.',
-      description: 'Somos una solución personalizada para cada uno de nuestros clientes. Una propuesta innovadora y única que nos permitió digitalizar el mercado más tradicional de Argentina, formando lazos con los socios más relevantes del sector.',
-      highlight: 'Ayudamos a tomar las mejores decisiones para que los negocios crezcan de manera sustentable.'
+      mainText: 'Potenciamos el crecimiento de nuestros clientes y de nuestra gente, transformando el agro con pasión y tecnología. 🚀',
+      description: 'Somos una solución personalizada para cada uno de nuestros clientes. Una propuesta innovadora y única que nos permitió digitalizar el mercado más tradicional de Argentina, formando lazos con los socios más relevantes del sector. 🤝',
+      highlight: 'Ayudamos a tomar las mejores decisiones para que los negocios crezcan de manera sustentable. 🌱'
     }
   },
   {
@@ -113,11 +113,11 @@ export const SLIDES: SlideData[] = [
     id: 'assessment-cover',
     type: 'cover',
     title: 'ASSESSMENT CENTER 🎯',
-    subtitle: 'Comienzo de las dinámicas grupales',
+    subtitle: 'Comienzo de las dinámicas grupales 👥',
     theme: 'brand',
     content: {
       highlight: 'Evaluación',
-      tags: ['Dinámicas', 'Casos', 'Talento']
+      tags: ['Dinámicas 🎨', 'Casos 💡', 'Talento ✨']
     }
   },
   {
@@ -137,11 +137,11 @@ export const SLIDES: SlideData[] = [
     id: 'break-cover',
     type: 'cover',
     title: 'RECESO Y CAFÉ ☕',
-    subtitle: 'Momento de relax y networking',
+    subtitle: 'Momento de relax y networking ✨',
     theme: 'light',
     content: {
       highlight: 'Break',
-      tags: ['Café', 'Networking', 'Energía']
+      tags: ['Café ☕', 'Networking 🤝', 'Energía ⚡']
     }
   },
   {

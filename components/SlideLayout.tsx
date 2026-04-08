@@ -98,11 +98,14 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
   useEffect(() => {
     const requestWakeLock = async () => {
       try {
-        if ('wakeLock' in navigator) {
+        if ('wakeLock' in navigator && (navigator as any).wakeLock) {
           wakeLock.current = await (navigator as any).wakeLock.request('screen');
         }
       } catch (err: any) {
-        console.error(`${err.name}, ${err.message}`);
+        // Silently fail for permission errors in restricted environments (like iframes)
+        if (err.name !== 'NotAllowedError' && err.name !== 'SecurityError') {
+          console.warn(`WakeLock failed: ${err.name}, ${err.message}`);
+        }
       }
     };
 
@@ -190,9 +193,9 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
             transition={{ type: 'spring', damping: 60, stiffness: 80 }}
             className="absolute inset-0 pointer-events-none"
           >
-            <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-[0.08]' : 'bg-indigo-100 opacity-20'}`}></div>
-            <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.05]' : 'bg-emerald-50 opacity-15'}`}></div>
-            <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-[0.08]' : 'bg-slate-100 opacity-20'}`}></div>
+            <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-[0.05]' : 'bg-indigo-100 opacity-10'}`}></div>
+            <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.03]' : 'bg-emerald-50 opacity-8'}`}></div>
+            <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-[0.05]' : 'bg-slate-100 opacity-10'}`}></div>
           </motion.div>
           
           {/* Large Static Gradients for depth */}
@@ -488,24 +491,24 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
             ))}
         </div>
 
-        {/* Navigation Buttons - Elegant & Minimal */}
+        {/* Navigation Buttons - Elegant Glass Style */}
         <div className="flex items-center gap-4">
             <motion.button 
-            whileHover={{ scale: 1.05, x: -2 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={onPrev}
             disabled={currentSlide === 0}
-            className="group p-4 rounded-full border border-slate-100 bg-white hover:bg-slate-50 disabled:opacity-20 transition-all shadow-sm active:scale-90"
+            className="group p-4 rounded-full border border-white/60 bg-white/40 backdrop-blur-xl hover:bg-white/60 disabled:opacity-20 transition-all shadow-sm active:scale-90"
             >
             <ChevronLeft size={20} className="text-slate-600 group-hover:text-indigo-600 transition-colors" />
             </motion.button>
 
             <motion.button 
-            whileHover={{ scale: 1.05, x: 2 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={onNext}
             disabled={currentSlide === totalSlides - 1}
-            className="group p-4 rounded-full bg-slate-900 hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90"
+            className="group p-4 rounded-full bg-slate-900/90 backdrop-blur-xl hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90 border border-white/10"
             >
             <ChevronRight size={20} className="text-white transition-colors" />
             </motion.button>
