@@ -57,7 +57,7 @@ export const SLIDES: SlideData[] = [
     type: 'image',
     title: 'ECOSISTEMA DE NEGOCIOS 🌐',
     subtitle: 'Soluciones integrales para toda la cadena',
-    theme: 'dark',
+    theme: 'light',
     content: {
       imageUrl: 'https://ais-pre-54ki7ve6ci7hzots2rglcf-337452175769.us-east1.run.app/api/attachments/86c61f22-959c-482f-87d2-7489f6486603',
       alt: 'Ecosistema fyo: Soluciones integrales para el agro'
@@ -73,10 +73,10 @@ export const SLIDES: SlideData[] = [
       description: 'Nuestra cultura se basa en la confianza, la colaboración y la búsqueda constante de la excelencia.',
       vision: 'Ser la plataforma líder de servicios y negocios para el agro en Latinoamérica.',
       valores: [
-        { title: 'PASIÓN POR EL CLIENTE', icon: 'Heart' },
-        { title: 'INTEGRIDAD Y RESPETO', icon: 'Shield' },
-        { title: 'TRABAJO EN EQUIPO', icon: 'Users' },
-        { title: 'INNOVACIÓN CONSTANTE', icon: 'Zap' }
+        { title: 'PASIÓN POR EL CLIENTE ❤️', icon: 'Heart' },
+        { title: 'INTEGRIDAD Y RESPETO 🤝', icon: 'Shield' },
+        { title: 'TRABAJO EN EQUIPO 👥', icon: 'Users' },
+        { title: 'INNOVACIÓN CONSTANTE ⚡', icon: 'Zap' }
       ]
     }
   },
@@ -89,19 +89,19 @@ export const SLIDES: SlideData[] = [
     content: {
       items: [
         { 
-          title: 'fyo', 
+          title: 'fyo 🌾', 
           desc: 'Líderes en comercialización de granos, corretaje y servicios financieros para el productor.',
           icon: 'BarChart3',
           link: 'www.fyo.com'
         },
         { 
-          title: 'AMAUTA', 
+          title: 'AMAUTA 🌱', 
           desc: 'Soluciones en nutrición vegetal y biotecnología para maximizar el rendimiento de los cultivos.',
           icon: 'Sparkles',
           link: 'www.amauta.ag'
         },
         { 
-          title: 'Agrofy', 
+          title: 'Agrofy 💻', 
           desc: 'El mercado digital de agronegocios más importante de la región.',
           icon: 'Rocket',
           link: 'www.agrofy.com.ar'

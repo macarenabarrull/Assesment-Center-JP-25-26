@@ -97,14 +97,14 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             <motion.h1 
                 layoutId="slide-title"
                 variants={itemVariants} 
-                className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 mb-6 leading-[0.95] font-display uppercase"
+                className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 mb-6 leading-[0.95] font-display uppercase"
             >
                 {data.title}
             </motion.h1>
             
             <motion.p 
                 variants={itemVariants}
-                className="text-base md:text-lg text-slate-500 font-bold tracking-tight mb-10 max-w-xl leading-relaxed"
+                className="text-lg md:text-xl text-slate-400 font-medium tracking-tight mb-10 max-w-2xl leading-relaxed"
             >
               {data.subtitle}
             </motion.p>
