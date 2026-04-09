@@ -8,10 +8,13 @@
     <style>
         :root {
             --primary: #4f46e5;
+            --primary-glow: rgba(79, 70, 229, 0.4);
             --bg: #fcfdfe;
             --text: #0f172a;
             --slate-400: #94a3b8;
+            --slate-200: #e2e8f0;
             --slate-100: #f1f5f9;
+            --glass: rgba(255, 255, 255, 0.7);
         }
 
         * {
@@ -30,37 +33,30 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            position: relative;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-            z-index: 10;
-        }
-
-        .header h1 {
-            font-size: 2rem;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--slate-400);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
+        /* Mesh Gradient Background */
+        .mesh-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            filter: blur(40px);
         }
 
         .container {
             width: 95%;
-            height: 80%;
-            background: white;
-            border-radius: 2rem;
-            border: 1px solid var(--slate-100);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            height: 85%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.03),
+                inset 0 0 0 1px rgba(255,255,255,0.4);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -76,81 +72,155 @@
 
         .word {
             position: absolute;
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--slate-400);
             white-space: nowrap;
             cursor: default;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             user-select: none;
-            padding: 0.5rem 1rem;
-            border-radius: 1rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 2rem;
+            opacity: 0.8;
         }
 
         .word.selected {
             color: white;
-            background-color: var(--primary);
-            font-size: 1.8rem;
-            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), #6366f1);
+            font-size: 1.6rem;
+            font-weight: 800;
             z-index: 100;
-            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
-            transform: translate(-50%, -50%) !important;
+            box-shadow: 0 15px 35px var(--primary-glow);
+            transform: translate(-50%, -50%) scale(1.1) !important;
+            padding: 1rem 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* Shimmer effect for selected words */
+        .word.selected::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
 
         .word.dimmed {
-            opacity: 0.1;
-            filter: blur(2px);
-            transform: scale(0.8);
+            opacity: 0.05;
+            filter: blur(4px);
+            transform: scale(0.7);
+            pointer-events: none;
         }
 
         .controls {
             margin-top: 2rem;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .status-indicator {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--slate-400);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .status-indicator.visible {
+            opacity: 1;
         }
 
         button {
             background-color: var(--text);
             color: white;
             border: none;
-            padding: 1rem 2.5rem;
-            font-size: 0.875rem;
-            font-weight: 900;
+            padding: 1.1rem 3rem;
+            font-size: 0.8rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             border-radius: 9999px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        button:hover {
+        button:hover:not(:disabled) {
             background-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px var(--primary-glow);
         }
 
-        button:active {
-            transform: translateY(0);
+        button:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: var(--slate-400);
+        }
+
+        button .btn-text {
+            position: relative;
+            z-index: 1;
         }
 
         /* Floating Animation */
         @keyframes float {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(10px, -10px); }
-            50% { transform: translate(-5px, 15px); }
-            75% { transform: translate(-15px, -5px); }
-            100% { transform: translate(0, 0); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(15px, -15px) rotate(2deg); }
+            66% { transform: translate(-10px, 10px) rotate(-1deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        /* Selection Counter */
+        .counter {
+            position: absolute;
+            top: 2rem;
+            right: 2.5rem;
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--slate-400);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
-
+    <div class="mesh-bg"></div>
+    
     <div class="container" id="container">
+        <div class="counter" id="counter">Nube Activa</div>
         <div class="word-cloud" id="wordCloud"></div>
     </div>
 
     <div class="controls">
-        <button id="raffleBtn">Sortear palabras</button>
+        <div class="status-indicator" id="status">Sorteando...</div>
+        <button id="raffleBtn">
+            <span class="btn-text">Sortear palabras</span>
+        </button>
     </div>
 
     <script>
@@ -160,29 +230,45 @@
 
         const wordCloud = document.getElementById('wordCloud');
         const raffleBtn = document.getElementById('raffleBtn');
-        const container = document.getElementById('container');
+        const btnText = raffleBtn.querySelector('.btn-text');
+        const statusIndicator = document.getElementById('status');
+        const counterEl = document.getElementById('counter');
         
         let wordElements = [];
         let isRaffled = false;
+        let isAnimating = false;
 
-        // Initialize words
+        // Initialize words with better distribution
         function init() {
             wordCloud.innerHTML = '';
             wordElements = [];
             
+            const cols = 10;
+            const rows = 8;
+            const cellWidth = 100 / cols;
+            const cellHeight = 100 / rows;
+
             words.forEach((word, index) => {
                 const el = document.createElement('div');
                 el.className = 'word';
                 el.textContent = word;
                 
-                // Random position
-                const x = Math.random() * 80 + 10;
-                const y = Math.random() * 80 + 10;
+                // Grid-based random positioning to avoid heavy overlap
+                const col = index % cols;
+                const row = Math.floor(index / cols);
+                
+                const x = (col * cellWidth) + (Math.random() * (cellWidth * 0.6) + (cellWidth * 0.2));
+                const y = (row * cellHeight) + (Math.random() * (cellHeight * 0.6) + (cellHeight * 0.2));
+                
                 el.style.left = `${x}%`;
                 el.style.top = `${y}%`;
                 
+                // Varied font sizes for natural look
+                const baseSize = 0.75 + (Math.random() * 0.3);
+                el.style.fontSize = `${baseSize}rem`;
+                
                 // Random animation delay and duration
-                const duration = 10 + Math.random() * 10;
+                const duration = 12 + Math.random() * 8;
                 const delay = Math.random() * -20;
                 el.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
                 
@@ -190,67 +276,100 @@
                 wordElements.push({
                     el,
                     initialX: x,
-                    initialY: y
+                    initialY: y,
+                    initialSize: `${baseSize}rem`
                 });
             });
         }
 
-        function raffle() {
+        async function raffle() {
+            if (isAnimating) return;
+            isAnimating = true;
+            raffleBtn.disabled = true;
+
             if (isRaffled) {
-                // Reset
+                // Reset phase
+                statusIndicator.textContent = "Reiniciando...";
+                statusIndicator.classList.add('visible');
+                
                 wordElements.forEach(item => {
                     item.el.className = 'word';
                     item.el.style.left = `${item.initialX}%`;
                     item.el.style.top = `${item.initialY}%`;
+                    item.el.style.fontSize = item.initialSize;
                     item.el.style.animationPlayState = 'running';
                 });
+                
+                counterEl.textContent = "Nube Activa";
                 isRaffled = false;
-                // Small delay before next raffle to show reset
-                setTimeout(performRaffle, 300);
-            } else {
-                performRaffle();
+                
+                await new Promise(r => setTimeout(r, 600));
             }
-        }
 
-        function performRaffle() {
+            // Raffle phase
+            statusIndicator.textContent = "Sorteando...";
+            statusIndicator.classList.add('visible');
+            btnText.textContent = "Sorteando...";
+
             // Select 5 random indices
             const selectedIndices = [];
-            while (selectedIndices.length < 5) {
-                const r = Math.floor(Math.random() * wordElements.length);
-                if (!selectedIndices.includes(r)) {
-                    selectedIndices.push(r);
-                }
+            const availableIndices = Array.from({length: wordElements.length}, (_, i) => i);
+            
+            for (let i = 0; i < 5; i++) {
+                const rIndex = Math.floor(Math.random() * availableIndices.length);
+                selectedIndices.push(availableIndices.splice(rIndex, 1)[0]);
             }
 
-            // Positions for the 5 selected words (centered)
+            // Positions for the 5 selected words (Premium layout)
             const positions = [
-                { x: 50, y: 30 },
-                { x: 30, y: 50 },
-                { x: 70, y: 50 },
-                { x: 40, y: 70 },
-                { x: 60, y: 70 }
+                { x: 50, y: 25 }, // Top center
+                { x: 30, y: 50 }, // Mid left
+                { x: 70, y: 50 }, // Mid right
+                { x: 40, y: 75 }, // Bottom left-ish
+                { x: 60, y: 75 }  // Bottom right-ish
             ];
 
+            // Dim others first
             wordElements.forEach((item, index) => {
-                item.el.style.animationPlayState = 'paused';
-                
-                if (selectedIndices.includes(index)) {
-                    const posIndex = selectedIndices.indexOf(index);
-                    item.el.className = 'word selected';
-                    item.el.style.left = `${positions[posIndex].x}%`;
-                    item.el.style.top = `${positions[posIndex].y}%`;
-                } else {
+                if (!selectedIndices.includes(index)) {
                     item.el.className = 'word dimmed';
+                    item.el.style.animationPlayState = 'paused';
                 }
             });
 
+            // Select sequentially with stagger
+            for (let i = 0; i < selectedIndices.length; i++) {
+                const index = selectedIndices[i];
+                const item = wordElements[index];
+                
+                await new Promise(r => setTimeout(r, 250)); // Stagger delay
+                
+                item.el.style.animationPlayState = 'paused';
+                item.el.className = 'word selected';
+                item.el.style.left = `${positions[i].x}%`;
+                item.el.style.top = `${positions[i].y}%`;
+                
+                counterEl.textContent = `${i + 1} de 5 seleccionadas`;
+            }
+
             isRaffled = true;
+            isAnimating = false;
+            raffleBtn.disabled = false;
+            btnText.textContent = "Sortear de nuevo";
+            statusIndicator.classList.remove('visible');
         }
 
         raffleBtn.addEventListener('click', raffle);
 
         // Initialize on load
         init();
+
+        // Handle window resize to keep things centered
+        window.addEventListener('resize', () => {
+            if (!isRaffled && !isAnimating) {
+                init();
+            }
+        });
     </script>
 </body>
 </html>
