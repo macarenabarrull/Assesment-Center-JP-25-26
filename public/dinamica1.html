@@ -112,17 +112,19 @@
         }
 
         .word.selected {
-            color: white;
-            background: linear-gradient(135deg, var(--primary), #6366f1);
-            font-size: 1.5rem;
-            font-weight: 800;
+            color: #ffffff !important;
+            background: var(--primary);
+            font-size: 1.6rem;
+            font-weight: 900;
             z-index: 100;
-            box-shadow: 0 20px 40px var(--primary-glow);
+            box-shadow: 0 25px 50px var(--primary-glow);
             transform: translate(-50%, -50%) scale(1) !important;
-            padding: 1.25rem 2.5rem;
+            padding: 1.5rem 3rem;
             letter-spacing: -0.02em;
             opacity: 1;
             pointer-events: none;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         /* Shimmer effect for selected words */
