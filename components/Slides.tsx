@@ -676,6 +676,28 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onJumpToSlide }) => {
     );
 };
 
+// 10. Word Raffle Slide
+export const WordRaffleSlide: React.FC<SlideProps> = ({ data }) => {
+  return (
+    <motion.div 
+      className="w-full h-full flex flex-col items-center justify-center py-4"
+      initial="hidden" 
+      animate="show" 
+      variants={containerVariants}
+    >
+      <motion.div variants={itemVariants} className="w-full h-full max-w-6xl px-6 min-h-[600px]">
+        <GlassCard className="w-full h-full overflow-hidden shadow-2xl relative bg-white/60 backdrop-blur-2xl rounded-[2rem] border border-white/40">
+          <iframe 
+            src={data.content.url} 
+            className="w-full h-full border-none"
+            title="Word Raffle Tool"
+          />
+        </GlassCard>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 // Placeholder for missing types
 export const MentoringSplitSlide = () => null;
 export const AcademySplitSlide = () => null;

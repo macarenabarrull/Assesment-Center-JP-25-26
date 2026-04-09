@@ -2,7 +2,7 @@ export type IconKey = 'Compass' | 'Target' | 'BrainCircuit' | 'Layers' | 'Zap' |
 
 export interface SlideData {
   id: string;
-  type: 'cover' | 'image' | 'objectives' | 'info' | 'timeline' | 'grid' | 'table-granos' | 'table-capital' | 'mentoring-split' | 'academy-split' | 'closing' | 'tutor-content' | 'ecosystem-circles';
+  type: 'cover' | 'image' | 'objectives' | 'info' | 'timeline' | 'grid' | 'table-granos' | 'table-capital' | 'mentoring-split' | 'academy-split' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'raffle';
   title?: string;
   subtitle?: string;
   content?: any;
@@ -125,15 +125,12 @@ export const SLIDES: SlideData[] = [
   },
   {
     id: 'dinamica-1',
-    type: 'objectives',
-    title: 'DINÁMICA 1: PRESENTACIÓN CREATIVA 🎨',
-    subtitle: 'Conociendo al futuro talento',
+    type: 'raffle',
+    title: 'DINÁMICA 1: Dime quién eres... 🎨',
+    subtitle: 'Assessment Center fyo',
     theme: 'light',
     content: {
-      duration: '40 MINUTOS',
-      objective: 'Evaluar la capacidad de síntesis, comunicación y autenticidad del candidato.',
-      consigna: 'Seleccione entre 3 y 5 imágenes que representen su trayectoria o valores personales y realice una breve presentación ante el panel.',
-      competencies: ['Comunicación Efectiva', 'Capacidad de Síntesis', 'Seguridad Personal', 'Creatividad']
+      url: '/dinamica1.html'
     }
   },
   {
