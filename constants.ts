@@ -32,8 +32,8 @@ export const SLIDES: SlideData[] = [
       rows: [
         ['09:30 - 09:45', 'Presentacion institucional de fyo', '15 min'],
         ['09:45 - 10:30', 'Dinámica 1: Dime quién eres...', '45 min'],
-        ['10:30 - 11:00', '¡Tomemos un break!', '30 min'],
-        ['11:00 - 12:45', 'Dinamica 2: Un día como comercial', '105 min'],
+        ['10:30 - 12:15', 'Dinamica 2: Un día como comercial', '105 min'],
+        ['12:15 - 12:45', '¡Tomemos un break!', '30 min'],
         ['12:45 - 13:00', 'Entrevista individuales', '15 min']
       ]
     }
@@ -41,7 +41,7 @@ export const SLIDES: SlideData[] = [
   {
     id: 'que-hacemos',
     type: 'info',
-    title: 'NUESTRO MANIFIESTO 📜',
+    title: 'NUESTRA EMPRESA 📜',
     subtitle: 'La esencia que impulsa nuestra transformación',
     theme: 'light',
     content: {
@@ -54,7 +54,7 @@ export const SLIDES: SlideData[] = [
     id: 'ecosistema',
     type: 'ecosystem-circles',
     title: 'ECOSISTEMA INTEGRAL 🌐',
-    subtitle: 'Formamos lazos estratégicos para acompañar toda la cadena comercial del agro.\n\nPotenciamos negocios impulsando el trabajo con conocimiento, profesionalismo y experiencia.',
+    subtitle: 'Formamos lazos estratégicos para acompañar toda la cadena comercial del agro.',
     theme: 'light',
     content: {
       items: [
@@ -74,8 +74,8 @@ export const SLIDES: SlideData[] = [
     subtitle: 'Lo que nos mueve y hacia dónde vamos',
     theme: 'brand',
     content: {
-      description: 'Nuestra cultura se basa en la confianza, la colaboracion y la innovación constante.\n\nImpulsamos el trabajo con conocimiento, profesionalismo y experiencia para agregar valor real en cada decisión.',
-      vision: 'Ser la empresa líder en potenciar los negocios de nuestros clientes a través de servicios que desafíen sus procesos de negocios.',
+      description: 'Nuestra cultura se basa en la confianza, la colaboracion y la innovación constante.',
+      vision: 'Ser la empresa líder en potenciar los negocios de nuestros clientes.',
       valores: [
         { title: 'Somos un equipo', icon: 'Users' },
         { title: 'Pensamos en grande', icon: 'Rocket' },
@@ -93,19 +93,19 @@ export const SLIDES: SlideData[] = [
       items: [
         { 
           title: 'fyo 🌾', 
-          desc: 'Líderes en comercialización de granos, corretaje y servicios financieros para el productor.',
+          desc: 'Líderes en comercialización de granos y servicios financieros.',
           icon: 'BarChart3',
           link: 'www.fyo.com'
         },
         { 
           title: 'AMAUTA 🌱', 
-          desc: 'Soluciones en nutrición vegetal y biotecnología para maximizar el rendimiento de los cultivos.',
+          desc: 'Soluciones en nutrición vegetal y biotecnología.',
           icon: 'Sparkles',
           link: 'www.amauta.ag'
         },
         { 
           title: 'Agrofy 💻', 
-          desc: 'El mercado digital de agronegocios más importante de la región.',
+          desc: 'El mercado digital de agronegocios más importante.',
           icon: 'Rocket',
           link: 'www.agrofy.com.ar'
         }
@@ -134,16 +134,6 @@ export const SLIDES: SlideData[] = [
     }
   },
   {
-    id: 'break-cover',
-    type: 'cover',
-    title: '¡Tomemos un descanso! ☕',
-    theme: 'light',
-    content: {
-      highlight: 'Break',
-      tags: ['Café ☕', 'Networking 🤝']
-    }
-  },
-  {
     id: 'dinamica-2',
     type: 'objectives',
     title: 'DINÁMICA 2: CASO ESTRATÉGICO 💡',
@@ -154,6 +144,16 @@ export const SLIDES: SlideData[] = [
       objective: 'Evaluar visión estratégica, trabajo colaborativo y toma de decisiones bajo presión.',
       consigna: 'En equipos, analicen el escenario de mercado planteado y construyan una solución innovadora utilizando los recursos disponibles.',
       competencies: ['Visión de Negocio', 'Trabajo Colaborativo', 'Liderazgo', 'Adaptabilidad']
+    }
+  },
+  {
+    id: 'break-cover',
+    type: 'cover',
+    title: '¡Tomemos un descanso! ☕',
+    theme: 'light',
+    content: {
+      highlight: 'Break',
+      tags: ['Café ☕', 'Networking 🤝']
     }
   },
   {
