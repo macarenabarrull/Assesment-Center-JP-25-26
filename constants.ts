@@ -45,7 +45,7 @@ export const SLIDES: SlideData[] = [
     subtitle: 'La esencia que impulsa nuestra transformación',
     theme: 'light',
     content: {
-      mainText: 'En fyo trabajamos para ofrecer respuestas innovadoras y a medida, adaptadas a cada cliente. Buscamos ser una solución personalizada para cada uno de nuestros clientes. Una solución innovadora, diferente y única. Así fue como nos animamos a ser digitales en el mercado más tradicional de Argentina.',
+      mainText: 'En fyo trabajamos para ofrecer respuestas innovadoras y a medida, adaptadas a cada cliente.\n\nBuscamos ser una solución personalizada para cada uno de nuestros clientes. Una solución innovadora, diferente y única.\n\nAsí fue como nos animamos a ser digitales en el mercado más tradicional de Argentina.',
       description: 'ofrecemos un ecosistema de soluciones innovadoras que abarcan toda la cadena comercial del agro.',
       highlight: 'DESAFIAMOS LO ESTABLECIDO PARA POTENCIAR EL FUTURO DEL AGRO 🚀'
     }
@@ -54,7 +54,7 @@ export const SLIDES: SlideData[] = [
     id: 'ecosistema',
     type: 'ecosystem-circles',
     title: 'ECOSISTEMA INTEGRAL 🌐',
-    subtitle: 'Formamos lazos con los clientes y socios más relevantes del mundo agropecuario para complementar y acompañar con servicios que abarcan toda la cadena comercial del agro. Y todo eso lo hicimos porque queremos ayudar a tomar las mejores decisiones para que los negocios crezcan. Queremos trabajar juntos, potenciando el valor e impulsando el trabajo, con conocimiento, profesionalismo y experiencia.',
+    subtitle: 'Formamos lazos estratégicos para acompañar toda la cadena comercial del agro.\n\nPotenciamos negocios impulsando el trabajo con conocimiento, profesionalismo y experiencia.',
     theme: 'light',
     content: {
       items: [
@@ -74,7 +74,7 @@ export const SLIDES: SlideData[] = [
     subtitle: 'Lo que nos mueve y hacia dónde vamos',
     theme: 'brand',
     content: {
-      description: 'creemos en el poder de las personas para transformar el agro. La cultura de fyo se basa en la confianza, la colaboracion y la innovación. Formamos lazos con los clientes y socios más relevantes del mundo agropecuario para complementar y acompañar con servicios que abarcan toda la cadena comercial del agro.',
+      description: 'La cultura de fyo se basa en la confianza, la colaboracion y la innovación.\n\nFormamos lazos con los clientes y socios más relevantes del mundo agropecuario para complementar y acompañar con servicios que abarcan toda la cadena comercial del agro.',
       vision: 'Ser la empresa líder en potenciar los negocios de nuestros clientes a través de servicios que agreguen valor y que desafien sus procesos de negocios.',
       valores: [
         { title: 'Somos un equipo', icon: 'Users' },
