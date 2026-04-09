@@ -267,7 +267,31 @@
 
     <script>
         const words = [
-            "Messi", "Maradona", "Mundial", "Mate", "Viaje", "Estados Unidos", "Política", "Argentina", "Sueño", "Meta", "Camino", "Cambio", "Decisión", "Oportunidad", "Desafío", "Logro", "Intento", "Error", "Equipo", "Amigo", "Grupo", "Ayuda", "Apoyo", "Confianza", "Charla", "Encuentro", "Risa", "Abrazo", "Trump", "Irán", "Tini", "Cacho Castaña", "Mercedes Sosa", "Francia", "Mbappé", "Icardi", "Moria Casán", "Ricardo Fort", "Franco Colapinto", "Fórmula 1", "Ferrari", "Café", "Fogata", "Guitarra", "Piano", "Tenis", "León", "Perro", "Gato", "Shakira", "Bizarrap", "Duki", "Nicki Nicole", "Coldplay", "Elon Musk", "Jeff Bezos", "Netflix", "TikTok", "Instagram", "Miami", "Dubái", "Europa", "Avión", "Hotel", "Startup", "Dinero", "Éxito", "Marca", "Influencia", "Cliente", "Negocio", "Venta", "Cierre", "Propuesta", "Resultado"
+            { text: "Messi", cat: "sports" }, { text: "Maradona", cat: "sports" }, { text: "Mundial", cat: "sports" },
+            { text: "Mate", cat: "misc" }, { text: "Viaje", cat: "travel" }, { text: "Estados Unidos", cat: "travel" },
+            { text: "Política", cat: "politics" }, { text: "Argentina", cat: "travel" }, { text: "Sueño", cat: "emotions" },
+            { text: "Meta", cat: "business" }, { text: "Camino", cat: "emotions" }, { text: "Cambio", cat: "emotions" },
+            { text: "Decisión", cat: "emotions" }, { text: "Oportunidad", cat: "business" }, { text: "Desafío", cat: "emotions" },
+            { text: "Logro", cat: "business" }, { text: "Intento", cat: "emotions" }, { text: "Error", cat: "emotions" },
+            { text: "Equipo", cat: "emotions" }, { text: "Amigo", cat: "emotions" }, { text: "Grupo", cat: "emotions" },
+            { text: "Ayuda", cat: "emotions" }, { text: "Apoyo", cat: "emotions" }, { text: "Confianza", cat: "emotions" },
+            { text: "Charla", cat: "emotions" }, { text: "Encuentro", cat: "emotions" }, { text: "Risa", cat: "emotions" },
+            { text: "Abrazo", cat: "emotions" }, { text: "Trump", cat: "politics" }, { text: "Irán", cat: "politics" },
+            { text: "Tini", cat: "music" }, { text: "Cacho Castaña", cat: "music" }, { text: "Mercedes Sosa", cat: "music" },
+            { text: "Francia", cat: "travel" }, { text: "Mbappé", cat: "sports" }, { text: "Icardi", cat: "sports" },
+            { text: "Moria Casán", cat: "music" }, { text: "Ricardo Fort", cat: "music" }, { text: "Franco Colapinto", cat: "sports" },
+            { text: "Fórmula 1", cat: "sports" }, { text: "Ferrari", cat: "sports" }, { text: "Café", cat: "misc" },
+            { text: "Fogata", cat: "misc" }, { text: "Guitarra", cat: "music" }, { text: "Piano", cat: "music" },
+            { text: "Tenis", cat: "sports" }, { text: "León", cat: "misc" }, { text: "Perro", cat: "misc" },
+            { text: "Gato", cat: "misc" }, { text: "Shakira", cat: "music" }, { text: "Bizarrap", cat: "music" },
+            { text: "Duki", cat: "music" }, { text: "Nicki Nicole", cat: "music" }, { text: "Coldplay", cat: "music" },
+            { text: "Elon Musk", cat: "politics" }, { text: "Jeff Bezos", cat: "politics" }, { text: "Netflix", cat: "politics" },
+            { text: "TikTok", cat: "politics" }, { text: "Instagram", cat: "politics" }, { text: "Miami", cat: "travel" },
+            { text: "Dubái", cat: "travel" }, { text: "Europa", cat: "travel" }, { text: "Avión", cat: "travel" },
+            { text: "Hotel", cat: "travel" }, { text: "Startup", cat: "business" }, { text: "Dinero", cat: "business" },
+            { text: "Éxito", cat: "business" }, { text: "Marca", cat: "business" }, { text: "Influencia", cat: "business" },
+            { text: "Cliente", cat: "business" }, { text: "Negocio", cat: "business" }, { text: "Venta", cat: "business" },
+            { text: "Cierre", cat: "business" }, { text: "Propuesta", cat: "business" }, { text: "Resultado", cat: "business" }
         ];
 
         const wordCloud = document.getElementById('wordCloud');
@@ -298,10 +322,10 @@
             const cellWidth = 100 / cols;
             const cellHeight = 100 / rows;
 
-            words.forEach((word, index) => {
+            words.forEach((wordObj, index) => {
                 const el = document.createElement('div');
                 el.className = 'word';
-                el.textContent = word;
+                el.textContent = wordObj.text;
                 
                 // Organic color
                 el.style.color = colors[Math.floor(Math.random() * colors.length)];
@@ -318,8 +342,8 @@
                 
                 // Curated sizes: short words slightly larger, long words slightly smaller
                 let baseSize = 0.85;
-                if (word.length < 5) baseSize = 1.0;
-                if (word.length > 10) baseSize = 0.75;
+                if (wordObj.text.length < 5) baseSize = 1.0;
+                if (wordObj.text.length > 10) baseSize = 0.75;
                 
                 el.style.fontSize = `${baseSize}rem`;
                 
@@ -334,7 +358,8 @@
                     initialX: x,
                     initialY: y,
                     initialSize: `${baseSize}rem`,
-                    initialColor: el.style.color
+                    initialColor: el.style.color,
+                    category: wordObj.cat
                 });
             });
         }
@@ -398,13 +423,35 @@
             statusIndicator.classList.add('visible');
             btnText.textContent = "Sorteando...";
 
-            // Select 5 random indices
+            // Select 5 random indices from different categories
             const selectedIndices = [];
+            const usedCategories = new Set();
             const availableIndices = Array.from({length: wordElements.length}, (_, i) => i);
             
-            for (let i = 0; i < 5; i++) {
-                const rIndex = Math.floor(Math.random() * availableIndices.length);
-                selectedIndices.push(availableIndices.splice(rIndex, 1)[0]);
+            // Shuffle available indices to ensure randomness
+            for (let i = availableIndices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [availableIndices[i], availableIndices[j]] = [availableIndices[j], availableIndices[i]];
+            }
+
+            for (let i = 0; i < availableIndices.length && selectedIndices.length < 5; i++) {
+                const idx = availableIndices[i];
+                const cat = wordElements[idx].category;
+                
+                if (!usedCategories.has(cat)) {
+                    selectedIndices.push(idx);
+                    usedCategories.add(cat);
+                }
+            }
+
+            // Fallback if we couldn't find 5 different categories (unlikely with current list)
+            if (selectedIndices.length < 5) {
+                for (let i = 0; i < availableIndices.length && selectedIndices.length < 5; i++) {
+                    const idx = availableIndices[i];
+                    if (!selectedIndices.includes(idx)) {
+                        selectedIndices.push(idx);
+                    }
+                }
             }
 
             // Positions for the 5 selected words (Robust layout to avoid overlap)
