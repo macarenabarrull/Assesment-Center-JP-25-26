@@ -13,7 +13,7 @@ export const SLIDES: SlideData[] = [
   {
     id: 'cover',
     type: 'cover',
-    title: 'PROGRAMA JP 25-26',
+    title: 'PROGRAMA JP 25-26 🚀',
     subtitle: 'assessment center',
     theme: 'brand',
     content: {
@@ -45,9 +45,9 @@ export const SLIDES: SlideData[] = [
     subtitle: 'La esencia que impulsa nuestra transformación',
     theme: 'light',
     content: {
-      mainText: 'En fyo trabajamos para ofrecer respuestas innovadoras y a medida, adaptadas a cada cliente.\n\nBuscamos ser una solución personalizada para cada uno de nuestros clientes. Una solución innovadora, diferente y única.\n\nAsí fue como nos animamos a ser digitales en el mercado más tradicional de Argentina.',
-      description: 'ofrecemos un ecosistema de soluciones innovadoras que abarcan toda la cadena comercial del agro.',
-      highlight: 'DESAFIAMOS LO ESTABLECIDO PARA POTENCIAR EL FUTURO DEL AGRO 🚀'
+      mainText: 'En fyo trabajamos para ofrecer respuestas innovadoras y a medida, adaptadas a cada cliente.\n\nBuscamos ser una solución personalizada, innovadora y única.\n\nAsí fue como nos animamos a ser digitales en el mercado más tradicional de Argentina.',
+      description: 'Desafiamos lo establecido para potenciar el futuro del agro.',
+      highlight: 'TRANSFORMAMOS EL PRESENTE PARA LIDERAR EL MAÑANA 🚀'
     }
   },
   {
@@ -74,8 +74,8 @@ export const SLIDES: SlideData[] = [
     subtitle: 'Lo que nos mueve y hacia dónde vamos',
     theme: 'brand',
     content: {
-      description: 'La cultura de fyo se basa en la confianza, la colaboracion y la innovación.\n\nFormamos lazos con los clientes y socios más relevantes del mundo agropecuario para complementar y acompañar con servicios que abarcan toda la cadena comercial del agro.',
-      vision: 'Ser la empresa líder en potenciar los negocios de nuestros clientes a través de servicios que agreguen valor y que desafien sus procesos de negocios.',
+      description: 'Nuestra cultura se basa en la confianza, la colaboracion y la innovación constante.\n\nImpulsamos el trabajo con conocimiento, profesionalismo y experiencia para agregar valor real en cada decisión.',
+      vision: 'Ser la empresa líder en potenciar los negocios de nuestros clientes a través de servicios que desafíen sus procesos de negocios.',
       valores: [
         { title: 'Somos un equipo', icon: 'Users' },
         { title: 'Pensamos en grande', icon: 'Rocket' },

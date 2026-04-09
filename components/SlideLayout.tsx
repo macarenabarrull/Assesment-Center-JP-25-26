@@ -228,13 +228,19 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </div>
 
       {/* Top Progress Bar - Minimalist */}
-      <div className="absolute top-0 left-0 h-1 bg-slate-100 w-full z-50 print:hidden">
+      <div className="absolute top-0 left-0 h-1.5 bg-slate-100/50 w-full z-50 print:hidden">
           <motion.div 
-            className="h-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.3)]"
+            className="h-full bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.5)] relative"
             initial={{ width: 0 }}
             animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
             transition={{ type: 'spring', damping: 30, stiffness: 100 }}
-          />
+          >
+            <div className="absolute right-0 top-full mt-2 px-2 py-1 bg-white/80 backdrop-blur-md rounded-md border border-slate-100 shadow-sm">
+                <span className="text-[8px] font-black text-indigo-600 uppercase tracking-widest whitespace-nowrap">
+                    Paso {currentSlide + 1} de {totalSlides}
+                </span>
+            </div>
+          </motion.div>
       </div>
 
       {/* Header - Minimalist & Elegant */}
@@ -255,12 +261,12 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
           </div>
         </motion.div>
         
-        <div className="flex items-center gap-2 md:gap-4 bg-white/40 backdrop-blur-xl p-1.5 rounded-full border border-white/60 shadow-sm">
+        <div className="flex items-center gap-2 md:gap-4 bg-white/60 backdrop-blur-2xl p-2 rounded-full border border-white shadow-xl">
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsReadingMode(true)}
-                className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-slate-50 border border-transparent"
+                className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-white border border-transparent"
                 title="Modo Lectura (Foco)"
               >
                 <Keyboard size={18} />
@@ -272,7 +278,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                 className={`p-2.5 transition-all rounded-full border ${
                   showIndex 
                   ? 'bg-slate-900 text-white border-slate-800 shadow-xl' 
-                  : 'text-slate-400 hover:text-indigo-600 hover:bg-slate-50 border-transparent'
+                  : 'text-slate-400 hover:text-indigo-600 hover:bg-white border-transparent'
                 }`}
                 title="Índice de diapositivas"
               >
@@ -282,15 +288,11 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleFullscreen}
-              className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-slate-50 border border-transparent"
+              className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-white border border-transparent"
               title={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
             >
               {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
             </motion.button>
-             <div className="h-8 w-px bg-slate-200 mx-1 hidden md:block"></div>
-             <div className="px-4 py-2 bg-slate-50 rounded-full border border-slate-100">
-                <span className="text-slate-900 font-black text-[10px] md:text-xs tracking-widest">{currentSlide + 1} <span className="text-slate-300 mx-1">/</span> {totalSlides}</span>
-             </div>
         </div>
       </header>
 
@@ -311,7 +313,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </AnimatePresence>
 
       {/* Content Area - Optimized Spacing */}
-      <main className="flex-1 w-full max-w-[1200px] mx-auto px-12 md:px-24 pt-8 md:pt-12 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
+      <main className="flex-1 w-full max-w-[1100px] mx-auto px-16 md:px-32 pt-10 md:pt-16 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
         <AnimatePresence mode="wait" custom={direction}>
             <motion.div
                 key={currentSlide}
