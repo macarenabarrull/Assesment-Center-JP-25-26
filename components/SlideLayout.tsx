@@ -348,7 +348,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                         )}
                     </motion.div>
                 )}
-                <div className="w-full h-full flex flex-col justify-center print:block overflow-y-auto md:overflow-visible py-2 custom-scrollbar">
+                <div className="w-full h-full flex flex-col justify-center print:block overflow-hidden py-2 custom-scrollbar">
                     {children}
                 </div>
             </motion.div>
@@ -452,7 +452,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="absolute bottom-32 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center gap-2 pointer-events-none print:hidden"
+            className="absolute bottom-32 left-12 z-[55] flex flex-col items-start gap-2 pointer-events-none print:hidden"
           >
             <div className="flex items-center gap-4">
               <motion.div 

@@ -38,10 +38,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between; /* Changed from center to space-between */
             overflow: hidden;
             position: relative;
-            padding: 2rem;
+            padding: 1.5rem; /* Reduced padding */
         }
 
         /* Mesh Gradient Background */
@@ -59,10 +59,10 @@
         .container {
             width: 100%;
             max-width: 1200px;
-            height: 75vh;
+            flex: 1; /* Changed from height: 75vh to flex: 1 */
             background: var(--glass);
             backdrop-filter: blur(24px);
-            border-radius: 3rem;
+            border-radius: 2.5rem; /* Slightly smaller radius */
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 
                 0 30px 60px rgba(0,0,0,0.04),
@@ -72,7 +72,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem; /* Reduced margin */
         }
 
         .word-cloud {
@@ -162,8 +162,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
             width: 100%;
+            padding-bottom: 0.5rem;
         }
 
         .status-indicator {
@@ -185,11 +186,11 @@
             background-color: var(--text);
             color: white;
             border: none;
-            padding: 1.25rem 4rem;
-            font-size: 0.85rem;
+            padding: 1rem 3.5rem;
+            font-size: 0.8rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.25em;
             border-radius: 9999px;
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -197,6 +198,7 @@
             position: relative;
             overflow: hidden;
             outline: none;
+            flex-shrink: 0;
         }
 
         button:hover:not(:disabled) {
@@ -265,7 +267,7 @@
 
     <script>
         const words = [
-            "Cliente", "Negocio", "Soja", "Cosecha", "Siembra", "Maíz", "Trigo", "Campo", "Argentina", "Rosario", "Región", "Campo argentino", "Economía", "Inflación", "Dólar", "Trabajo", "Esfuerzo", "Crecimiento", "Crisis", "Futuro", "Historia", "Presente", "Camino", "Decisión", "Riesgo", "Mate", "Café", "Mesa", "Charla", "Amigo", "Familia", "Viaje", "Casa", "Tiempo", "Energía", "Constancia", "Paciencia", "Presión", "Frustración", "Etapa", "Desafío", "Aprendizaje", "Mejora", "Diferencia", "Impulso", "Construcción", "Progreso", "Equipo", "Messi", "Maradona", "Partido", "Mundial", "Rugby", "Fútbol", "Pádel", "Mercado", "Oportunidad", "Inversión", "Rentabilidad", "Planificación", "Innovación", "Estrategia", "Resultado", "Producción", "Rendimiento", "Clima", "Lluvia", "Sequía", "Tierra", "Cultivo", "Campaña", "Motivación", "Disciplina", "Resiliencia", "Enfoque"
+            "Messi", "Maradona", "Mundial", "Mate", "Viaje", "Estados Unidos", "Política", "Argentina", "Sueño", "Meta", "Camino", "Cambio", "Decisión", "Oportunidad", "Desafío", "Logro", "Intento", "Error", "Equipo", "Amigo", "Grupo", "Ayuda", "Apoyo", "Confianza", "Charla", "Encuentro", "Risa", "Abrazo", "Trump", "Irán", "Tini", "Cacho Castaña", "Mercedes Sosa", "Francia", "Mbappé", "Icardi", "Moria Casán", "Ricardo Fort", "Franco Colapinto", "Fórmula 1", "Ferrari", "Café", "Fogata", "Guitarra", "Piano", "Tenis", "León", "Perro", "Gato", "Shakira", "Bizarrap", "Duki", "Nicki Nicole", "Coldplay", "Elon Musk", "Jeff Bezos", "Netflix", "TikTok", "Instagram", "Miami", "Dubái", "Europa", "Avión", "Hotel", "Startup", "Dinero", "Éxito", "Marca", "Influencia", "Cliente", "Negocio", "Venta", "Cierre", "Propuesta", "Resultado"
         ];
 
         const wordCloud = document.getElementById('wordCloud');

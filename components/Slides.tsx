@@ -680,12 +680,12 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onJumpToSlide }) => {
 export const WordRaffleSlide: React.FC<SlideProps> = ({ data }) => {
   return (
     <motion.div 
-      className="w-full h-full flex flex-col items-center justify-center py-4"
+      className="w-full h-full flex flex-col items-center justify-center py-4 pb-12" // Added pb-12
       initial="hidden" 
       animate="show" 
       variants={containerVariants}
     >
-      <motion.div variants={itemVariants} className="w-full h-full max-w-6xl px-6 min-h-[600px]">
+      <motion.div variants={itemVariants} className="w-full h-full max-w-6xl px-6">
         <GlassCard className="w-full h-full overflow-hidden shadow-2xl relative bg-white/60 backdrop-blur-2xl rounded-[2rem] border border-white/40">
           <iframe 
             src={data.content.url} 
