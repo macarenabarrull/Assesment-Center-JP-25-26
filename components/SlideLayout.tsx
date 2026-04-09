@@ -36,6 +36,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
   const [showTouchHint, setShowTouchHint] = useState(false);
   const [isReadingMode, setIsReadingMode] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isProjectorMode, setIsProjectorMode] = useState(false);
   
   // Force light mode always
   useEffect(() => {
@@ -96,6 +97,26 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       }
     }
   };
+
+  // Keyboard Navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        onNext();
+      } else if (e.key === 'ArrowLeft') {
+        onPrev();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      } else if (e.key.toLowerCase() === 'r') {
+        setIsReadingMode(prev => !prev);
+      } else if (e.key.toLowerCase() === 'p') {
+        setIsProjectorMode(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onNext, onPrev]);
 
   // Wake Lock Logic
   const wakeLock = useRef<any>(null);
@@ -192,36 +213,35 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
           {/* Noise Texture Overlay */}
           <div className="absolute inset-0 bg-noise z-10"></div>
           
-          {/* Animated Blobs with Parallax - More subtle and larger */}
-          <motion.div 
-            animate={{ x: mousePos.x * 0.8, y: mousePos.y * 0.8 }}
-            transition={{ type: 'spring', damping: 60, stiffness: 80 }}
-            className="absolute inset-0 pointer-events-none"
-          >
-            <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-[0.05]' : 'bg-indigo-100 opacity-10'}`}></div>
-            <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.03]' : 'bg-emerald-50 opacity-8'}`}></div>
-            <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-[0.05]' : 'bg-slate-100 opacity-10'}`}></div>
-            
-            {/* Floating Organic Elements */}
+          {/* Animated Blobs with Parallax - Hidden in Projector Mode for clarity */}
+          {!isProjectorMode && (
             <motion.div 
-              animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-              className="absolute top-[20%] left-[10%] w-12 h-12 border-2 border-indigo-200/30 rounded-2xl rotate-12"
-            />
-            <motion.div 
-              animate={{ y: [0, 30, 0], rotate: [0, -15, 0] }}
-              transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-              className="absolute bottom-[30%] right-[15%] w-16 h-16 border-2 border-emerald-200/20 rounded-full"
-            />
-            <motion.div 
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
-              className="absolute top-[60%] left-[5%] w-4 h-4 bg-indigo-400/10 rounded-full"
-            />
-          </motion.div>
+              animate={{ x: mousePos.x * 0.8, y: mousePos.y * 0.8 }}
+              transition={{ type: 'spring', damping: 60, stiffness: 80 }}
+              className="absolute inset-0 pointer-events-none"
+            >
+              <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-[0.05]' : 'bg-indigo-100 opacity-10'}`}></div>
+              <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.03]' : 'bg-emerald-50 opacity-8'}`}></div>
+              <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-[0.05]' : 'bg-slate-100 opacity-10'}`}></div>
+              
+              {/* Floating Organic Elements */}
+              <motion.div 
+                animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+                className="absolute top-[20%] left-[10%] w-12 h-12 border-2 border-indigo-200/30 rounded-2xl rotate-12"
+              />
+              <motion.div 
+                animate={{ y: [0, 30, 0], rotate: [0, -15, 0] }}
+                transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+                className="absolute bottom-[30%] right-[15%] w-16 h-16 border-2 border-emerald-200/20 rounded-full"
+              />
+            </motion.div>
+          )}
           
           {/* Large Static Gradients for depth */}
-          <div className={`absolute top-[-20%] right-[-10%] w-[100vw] h-[100vw] rounded-full blur-[180px] pointer-events-none ${isDarkMode ? 'bg-gradient-to-b from-indigo-400/10 to-transparent' : 'bg-gradient-to-b from-indigo-50/20 to-transparent'}`} />
+          {!isProjectorMode && (
+            <div className={`absolute top-[-20%] right-[-10%] w-[100vw] h-[100vw] rounded-full blur-[180px] pointer-events-none ${isDarkMode ? 'bg-gradient-to-b from-indigo-400/10 to-transparent' : 'bg-gradient-to-b from-indigo-50/20 to-transparent'}`} />
+          )}
           
           {/* Grain Texture */}
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.08] pointer-events-none mix-blend-overlay"></div>
@@ -262,6 +282,19 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
         </motion.div>
         
         <div className="flex items-center gap-2 md:gap-4 bg-white/60 backdrop-blur-2xl p-2 rounded-full border border-white shadow-xl">
+              <motion.button 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setIsProjectorMode(!isProjectorMode)}
+                className={`p-2.5 transition-all rounded-full border ${
+                  isProjectorMode 
+                  ? 'bg-amber-500 text-white border-amber-400 shadow-lg' 
+                  : 'text-slate-400 hover:text-amber-600 hover:bg-white border-transparent'
+                }`}
+                title="Modo Proyector (Alta Legibilidad)"
+              >
+                <Compass size={18} className={isProjectorMode ? 'animate-spin-slow' : ''} />
+              </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -478,8 +511,9 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                 className="absolute bottom-24 right-8 z-50 bg-slate-900/80 text-white px-5 py-3 rounded-2xl shadow-2xl shadow-slate-900/20 flex items-center gap-4 backdrop-blur-xl border border-white/10 pointer-events-none print:hidden"
             >
                 <Keyboard size={20} className="text-indigo-400" />
-                <div className="text-sm font-medium tracking-wide">
-                    Usa <span className="font-mono bg-white/10 border border-white/20 px-2 py-0.5 rounded text-xs mx-1">←</span> <span className="font-mono bg-white/10 border border-white/20 px-2 py-0.5 rounded text-xs mx-1">→</span> para navegar
+                <div className="text-sm font-medium tracking-wide flex flex-col gap-1">
+                    <div>Navegar: <span className="font-mono bg-white/10 border border-white/20 px-2 py-0.5 rounded text-xs mx-1">←</span> <span className="font-mono bg-white/10 border border-white/20 px-2 py-0.5 rounded text-xs mx-1">→</span></div>
+                    <div className="text-[10px] opacity-60">F: Pantalla Completa | R: Modo Foco | P: Modo Proyector</div>
                 </div>
             </motion.div>
         )}

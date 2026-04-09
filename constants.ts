@@ -104,10 +104,10 @@ export const SLIDES: SlideData[] = [
           link: 'www.amauta.ag'
         },
         { 
-          title: 'Agrofy 💻', 
-          desc: 'El mercado digital de agronegocios más importante.',
+          title: 'BIOND 🇧🇷', 
+          desc: 'Emerge para innovar y llevar la agroindustria brasileña a su máxima expresión',
           icon: 'Rocket',
-          link: 'www.agrofy.com.ar'
+          link: 'www.biondagro.com'
         }
       ]
     }

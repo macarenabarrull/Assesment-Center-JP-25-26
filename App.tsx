@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { SLIDES, SlideData } from './constants';
 import { SlideLayout } from './components/SlideLayout';
 import { 
@@ -32,20 +32,6 @@ const App: React.FC = () => {
     setDirection(index > currentSlideIndex ? 1 : -1);
     setCurrentSlideIndex(index);
   }, [currentSlideIndex]);
-
-  // Keyboard Navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        nextSlide();
-      } else if (e.key === 'ArrowLeft') {
-        prevSlide();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, prevSlide]);
 
   const renderSlide = (data: SlideData) => {
       switch (data.type) {
