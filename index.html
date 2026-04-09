@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- SEO & Open Graph -->
-    <title>Programa JP 25-26 | fyo</title>
+    <title>Programa JP 25-26 | AC</title>
     <meta name="description" content="Presentación del Programa de Jóvenes Profesionales 25-26. Formando el futuro del ecosistema de negocios comerciales." />
-    <meta property="og:title" content="Programa JP 25-26 | fyo" />
+    <meta property="og:title" content="Programa JP 25-26 | AC" />
     <meta property="og:description" content="Conoce los objetivos, el perfil buscado y el cronograma del nuevo programa de talentos." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" />
@@ -21,8 +21,10 @@
     <style>
       :root {
         --brand-indigo: #4f46e5;
-        --brand-emerald: #059669;
+        --brand-emerald: #10b981;
         --brand-slate: #0f172a;
+        --accent-vibrant: #22d3ee; /* Vibrant Cyan */
+        --accent-lime: #bef264;    /* Vibrant Lime */
         --premium-gold: #d4af37;
         --premium-silver: #c0c0c0;
       }
@@ -39,14 +41,38 @@
 
       .font-display {
         font-family: 'Outfit', sans-serif;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.03em;
       }
 
       .font-space {
         font-family: 'Space Grotesk', sans-serif;
+        letter-spacing: -0.02em;
       }
       
-      /* Custom Focus States */
+      /* Bento Grid Helper */
+      .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+      }
+
+      /* Border Gradient Glassmorphism */
+      .glass-border {
+        position: relative;
+      }
+      .glass-border::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.05), rgba(79,70,229,0.2));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
       :focus-visible {
         outline: 2px solid var(--brand-indigo);
         outline-offset: 4px;

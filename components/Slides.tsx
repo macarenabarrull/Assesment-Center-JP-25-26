@@ -39,33 +39,36 @@ const itemVariants = {
 
 // --- Reusable Premium Components ---
 const OrganicShape: React.FC<{ children: React.ReactNode, bg: string, color: string, className?: string }> = ({ children, bg, color, className = "" }) => (
-    <div className={`relative flex items-center justify-center ${bg} ${color} p-5 shadow-xl transition-all duration-700 rounded-[1.5rem] md:rounded-[2rem] ${className} group-hover:scale-110`}>
-        <div className={`absolute inset-0 ${bg} blur-2xl opacity-20 rounded-full -z-10`} />
-        <div className="absolute inset-0 border border-white/40 rounded-[inherit] pointer-events-none" />
+    <div className={`relative flex items-center justify-center ${bg} ${color} p-5 shadow-xl transition-all duration-700 rounded-[1.5rem] md:rounded-[2rem] ${className} group-hover:scale-110 group-hover:rotate-3`}>
+        <div className={`absolute inset-0 ${bg} blur-2xl opacity-30 rounded-full -z-10 animate-pulse`} />
+        <div className="absolute inset-0 glass-border rounded-[inherit] pointer-events-none" />
         {children}
     </div>
 );
 
 const GlowIcon: React.FC<{ icon: any, color: string, bg: string, size?: number }> = ({ icon: Icon, color, bg, size = 24 }) => (
     <OrganicShape bg={bg} color={color}>
-        <Icon size={size} strokeWidth={2.5} />
+        <div className="relative">
+            <Icon size={size} strokeWidth={2.5} className="relative z-10" />
+            <Icon size={size} strokeWidth={2.5} className="absolute inset-0 blur-sm opacity-50" />
+        </div>
     </OrganicShape>
 );
 
 const GlassCard: React.FC<{ children?: React.ReactNode, className?: string, hover?: boolean, theme?: 'light' | 'dark' | 'brand' }> = ({ children, className = "", hover = false, theme = 'light' }) => {
     const themeClasses = {
-        light: 'bg-white/70 border-white/80 shadow-sm',
-        dark: 'bg-slate-900/90 border-slate-700/50 shadow-2xl text-white',
-        brand: 'bg-indigo-600/5 border-indigo-500/20 shadow-md'
+        light: 'bg-white/70 border-white/80 shadow-sm glass-border',
+        dark: 'bg-slate-900/90 border-slate-700/50 shadow-2xl text-white glass-border',
+        brand: 'bg-indigo-600/5 border-indigo-500/20 shadow-md glass-border'
     };
 
     return (
         <div className={`
             backdrop-blur-2xl 
-            border rounded-2xl md:rounded-3xl
+            rounded-2xl md:rounded-3xl
             relative overflow-hidden
             ${themeClasses[theme]}
-            ${hover ? 'transition-all duration-500 hover:bg-white/90 hover:shadow-xl hover:border-indigo-100 hover:-translate-y-1' : ''}
+            ${hover ? 'transition-all duration-500 hover:bg-white/90 hover:shadow-2xl hover:-translate-y-2' : ''}
             ${className}
         `}>
             {children}
@@ -82,7 +85,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
     >
       <motion.div variants={itemVariants} className="mb-4 relative w-full max-w-4xl px-6">
         <div className="absolute inset-0 bg-indigo-500/5 blur-[120px] rounded-full scale-150 -z-10" />
-        <GlassCard theme={data.theme} className="p-10 md:p-16 flex flex-col items-center border-white/40 shadow-2xl relative overflow-visible">
+        <GlassCard theme={data.theme} className="p-10 md:p-16 flex flex-col items-center border-white shadow-2xl relative overflow-visible">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-indigo-600 rounded-b-full" />
             
             <motion.div 
@@ -91,7 +94,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
                 className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-slate-100 bg-white/80 backdrop-blur-md text-slate-400 text-[9px] md:text-[10px] font-black tracking-[0.3em] uppercase mb-8 shadow-sm"
             >
                 <div className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
-                @fyoonline
+                fyo
             </motion.div>
             
             <motion.h1 
@@ -99,12 +102,16 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
                 variants={itemVariants} 
                 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 mb-6 leading-[0.9] font-display uppercase"
             >
-                {data.title}
+                {(data.title || '').split(' ').map((word, i) => (
+                    <span key={i} className={i % 2 === 1 ? 'italic text-indigo-600' : ''}>
+                        {word}{' '}
+                    </span>
+                ))}
             </motion.h1>
             
             <motion.p 
                 variants={itemVariants}
-                className="text-lg md:text-xl text-slate-500/80 font-medium tracking-tight mb-10 max-w-2xl leading-relaxed"
+                className="text-base md:text-lg text-slate-500 font-medium tracking-tight mb-10 max-w-2xl leading-relaxed uppercase"
             >
               {data.subtitle}
             </motion.p>
@@ -112,7 +119,7 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             {data.content?.tags && (
               <motion.div variants={containerVariants} className="flex flex-wrap justify-center gap-3">
                   {data.content.tags.map((tag: string, idx: number) => (
-                  <motion.div variants={itemVariants} key={idx} className="px-4 py-2 bg-slate-50 text-slate-600 text-[10px] font-black tracking-widest uppercase rounded-xl border border-slate-100 shadow-sm hover:bg-white hover:border-indigo-100 transition-all cursor-default">
+                  <motion.div variants={itemVariants} key={idx} className="px-6 py-3 bg-white text-slate-900 text-[10px] font-black tracking-widest uppercase rounded-full border border-slate-200 shadow-md hover:border-indigo-600 transition-all cursor-default">
                       {tag}
                   </motion.div>
                   ))}
@@ -176,31 +183,31 @@ export const TableCapitalSlide: React.FC<SlideProps> = ({ data }) => {
     return (
         <motion.div className="w-full flex flex-col items-center justify-center py-6" initial="hidden" animate="show" variants={containerVariants}>
             <motion.div variants={itemVariants} className="w-full max-w-5xl">
-                <GlassCard theme={data.theme} className="overflow-hidden border-slate-100 shadow-2xl relative">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-indigo-600" />
+                <div className="overflow-hidden glass-border rounded-[2.5rem] shadow-2xl relative bg-white/40 backdrop-blur-xl">
+                    <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-600 via-cyan-400 to-indigo-600 animate-gradient-x" />
                     <div 
-                        className={`grid border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] font-display ${data.theme === 'dark' ? 'bg-slate-900 text-slate-400' : 'bg-slate-50 text-slate-400'}`}
+                        className="grid border-b border-slate-100/50 text-[10px] font-black uppercase tracking-[0.25em] font-display bg-slate-50/50"
                         style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
                     >
                         {headers.map((header: string, i: number) => (
-                            <div key={i} className={`p-5 md:p-6 ${i > 0 ? 'text-center' : ''} ${i === 1 ? 'text-indigo-600' : ''}`}>{header}</div>
+                            <div key={i} className={`p-6 ${i > 0 ? 'text-center' : ''} text-slate-400`}>{header}</div>
                         ))}
                     </div>
                     {rows.map((row: string[], idx: number) => (
                         <div 
                             key={idx} 
-                            className={`grid border-b border-slate-50 hover:bg-slate-50/50 transition-all duration-500 text-xs md:text-sm group ${data.theme === 'dark' ? 'hover:bg-slate-800/40' : ''}`}
+                            className="grid border-b border-slate-50/50 hover:bg-white/60 transition-all duration-500 text-xs md:text-sm group"
                             style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
                         >
-                            <div className={`p-5 md:p-6 font-mono flex items-center font-black group-hover:text-indigo-600 ${data.theme === 'dark' ? 'bg-slate-800/20 text-slate-500' : 'bg-slate-50/30 text-slate-400'}`}>{row[0]}</div>
+                            <div className="p-6 font-mono flex items-center font-black text-indigo-600 bg-indigo-50/30 group-hover:bg-indigo-100/50 transition-colors">{row[0]}</div>
                             {row.slice(1).map((cell, i) => (
-                                <div key={i} className={`p-5 md:p-6 flex items-center justify-center border-l border-slate-50 text-center font-bold tracking-tight group-hover:text-slate-900 ${data.theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
+                                <div key={i} className="p-6 flex items-center justify-center border-l border-slate-50/50 text-center font-bold tracking-tight text-slate-600 group-hover:text-slate-900">
                                     {cell}
                                 </div>
                             ))}
                         </div>
                     ))}
-                </GlassCard>
+                </div>
             </motion.div>
         </motion.div>
     );
@@ -210,39 +217,49 @@ export const TableCapitalSlide: React.FC<SlideProps> = ({ data }) => {
 export const InfoSlide: React.FC<SlideProps> = ({ data }) => {
   const { mainText, description, highlight } = data.content;
   return (
-    <motion.div className="flex flex-col justify-center items-center h-full max-w-5xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
-      <div className="grid md:grid-cols-2 gap-10 items-center">
-        <motion.div variants={itemVariants} className="relative group">
-            <div className="absolute -inset-6 bg-indigo-500/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            <GlassCard theme={data.theme} className="p-8 md:p-12 border-slate-100 shadow-2xl relative overflow-visible">
-                <div className="absolute -top-6 -left-6">
-                    <OrganicShape bg="bg-slate-900" color="text-white" className="w-14 h-14 shadow-xl">
-                        <Quote size={28} fill="currentColor" />
+    <motion.div className="flex flex-col justify-center items-center h-full max-w-6xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
+      <div className="w-full mb-12 text-center">
+        <motion.div variants={itemVariants} className="inline-block px-4 py-1 rounded-full bg-indigo-50 text-indigo-600 text-[10px] font-black tracking-[0.3em] uppercase mb-6 border border-indigo-100">
+            Nuestra Esencia
+        </motion.div>
+        <motion.h2 variants={itemVariants} className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter font-display uppercase leading-none">
+            {data.title}
+        </motion.h2>
+      </div>
+
+      <div className="grid md:grid-cols-12 gap-6 items-stretch">
+        <motion.div variants={itemVariants} className="md:col-span-7 flex">
+            <GlassCard theme={data.theme} className="p-8 md:p-10 border-slate-100 shadow-2xl relative overflow-visible flex flex-col justify-center">
+                <div className="absolute -top-4 -left-4">
+                    <OrganicShape bg="bg-indigo-600" color="text-white" className="w-12 h-12 shadow-2xl">
+                        <Quote size={24} fill="currentColor" />
                     </OrganicShape>
                 </div>
-                <p className="text-lg md:text-xl font-black text-indigo-600 leading-tight mb-6 tracking-tight mt-4">
-                    {mainText}
+                <p className="text-lg md:text-xl font-bold text-slate-800 leading-relaxed mb-6 tracking-tight font-display italic">
+                    "{mainText}"
                 </p>
-                <div className="h-1 w-12 bg-slate-100 mb-6 rounded-full" />
-                <p className="text-sm md:text-base text-slate-500 font-bold leading-relaxed tracking-tight">
+                <div className="h-1 w-16 bg-indigo-600 mb-6 rounded-full" />
+                <p className="text-sm md:text-base text-indigo-600 font-black leading-relaxed tracking-tight uppercase">
                     {description}
                 </p>
             </GlassCard>
         </motion.div>
         
-        <motion.div variants={itemVariants}>
-            <div className="relative p-10 rounded-[2rem] bg-slate-900 shadow-2xl overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:scale-150 transition-transform duration-1000" />
+        <motion.div variants={itemVariants} className="md:col-span-5 flex">
+            <div className="relative p-8 rounded-[2.5rem] bg-slate-900 shadow-2xl overflow-hidden group flex flex-col justify-center w-full">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:scale-110 transition-transform duration-1000" />
                 
-                <Quote className="text-indigo-500/30 mb-6" size={40} />
-                <p className="text-xl md:text-2xl font-black text-white leading-[1.1] tracking-tighter relative z-10 font-display">
-                    {highlight}
-                </p>
-                <div className="mt-10 flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white font-black text-xs">fyo</div>
-                    <div className="text-white/80">
-                        <span className="block text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400">Manifiesto</span>
-                        <span className="block text-[9px] font-bold opacity-40">Propósito Organizacional</span>
+                <div className="relative z-10">
+                    <Sparkles className="text-indigo-400 mb-6" size={32} />
+                    <p className="text-xl md:text-2xl font-black text-white leading-tight tracking-tighter font-display uppercase mb-8">
+                        {highlight}
+                    </p>
+                    <div className="flex items-center gap-4 pt-6 border-t border-white/10">
+                        <div className="h-10 w-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white font-black text-xs">fyo</div>
+                        <div>
+                            <span className="block text-[9px] font-black uppercase tracking-[0.2em] text-indigo-400">Compromiso</span>
+                            <span className="block text-[8px] font-bold text-white/40 uppercase">Soluciones a medida</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -255,39 +272,51 @@ export const InfoSlide: React.FC<SlideProps> = ({ data }) => {
 // 5. Culture Slide
 export const TutorContentSlide: React.FC<SlideProps> = ({ data }) => {
   return (
-    <motion.div className="flex flex-col justify-center h-full py-6 max-w-5xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        <div className="space-y-6">
+    <motion.div className="flex flex-col justify-center h-full py-6 max-w-6xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="lg:col-span-7">
           <motion.div variants={itemVariants}>
-            <motion.h2 
-                layoutId="slide-title"
-                className="text-2xl md:text-4xl font-black text-slate-900 leading-[0.95] tracking-tighter font-display mb-6"
-            >
-              {data.content.description}
-            </motion.h2>
-            <GlassCard theme={data.theme} className="p-8 border-indigo-100 bg-indigo-50/20">
-              <h3 className="text-indigo-900 font-black text-xs mb-4 flex items-center gap-3 uppercase tracking-[0.2em]">
-                <Target className="text-indigo-500" size={18} />
-                Nuestra Visión
-              </h3>
-              <p className="text-base text-slate-700 font-bold leading-relaxed tracking-tight">
-                {data.content.vision}
-              </p>
-            </GlassCard>
+            <div className="relative p-1 bg-gradient-to-br from-indigo-500 via-cyan-400 to-emerald-400 rounded-[2.5rem] shadow-2xl">
+                <div className="bg-white rounded-[2.2rem] p-8 md:p-10">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-100">
+                            <Target size={20} />
+                        </div>
+                        <h3 className="text-slate-900 font-black text-xs uppercase tracking-[0.3em] font-display">Nuestra Misión</h3>
+                    </div>
+                    <p className="text-base md:text-lg text-slate-600 font-bold leading-relaxed tracking-tight mb-10 italic border-l-4 border-indigo-100 pl-6">
+                        "{data.content.description}"
+                    </p>
+                    
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white shadow-lg shadow-emerald-100">
+                            <Compass size={20} />
+                        </div>
+                        <h3 className="text-slate-900 font-black text-xs uppercase tracking-[0.3em] font-display">Nuestra Visión</h3>
+                    </div>
+                    <p className="text-xl md:text-2xl font-black text-slate-900 leading-tight tracking-tighter font-display uppercase">
+                        {data.content.vision}
+                    </p>
+                </div>
+            </div>
           </motion.div>
         </div>
 
-        <div className="grid gap-4">
+        <div className="lg:col-span-5 space-y-3">
+          <motion.div variants={itemVariants} className="mb-6">
+            <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-indigo-600 mb-1">ADN Organizacional</h4>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tighter uppercase font-display">Valores fyo</h2>
+          </motion.div>
           {data.content.valores.map((valor: any, i: number) => {
             const Icon = IconMap[valor.icon] || Sparkles;
             return (
               <motion.div key={i} variants={itemVariants}>
-                <GlassCard theme={data.theme} hover className="p-5 flex items-center gap-6 group">
+                <div className="p-6 flex items-center gap-6 bg-white glass-border rounded-[1.5rem] shadow-xl hover:-translate-x-2 transition-all duration-500 group cursor-default">
                   <GlowIcon icon={Icon} color="text-indigo-600" bg="bg-indigo-50" size={24} />
-                  <span className="text-lg font-black text-slate-800 tracking-tighter group-hover:text-indigo-600 transition-colors uppercase font-display">
+                  <span className="text-xl font-black text-slate-900 tracking-tighter group-hover:text-indigo-600 transition-colors uppercase font-display">
                     {valor.title}
                   </span>
-                </GlassCard>
+                </div>
               </motion.div>
             )
           })}
@@ -297,10 +326,10 @@ export const TutorContentSlide: React.FC<SlideProps> = ({ data }) => {
   );
 };
 
-// 6. Grid Slide (Companies)
+// 6. Grid Slide (Companies) - Reverted to standard grid
 export const GridSlide: React.FC<SlideProps> = ({ data }) => {
   return (
-    <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-6 h-full items-center max-w-5xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
+    <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6 h-full items-center max-w-6xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
       {data.content.items.map((item: any, idx: number) => {
         const Icon = IconMap[item.icon] || Users;
         const colors = [
@@ -310,23 +339,142 @@ export const GridSlide: React.FC<SlideProps> = ({ data }) => {
         ];
         const style = colors[idx % colors.length];
 
+        // Extract emoji from title if present
+        const titleParts = item.title.split(' ');
+        const emoji = titleParts.length > 1 ? titleParts[titleParts.length - 1] : '';
+        const cleanTitle = titleParts.length > 1 ? titleParts.slice(0, -1).join(' ') : item.title;
+
         return (
           <motion.div variants={itemVariants} key={idx} className="h-full">
-            <GlassCard theme={data.theme} hover className="p-8 flex flex-col h-full border-slate-100 shadow-2xl group">
-              <div className="mb-6">
+            <div className="p-8 flex flex-col h-full bg-white glass-border rounded-[2.5rem] shadow-xl group hover:-translate-y-2 transition-all duration-700">
+              <div className="flex justify-between items-start mb-6">
                 <GlowIcon icon={Icon} color={style.text} bg={style.bg} size={28} />
+                <motion.span 
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ repeat: Infinity, duration: 4, delay: idx * 0.5 }}
+                    className="text-3xl"
+                >
+                    {emoji}
+                </motion.span>
               </div>
-              <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-2 tracking-tighter font-display group-hover:text-indigo-600 transition-colors">{item.title}</h3>
-              <p className="text-sm text-slate-500 font-bold leading-relaxed mb-8 flex-grow tracking-tight">{item.desc}</p>
-              <div className="pt-6 border-t border-slate-50">
-                <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${style.text} opacity-40 group-hover:opacity-100 transition-opacity`}>{item.link}</span>
+              <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tighter font-display group-hover:text-indigo-600 transition-colors uppercase leading-none">
+                {cleanTitle}
+              </h3>
+              <p className="text-xs md:text-sm text-slate-500 font-bold leading-relaxed mb-8 flex-grow tracking-tight">
+                {item.desc}
+              </p>
+              <div className="pt-6 border-t border-slate-50 flex justify-between items-center">
+                <span className={`text-[9px] font-black uppercase tracking-[0.3em] ${style.text} opacity-40 group-hover:opacity-100 transition-opacity`}>{item.link}</span>
+                <div className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
+                    <Rocket size={14} />
+                </div>
               </div>
-            </GlassCard>
+            </div>
           </motion.div>
         );
       })}
     </motion.div>
   );
+};
+
+// 9. Ecosystem Circles Slide
+export const EcosystemCirclesSlide: React.FC<SlideProps> = ({ data }) => {
+    const { items } = data.content;
+    return (
+        <motion.div className="flex flex-col justify-center items-center h-full py-6 max-w-7xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center w-full">
+                <div className="lg:col-span-5 space-y-6">
+                    <motion.div variants={itemVariants}>
+                        <div className="inline-block px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[9px] font-black tracking-[0.3em] uppercase mb-4 border border-emerald-100">
+                            Ecosistema fyo
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-[0.95] tracking-tighter font-display mb-6 uppercase">
+                            {data.title}
+                        </h2>
+                        <div className="relative p-6 rounded-[2rem] bg-white glass-border shadow-xl">
+                            <div className="absolute top-0 left-8 w-1 h-6 bg-indigo-600 -translate-y-3" />
+                            <p className="text-sm md:text-base text-slate-600 font-bold leading-relaxed tracking-tight italic">
+                                "{data.subtitle}"
+                            </p>
+                        </div>
+                    </motion.div>
+                </div>
+
+                <div className="lg:col-span-7 relative aspect-square flex items-center justify-center">
+                    {/* Animated Background Rings */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="w-[75%] h-[75%] border border-slate-100 rounded-full animate-pulse" />
+                        <div className="w-[55%] h-[55%] border border-slate-50 rounded-full" />
+                    </div>
+
+                    {/* Center Circle */}
+                    <motion.div 
+                        variants={itemVariants}
+                        className="w-24 h-24 md:w-36 md:h-36 rounded-full bg-slate-900 flex items-center justify-center text-white font-black text-xl md:text-2xl shadow-2xl z-20 border-4 md:border-8 border-white glass-border"
+                    >
+                        <motion.span
+                            animate={{ scale: [1, 1.08, 1] }}
+                            transition={{ repeat: Infinity, duration: 4 }}
+                        >
+                            fyo
+                        </motion.span>
+                    </motion.div>
+
+                    {/* Orbiting Circles Container - Rotating */}
+                    <motion.div 
+                        animate={{ rotate: 360 }}
+                        transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
+                        className="absolute inset-0 flex items-center justify-center"
+                    >
+                        {items.map((item: any, i: number) => {
+                            const angle = (i * (360 / items.length)) * (Math.PI / 180);
+                            const radius = window.innerWidth > 768 ? 210 : 130;
+                            const x = Math.cos(angle) * radius;
+                            const y = Math.sin(angle) * radius;
+
+                            return (
+                                <motion.div
+                                    key={i}
+                                    variants={itemVariants}
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={{ opacity: 1, scale: 1, x, y }}
+                                    transition={{ delay: 0.3 + (i * 0.1), type: 'spring' }}
+                                    className={`absolute w-16 h-16 md:w-28 md:h-28 rounded-full ${item.color} flex items-center justify-center text-white font-black text-[8px] md:text-xs shadow-xl border-2 md:border-4 border-white text-center p-2 z-10 hover:scale-110 transition-transform cursor-default glass-border`}
+                                >
+                                    {/* Counter-rotate text to keep it upright */}
+                                    <motion.div 
+                                        animate={{ rotate: -360 }}
+                                        transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
+                                        className="relative z-10"
+                                    >
+                                        {item.name}
+                                    </motion.div>
+                                    <div className="absolute inset-0 bg-white/20 rounded-full blur-xl opacity-0 hover:opacity-100 transition-opacity" />
+                                </motion.div>
+                            );
+                        })}
+                    </motion.div>
+
+                    {/* Connecting Lines (Visual only) */}
+                    <svg className="absolute inset-0 w-full h-full -z-10 opacity-30">
+                        <motion.circle 
+                            cx="50%" cy="50%" r={window.innerWidth > 768 ? 210 : 130} 
+                            fill="none" stroke="url(#line-grad-2)" strokeWidth="1" strokeDasharray="12,12" 
+                            animate={{ rotate: -360 }}
+                            transition={{ repeat: Infinity, duration: 90, ease: "linear" }}
+                        />
+                        <defs>
+                            <linearGradient id="line-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#4f46e5" />
+                                <stop offset="50%" stopColor="#10b981" />
+                                <stop offset="100%" stopColor="#22d3ee" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </motion.div>
+    );
 };
 
 // 7. Activity Slide (Objectives Type)

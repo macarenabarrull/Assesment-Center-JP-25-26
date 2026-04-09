@@ -9,7 +9,8 @@ import {
   TutorContentSlide,
   GridSlide,
   ObjectivesSlide,
-  ClosingSlide
+  ClosingSlide,
+  EcosystemCirclesSlide
 } from './components/Slides';
 
 const App: React.FC = () => {
@@ -61,6 +62,8 @@ const App: React.FC = () => {
           return <GridSlide data={data} />;
         case 'objectives':
           return <ObjectivesSlide data={data} />;
+        case 'ecosystem-circles':
+          return <EcosystemCirclesSlide data={data} />;
         case 'closing':
           return <ClosingSlide data={data} onJumpToSlide={jumpToSlide} />;
         default:

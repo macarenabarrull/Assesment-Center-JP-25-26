@@ -2,7 +2,7 @@ export type IconKey = 'Compass' | 'Target' | 'BrainCircuit' | 'Layers' | 'Zap' |
 
 export interface SlideData {
   id: string;
-  type: 'cover' | 'image' | 'objectives' | 'info' | 'timeline' | 'grid' | 'table-granos' | 'table-capital' | 'mentoring-split' | 'academy-split' | 'closing' | 'tutor-content';
+  type: 'cover' | 'image' | 'objectives' | 'info' | 'timeline' | 'grid' | 'table-granos' | 'table-capital' | 'mentoring-split' | 'academy-split' | 'closing' | 'tutor-content' | 'ecosystem-circles';
   title?: string;
   subtitle?: string;
   content?: any;
@@ -13,12 +13,12 @@ export const SLIDES: SlideData[] = [
   {
     id: 'cover',
     type: 'cover',
-    title: 'PROGRAMA JÓVENES PROFESIONALES 25-26 🚀',
-    subtitle: 'Jornada de Evaluación: Diseñando el futuro del agro',
+    title: 'PROGRAMA JP 25-26',
+    subtitle: 'assessment center',
     theme: 'brand',
     content: {
       highlight: 'fyo',
-      tags: ['Talento', 'Innovación', 'Liderazgo']
+      tags: ['Somos un equipo', 'Creamos oportunidades', 'Pensamos en grande']
     }
   },
   {
@@ -28,55 +28,58 @@ export const SLIDES: SlideData[] = [
     subtitle: 'Actividades programadas para hoy',
     theme: 'light',
     content: {
-      headers: ['Horario', 'Actividad', 'Duración', 'Participantes'],
+      headers: ['Horario', 'Actividad', 'Duración'],
       rows: [
-        ['09:30 - 09:40', 'Presentación Institucional fyo', '10 min', 'Todos'],
-        ['09:40 - 10:10', 'Presentación Individual', '40 min', 'Todos'],
-        ['10:10 - 11:10', 'Dinámica 1: Innovación en el Agro', '60 min', 'Todos'],
-        ['11:10 - 11:25', 'Receso y Café', '15 min', 'Todos'],
-        ['11:25 - 12:25', 'Dinámica 2: Propuesta de Valor Comercial', '60 min', 'Todos'],
-        ['12:25 - 13:00', 'Entrevistas con Líderes', '35 min', 'Gerentes'],
-        ['13:00 - 13:15', 'Cierre de la Jornada', '15 min', 'Todos']
+        ['09:30 - 09:45', 'Presentacion institucional de fyo', '15 min'],
+        ['09:45 - 10:30', 'Dinámica 1: Dime quién eres...', '45 min'],
+        ['10:30 - 11:00', '¡Tomemos un break!', '30 min'],
+        ['11:00 - 12:45', 'Dinamica 2: Un día como comercial', '105 min'],
+        ['12:45 - 13:00', 'Entrevista individuales', '15 min']
       ]
     }
   },
   {
-    id: 'que-es-fyo',
+    id: 'que-hacemos',
     type: 'info',
-    title: '¿QUÉ ES FYO? 🤔',
-    subtitle: 'Nuestra esencia y propósito ✨',
+    title: 'NUESTRO MANIFIESTO 📜',
+    subtitle: 'La esencia que impulsa nuestra transformación',
     theme: 'light',
     content: {
-      mainText: 'Potenciamos el crecimiento de nuestros clientes y de nuestra gente, transformando el agro con pasión y tecnología. 🚀',
-      description: 'Somos una solución personalizada para cada uno de nuestros clientes. Una propuesta innovadora y única que nos permitió digitalizar el mercado más tradicional de Argentina, formando lazos con los socios más relevantes del sector. 🤝',
-      highlight: 'Ayudamos a tomar las mejores decisiones para que los negocios crezcan de manera sustentable. 🌱'
+      mainText: 'En fyo trabajamos para ofrecer respuestas innovadoras y a medida, adaptadas a cada cliente. Buscamos ser una solución personalizada para cada uno de nuestros clientes. Una solución innovadora, diferente y única. Así fue como nos animamos a ser digitales en el mercado más tradicional de Argentina.',
+      description: 'ofrecemos un ecosistema de soluciones innovadoras que abarcan toda la cadena comercial del agro.',
+      highlight: 'DESAFIAMOS LO ESTABLECIDO PARA POTENCIAR EL FUTURO DEL AGRO 🚀'
     }
   },
   {
     id: 'ecosistema',
-    type: 'image',
-    title: 'ECOSISTEMA DE NEGOCIOS 🌐',
-    subtitle: 'Soluciones integrales para toda la cadena',
+    type: 'ecosystem-circles',
+    title: 'ECOSISTEMA INTEGRAL 🌐',
+    subtitle: 'Formamos lazos con los clientes y socios más relevantes del mundo agropecuario para complementar y acompañar con servicios que abarcan toda la cadena comercial del agro. Y todo eso lo hicimos porque queremos ayudar a tomar las mejores decisiones para que los negocios crezcan. Queremos trabajar juntos, potenciando el valor e impulsando el trabajo, con conocimiento, profesionalismo y experiencia.',
     theme: 'light',
     content: {
-      imageUrl: 'https://ais-pre-54ki7ve6ci7hzots2rglcf-337452175769.us-east1.run.app/api/attachments/86c61f22-959c-482f-87d2-7489f6486603',
-      alt: 'Ecosistema fyo: Soluciones integrales para el agro'
+      items: [
+        { name: 'fyoDigital', color: 'bg-blue-500' },
+        { name: 'fyoFood', color: 'bg-orange-500' },
+        { name: 'fyoCapital', color: 'bg-green-600' },
+        { name: 'fyoAdvisory', color: 'bg-indigo-600' },
+        { name: 'fyoAcopio', color: 'bg-amber-600' },
+        { name: 'fyoCredits', color: 'bg-emerald-600' }
+      ]
     }
   },
   {
     id: 'valores',
     type: 'tutor-content',
-    title: 'VALORES QUE NOS DEFINEN ✨',
-    subtitle: 'El ADN de nuestra cultura organizacional',
+    title: 'CULTURA Y PROPÓSITO ✨',
+    subtitle: 'Lo que nos mueve y hacia dónde vamos',
     theme: 'brand',
     content: {
-      description: 'Nuestra cultura se basa en la confianza, la colaboración y la búsqueda constante de la excelencia.',
-      vision: 'Ser la plataforma líder de servicios y negocios para el agro en Latinoamérica.',
+      description: 'creemos en el poder de las personas para transformar el agro. La cultura de fyo se basa en la confianza, la colaboracion y la innovación. Formamos lazos con los clientes y socios más relevantes del mundo agropecuario para complementar y acompañar con servicios que abarcan toda la cadena comercial del agro.',
+      vision: 'Ser la empresa líder en potenciar los negocios de nuestros clientes a través de servicios que agreguen valor y que desafien sus procesos de negocios.',
       valores: [
-        { title: 'PASIÓN POR EL CLIENTE ❤️', icon: 'Heart' },
-        { title: 'INTEGRIDAD Y RESPETO 🤝', icon: 'Shield' },
-        { title: 'TRABAJO EN EQUIPO 👥', icon: 'Users' },
-        { title: 'INNOVACIÓN CONSTANTE ⚡', icon: 'Zap' }
+        { title: 'Somos un equipo', icon: 'Users' },
+        { title: 'Pensamos en grande', icon: 'Rocket' },
+        { title: 'Creamos oportunidades', icon: 'Zap' }
       ]
     }
   },
@@ -113,7 +116,7 @@ export const SLIDES: SlideData[] = [
     id: 'assessment-cover',
     type: 'cover',
     title: 'ASSESSMENT CENTER 🎯',
-    subtitle: 'Comienzo de las dinámicas grupales 👥',
+    subtitle: '¿Estan listos?',
     theme: 'brand',
     content: {
       highlight: 'Evaluación',
@@ -136,12 +139,11 @@ export const SLIDES: SlideData[] = [
   {
     id: 'break-cover',
     type: 'cover',
-    title: 'RECESO Y CAFÉ ☕',
-    subtitle: 'Momento de relax y networking ✨',
+    title: '¡Tomemos un descanso! ☕',
     theme: 'light',
     content: {
       highlight: 'Break',
-      tags: ['Café ☕', 'Networking 🤝', 'Energía ⚡']
+      tags: ['Café ☕', 'Networking 🤝']
     }
   },
   {
@@ -161,14 +163,11 @@ export const SLIDES: SlideData[] = [
     id: 'closing',
     type: 'closing',
     title: 'MUCHAS GRACIAS 🙌',
-    subtitle: 'Equipo de Talento fyo',
+    subtitle: 'equipo fyo',
     theme: 'brand',
     content: {
       description: 'Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido.',
-      contacts: [
-        { role: 'Responsable de Talento', email: 'talento@fyo.com' },
-        { role: 'Atención al Cliente', email: 'contacto@fyo.com' }
-      ]
+      contacts: []
     }
   }
 ];

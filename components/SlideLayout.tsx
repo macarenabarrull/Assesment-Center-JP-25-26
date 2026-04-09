@@ -2,7 +2,7 @@ import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import { 
   ChevronRight, ChevronLeft, Maximize, Minimize, Keyboard, X, MousePointer2, 
   Sparkles, Home, Target, Users, Info, GraduationCap, CheckCircle2, Compass,
-  BrainCircuit, Layers, Zap, ClipboardCheck, Heart, Moon
+  BrainCircuit, Layers, Zap, ClipboardCheck, Heart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SLIDES } from '../constants';
@@ -36,6 +36,11 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
   const [showTouchHint, setShowTouchHint] = useState(false);
   const [isReadingMode, setIsReadingMode] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  
+  // Force light mode always
+  useEffect(() => {
+    setIsDarkMode(false);
+  }, []);
   
   // Parallax Logic
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -189,13 +194,30 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
           
           {/* Animated Blobs with Parallax - More subtle and larger */}
           <motion.div 
-            animate={{ x: mousePos.x * 0.5, y: mousePos.y * 0.5 }}
+            animate={{ x: mousePos.x * 0.8, y: mousePos.y * 0.8 }}
             transition={{ type: 'spring', damping: 60, stiffness: 80 }}
             className="absolute inset-0 pointer-events-none"
           >
             <div className={`absolute top-[-10%] -left-[10%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animate-blob ${isDarkMode ? 'bg-indigo-400 opacity-[0.05]' : 'bg-indigo-100 opacity-10'}`}></div>
             <div className={`absolute top-[-5%] -right-[10%] w-[700px] h-[700px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-2000 animate-blob ${isDarkMode ? 'bg-emerald-400 opacity-[0.03]' : 'bg-emerald-50 opacity-8'}`}></div>
             <div className={`absolute -bottom-[10%] left-[15%] w-[800px] h-[800px] rounded-full mix-blend-soft-light filter blur-[140px] animation-delay-4000 animate-blob ${isDarkMode ? 'bg-slate-300 opacity-[0.05]' : 'bg-slate-100 opacity-10'}`}></div>
+            
+            {/* Floating Organic Elements */}
+            <motion.div 
+              animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+              className="absolute top-[20%] left-[10%] w-12 h-12 border-2 border-indigo-200/30 rounded-2xl rotate-12"
+            />
+            <motion.div 
+              animate={{ y: [0, 30, 0], rotate: [0, -15, 0] }}
+              transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+              className="absolute bottom-[30%] right-[15%] w-16 h-16 border-2 border-emerald-200/20 rounded-full"
+            />
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+              className="absolute top-[60%] left-[5%] w-4 h-4 bg-indigo-400/10 rounded-full"
+            />
           </motion.div>
           
           {/* Large Static Gradients for depth */}
@@ -234,19 +256,6 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
         </motion.div>
         
         <div className="flex items-center gap-2 md:gap-4 bg-white/40 backdrop-blur-xl p-1.5 rounded-full border border-white/60 shadow-sm">
-              <motion.button 
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className={`p-2.5 transition-all rounded-full border ${
-                  isDarkMode 
-                  ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-500/20' 
-                  : 'text-slate-400 hover:text-indigo-600 hover:bg-slate-50 border-transparent'
-                }`}
-                title={isDarkMode ? "Modo Claro" : "Modo Oscuro"}
-              >
-                {isDarkMode ? <Sparkles size={18} /> : <Moon size={18} />}
-              </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -302,7 +311,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </AnimatePresence>
 
       {/* Content Area - Optimized Spacing */}
-      <main className="flex-1 w-full max-w-[1200px] mx-auto px-8 md:px-16 pt-4 md:pt-8 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
+      <main className="flex-1 w-full max-w-[1200px] mx-auto px-12 md:px-24 pt-8 md:pt-12 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
         <AnimatePresence mode="wait" custom={direction}>
             <motion.div
                 key={currentSlide}
@@ -494,21 +503,21 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
         {/* Navigation Buttons - Elegant Glass Style */}
         <div className="flex items-center gap-4">
             <motion.button 
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: 1.1, y: -4 }}
             whileTap={{ scale: 0.95 }}
             onClick={onPrev}
             disabled={currentSlide === 0}
-            className="group p-4 rounded-full border border-white/60 bg-white/40 backdrop-blur-xl hover:bg-white/60 disabled:opacity-20 transition-all shadow-sm active:scale-90"
+            className="group p-4 rounded-full glass-border bg-white/40 backdrop-blur-xl hover:bg-white/60 disabled:opacity-20 transition-all shadow-sm active:scale-90"
             >
             <ChevronLeft size={20} className="text-slate-600 group-hover:text-indigo-600 transition-colors" />
             </motion.button>
 
             <motion.button 
-            whileHover={{ scale: 1.05, y: -2 }}
+            whileHover={{ scale: 1.1, y: -4 }}
             whileTap={{ scale: 0.95 }}
             onClick={onNext}
             disabled={currentSlide === totalSlides - 1}
-            className="group p-4 rounded-full bg-slate-900/90 backdrop-blur-xl hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90 border border-white/10"
+            className="group p-4 rounded-full bg-slate-900/90 backdrop-blur-xl hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90 glass-border"
             >
             <ChevronRight size={20} className="text-white transition-colors" />
             </motion.button>
