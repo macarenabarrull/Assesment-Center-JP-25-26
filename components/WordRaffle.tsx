@@ -37,6 +37,16 @@ const COLORS = [
     '#a1a1aa', // Zinc
 ];
 
+const CATEGORY_STYLES: Record<string, { gradient: string; shadow: string }> = {
+    sports: { gradient: 'from-blue-500 to-indigo-600', shadow: 'shadow-blue-500/40' },
+    politics: { gradient: 'from-slate-700 to-slate-900', shadow: 'shadow-slate-900/40' },
+    travel: { gradient: 'from-emerald-500 to-teal-600', shadow: 'shadow-emerald-500/40' },
+    emotions: { gradient: 'from-rose-500 to-pink-600', shadow: 'shadow-rose-500/40' },
+    business: { gradient: 'from-amber-500 to-orange-600', shadow: 'shadow-amber-500/40' },
+    music: { gradient: 'from-violet-500 to-purple-600', shadow: 'shadow-violet-500/40' },
+    misc: { gradient: 'from-gray-500 to-gray-700', shadow: 'shadow-gray-500/40' }
+};
+
 interface WordItem {
     text: string;
     cat: string;
@@ -147,11 +157,11 @@ export const WordRaffle: React.FC = () => {
     };
 
     const positions = [
-        { x: 50, y: 25 }, // Top
-        { x: 25, y: 45 }, // Left
-        { x: 75, y: 45 }, // Right
-        { x: 35, y: 70 }, // Bottom Left
-        { x: 65, y: 70 }  // Bottom Right
+        { x: 50, y: 22 }, // Top Center
+        { x: 22, y: 48 }, // Middle Left
+        { x: 78, y: 48 }, // Middle Right
+        { x: 32, y: 78 }, // Bottom Left-ish
+        { x: 68, y: 78 }  // Bottom Right-ish
     ];
 
     return (
@@ -179,32 +189,41 @@ export const WordRaffle: React.FC = () => {
                         return (
                             <motion.div
                                 key={idx}
-                                className={`absolute whitespace-nowrap px-6 py-3 rounded-2xl font-bold transition-all duration-700 ${
+                                className={`absolute whitespace-nowrap px-8 py-4 rounded-[2rem] font-black transition-all duration-700 flex items-center justify-center ${
                                     isSelected 
-                                    ? 'z-50 bg-indigo-600 text-white shadow-[0_30px_60px_rgba(79,70,229,0.5)] border-2 border-white/50' 
-                                    : 'text-slate-400'
+                                    ? `z-50 text-white shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border-2 border-white/40 bg-gradient-to-br ${CATEGORY_STYLES[item.cat]?.gradient || 'from-indigo-500 to-indigo-700'} ${CATEGORY_STYLES[item.cat]?.shadow || 'shadow-indigo-500/50'}` 
+                                    : 'text-slate-400 bg-white/5 backdrop-blur-sm border border-white/10'
                                 }`}
                                 initial={false}
                                 animate={{
                                     left: isSelected ? `${positions[selectionIdx].x}%` : `${item.x}%`,
                                     top: isSelected ? `${positions[selectionIdx].y}%` : `${item.y}%`,
-                                    x: isSelected ? '-50%' : [0, 10, -10, 0],
-                                    y: isSelected ? '-50%' : [0, -10, 10, 0],
-                                    scale: isSelected ? 1.6 : isDimmed ? 0.5 : 1,
-                                    opacity: isDimmed ? 0.03 : isSelected ? 1 : 0.7,
-                                    filter: isDimmed ? 'blur(8px)' : 'blur(0px)',
-                                    fontSize: isSelected ? 'clamp(1.2rem, 5vw, 1.8rem)' : `clamp(0.7rem, 2.5vw, ${item.size}rem)`,
-                                    backgroundColor: isSelected ? '#4f46e5' : 'transparent',
-                                    color: isSelected ? '#ffffff' : item.color,
+                                    x: isSelected ? '-50%' : [0, 15, -15, 0],
+                                    y: isSelected ? '-50%' : [0, -15, 15, 0],
+                                    scale: isSelected ? 1.4 : isDimmed ? 0.4 : 1,
+                                    opacity: isDimmed ? 0.02 : isSelected ? 1 : 0.6,
+                                    filter: isDimmed ? 'blur(12px)' : 'blur(0px)',
+                                    fontSize: isSelected ? 'clamp(1.1rem, 4vw, 1.8rem)' : `clamp(0.7rem, 2vw, ${item.size}rem)`,
+                                    letterSpacing: isSelected ? '-0.02em' : '0em',
                                 }}
+                                whileHover={isSelected ? { 
+                                    scale: 1.45, 
+                                    rotate: 1,
+                                    transition: { type: 'spring', stiffness: 400, damping: 10 }
+                                } : !isAnimating && !isDimmed ? { 
+                                    scale: 1.1, 
+                                    backgroundColor: 'rgba(255,255,255,0.1)',
+                                    color: '#6366f1',
+                                    zIndex: 20
+                                } : {}}
                                 transition={{
-                                    x: isSelected ? { type: 'spring', stiffness: 100 } : { repeat: Infinity, duration: item.duration, ease: "easeInOut", delay: item.delay },
-                                    y: isSelected ? { type: 'spring', stiffness: 100 } : { repeat: Infinity, duration: item.duration + 1, ease: "easeInOut", delay: item.delay },
-                                    scale: { type: 'spring', stiffness: 200, damping: 20 },
-                                    opacity: { duration: 0.5 },
-                                    filter: { duration: 0.5 },
-                                    left: { type: 'spring', stiffness: 80, damping: 20 },
-                                    top: { type: 'spring', stiffness: 80, damping: 20 },
+                                    x: isSelected ? { type: 'spring', stiffness: 150, damping: 15 } : { repeat: Infinity, duration: item.duration, ease: "easeInOut", delay: item.delay },
+                                    y: isSelected ? { type: 'spring', stiffness: 150, damping: 15 } : { repeat: Infinity, duration: item.duration + 1.5, ease: "easeInOut", delay: item.delay },
+                                    scale: { type: 'spring', stiffness: 300, damping: 20 },
+                                    opacity: { duration: 0.6 },
+                                    filter: { duration: 0.6 },
+                                    left: { type: 'spring', stiffness: 80, damping: 18 },
+                                    top: { type: 'spring', stiffness: 80, damping: 18 },
                                 }}
                                 style={{
                                     pointerEvents: isAnimating || isDimmed ? 'none' : 'auto'
@@ -212,11 +231,17 @@ export const WordRaffle: React.FC = () => {
                             >
                                 {item.text}
                                 {isSelected && (
-                                    <motion.div 
-                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
-                                        animate={{ x: ['-100%', '200%'] }}
-                                        transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-                                    />
+                                    <>
+                                        {/* Glossy Reflection */}
+                                        <div className="absolute top-1 left-4 right-4 h-1/3 bg-gradient-to-b from-white/20 to-transparent rounded-full pointer-events-none" />
+                                        
+                                        {/* Animated Shine */}
+                                        <motion.div 
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12"
+                                            animate={{ x: ['-150%', '250%'] }}
+                                            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut', repeatDelay: 1 }}
+                                        />
+                                    </>
                                 )}
                             </motion.div>
                         );
