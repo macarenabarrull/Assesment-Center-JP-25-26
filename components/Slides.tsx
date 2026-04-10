@@ -759,7 +759,8 @@ const PrintSummary = () => {
 
   return (
     <div className="hidden print:block bg-white w-full text-slate-900 font-sans p-0 m-0">
-      <div className="max-w-[210mm] mx-auto p-[10mm] md:p-[20mm] min-h-screen flex flex-col">
+      {/* PAGE 1: Dinámica 2 - Fase 1 */}
+      <div className="max-w-[210mm] mx-auto p-[15mm] md:p-[20mm] min-h-[297mm] flex flex-col page-break-after-always" style={{ pageBreakAfter: 'always' }}>
         {/* Header */}
         <div className="flex justify-between items-end border-b-2 border-slate-200 pb-8 mb-10">
           <div className="flex items-center gap-6">
@@ -775,7 +776,7 @@ const PrintSummary = () => {
             </div>
           </div>
           <div className="text-right">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Guía de Dinámicas</p>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Guía de Dinámicas | Pág. 1</p>
             <div className="px-3 py-1 bg-slate-100 rounded-full inline-block">
               <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Confidencial</p>
             </div>
@@ -783,7 +784,7 @@ const PrintSummary = () => {
         </div>
 
         {/* Dinámica 2 - Fase 1 */}
-        <section className="mb-12 break-inside-avoid">
+        <section className="flex-1">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-100">
               <Layers size={24} />
@@ -794,84 +795,147 @@ const PrintSummary = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            <div className="lg:col-span-2 space-y-6">
-              <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-2 h-full bg-indigo-600" />
-                <h3 className="text-[11px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-                  <Compass size={14} />
-                  Consigna General
-                </h3>
-                <p className="text-base font-bold leading-relaxed text-slate-700 whitespace-pre-line italic">
-                  "{slide9.content.consigna}"
-                </p>
-              </div>
+          <div className="space-y-8">
+            <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-2 h-full bg-indigo-600" />
+              <h3 className="text-[12px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                <Compass size={16} />
+                Consigna General de Trabajo
+              </h3>
+              <p className="text-lg font-bold leading-relaxed text-slate-700 whitespace-pre-line italic">
+                "{slide9.content.consigna}"
+              </p>
+            </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                {slide9.content.roles.map((role: any, i: number) => (
-                  <div key={i} className="bg-white border border-slate-200 p-5 rounded-2xl hover:border-indigo-200 transition-colors">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-8 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
-                        {i === 0 && <Users size={16} />}
-                        {i === 1 && <DollarSign size={16} />}
-                        {i === 2 && <Layers size={16} />}
-                        {i === 3 && <Mail size={16} />}
-                      </div>
-                      <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-tight">{role.title}</h4>
+            <div className="grid grid-cols-2 gap-6">
+              {slide9.content.roles.map((role: any, i: number) => (
+                <div key={i} className="bg-white border-2 border-slate-50 p-6 rounded-3xl shadow-sm">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                      {i === 0 && <Users size={20} />}
+                      {i === 1 && <DollarSign size={20} />}
+                      {i === 2 && <Layers size={20} />}
+                      {i === 3 && <Mail size={20} />}
                     </div>
-                    <p className="text-[10px] font-bold leading-tight text-slate-500">{role.desc}</p>
+                    <h4 className="text-[13px] font-black text-slate-900 uppercase tracking-tight">{role.title}</h4>
+                  </div>
+                  <p className="text-[11px] font-bold leading-snug text-slate-500">{role.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-indigo-600 text-white p-10 rounded-[2.5rem] shadow-2xl shadow-indigo-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                <Sparkles size={120} />
+              </div>
+              <h3 className="text-[12px] font-black uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
+                <Sparkles size={16} />
+                Claves para el Éxito del Equipo
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {slide9.content.tips.map((tip: string, i: number) => (
+                  <div key={i} className="flex gap-4 items-start bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/10">
+                    <div className="w-6 h-6 rounded-full bg-white text-indigo-600 flex items-center justify-center shrink-0 font-black text-xs">
+                      {i + 1}
+                    </div>
+                    <p className="text-[11px] font-bold leading-tight">{tip}</p>
                   </div>
                 ))}
               </div>
             </div>
-
-            <div className="bg-indigo-600 text-white p-8 rounded-[2rem] shadow-xl shadow-indigo-100 flex flex-col gap-6">
-              <h3 className="text-[11px] font-black uppercase tracking-[0.2em] opacity-80">Tips de Éxito</h3>
-              <ul className="space-y-4">
-                {slide9.content.tips.map((tip: string, i: number) => (
-                  <li key={i} className="flex gap-3 items-start">
-                    <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0 mt-0.5">
-                      <Sparkles size={10} />
-                    </div>
-                    <p className="text-[11px] font-bold leading-snug">{tip}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </section>
 
+        {/* Footer Page 1 */}
+        <div className="mt-12 pt-10 border-t-2 border-slate-100 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
+              <Heart size={18} />
+            </div>
+            <p className="text-[10px] font-bold text-slate-400 italic max-w-xs">
+              "Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido."
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="text-sm font-black text-indigo-600 uppercase tracking-[0.4em] font-display">Equipo fyo</div>
+            <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1">Assessment Center JP 25-26</p>
+          </div>
+        </div>
+      </div>
+
+      {/* PAGE 2: Dinámica 2 - Fase 2 */}
+      <div className="max-w-[210mm] mx-auto p-[15mm] md:p-[20mm] min-h-[297mm] flex flex-col">
+        {/* Header Page 2 */}
+        <div className="flex justify-between items-end border-b-2 border-slate-200 pb-8 mb-10">
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg">
+              fyo
+            </div>
+            <div>
+              <h1 className="text-4xl font-black tracking-tighter uppercase leading-none text-slate-900">Assessment Center</h1>
+              <div className="flex items-center gap-3 mt-2">
+                <div className="h-1 w-8 bg-red-600 rounded-full" />
+                <p className="text-[11px] font-black text-red-600 tracking-[0.4em] uppercase">Programa JP 25-26</p>
+              </div>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Guía de Dinámicas | Pág. 2</p>
+            <div className="px-3 py-1 bg-slate-100 rounded-full inline-block">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Confidencial</p>
+            </div>
+          </div>
+        </div>
+
         {/* Dinámica 2 - Fase 2 */}
-        <section className="mb-12 break-inside-avoid">
+        <section className="flex-1">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-100">
               <AlertCircle size={24} />
             </div>
             <div>
               <h2 className="text-2xl font-black uppercase tracking-tight text-red-600 leading-none">Fase 2: Gestión de Crisis</h2>
-              <p className="text-[10px] font-bold text-red-400 uppercase tracking-[0.2em] mt-1">Escenarios de Alta Complejidad</p>
+              <p className="text-[10px] font-bold text-red-400 uppercase tracking-[0.2em] mt-1">Escenarios de Alta Complejidad e Incertidumbre</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6">
-            {slide10.content.cards.map((card: any, i: number) => (
-              <div key={i} className="flex gap-8 items-center bg-white border-2 border-red-50 p-8 rounded-[2rem] relative overflow-hidden group">
-                <div className="absolute top-0 left-0 w-3 h-full bg-red-600" />
-                <div className="shrink-0 w-24 text-center">
-                  <div className="text-[10px] font-black text-red-600 uppercase tracking-widest mb-1">Caso 0{i+1}</div>
-                  <h4 className="text-[13px] font-black uppercase tracking-tighter text-slate-900 leading-tight">{card.frontText}</h4>
+          <div className="space-y-8">
+            <div className="bg-red-50 p-10 rounded-[2.5rem] border border-red-100 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-2 h-full bg-red-600" />
+              <h3 className="text-[12px] font-black text-red-600 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <AlertCircle size={16} />
+                Contexto de Crisis
+              </h3>
+              <p className="text-base font-bold leading-relaxed text-slate-700">
+                A continuación se presentan los escenarios críticos que cada equipo deberá gestionar. La resolución requiere agilidad, visión estratégica y una comunicación impecable bajo presión.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {slide10.content.cards.map((card: any, i: number) => (
+                <div key={i} className="flex gap-10 items-center bg-white border-2 border-slate-50 p-10 rounded-[3rem] relative overflow-hidden shadow-sm">
+                  <div className="absolute top-0 left-0 w-4 h-full bg-red-600" />
+                  <div className="shrink-0 w-32 text-center">
+                    <div className="text-[11px] font-black text-red-600 uppercase tracking-[0.3em] mb-2">Escenario</div>
+                    <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center text-red-600 font-black text-2xl mx-auto mb-3">
+                      {i + 1}
+                    </div>
+                    <h4 className="text-[14px] font-black uppercase tracking-tighter text-slate-900 leading-tight">{card.frontText}</h4>
+                  </div>
+                  <div className="h-24 w-px bg-slate-100" />
+                  <div className="flex-1">
+                    <p className="text-[14px] font-bold leading-relaxed text-slate-700 italic bg-slate-50/50 p-6 rounded-2xl border border-slate-100">
+                      "{card.backText}"
+                    </p>
+                  </div>
                 </div>
-                <div className="h-12 w-px bg-slate-100" />
-                <p className="text-[12px] font-bold leading-relaxed text-slate-600 italic flex-1">
-                  "{card.backText}"
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <div className="mt-auto pt-10 border-t-2 border-slate-100 flex justify-between items-center">
+        {/* Footer Page 2 */}
+        <div className="mt-12 pt-10 border-t-2 border-slate-100 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
               <Heart size={18} />
