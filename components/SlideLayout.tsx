@@ -374,7 +374,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                 className="w-full h-full flex flex-col justify-center overflow-hidden"
             >
                 {title && (
-                    <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20 shrink-0">
+                    <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20 shrink-0 print:hidden">
                         <motion.div 
                             initial={{ opacity: 0, y: -10, filter: 'blur(10px)' }}
                             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}

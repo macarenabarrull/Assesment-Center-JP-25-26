@@ -641,109 +641,112 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onJumpToSlide }) => {
 
     return (
         <motion.div 
-            className="flex flex-col justify-center items-center h-full text-center relative max-w-4xl mx-auto px-6 py-4 overflow-hidden" 
+            className="flex flex-col justify-center items-center h-full text-center relative max-w-4xl mx-auto px-6 py-4 overflow-hidden print:block print:p-0 print:m-0 print:max-w-none print:h-auto" 
             initial="hidden" 
             animate="show" 
             variants={containerVariants}
         >
-            {/* Celebratory Particles */}
-            {[...Array(12)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    initial={{ 
-                        x: Math.random() * 1000 - 500, 
-                        y: Math.random() * 1000 - 500,
-                        opacity: 0,
-                        scale: 0
-                    }}
-                    animate={{ 
-                        y: [null, Math.random() * -200 - 100],
-                        opacity: [0, 1, 0],
-                        scale: [0, 1, 0.5],
-                        rotate: [0, 180]
-                    }}
-                    transition={{ 
-                        duration: 4 + Math.random() * 4,
-                        repeat: Infinity,
-                        delay: Math.random() * 5
-                    }}
-                    className={`absolute w-2 h-2 rounded-full ${i % 2 === 0 ? 'bg-indigo-400' : 'bg-emerald-400'} blur-[1px]`}
-                />
-            ))}
+            {/* Screen-only content */}
+            <div className="w-full h-full flex flex-col items-center justify-center print:hidden">
+                {/* Celebratory Particles */}
+                {[...Array(12)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        initial={{ 
+                            x: Math.random() * 1000 - 500, 
+                            y: Math.random() * 1000 - 500,
+                            opacity: 0,
+                            scale: 0
+                        }}
+                        animate={{ 
+                            y: [null, Math.random() * -200 - 100],
+                            opacity: [0, 1, 0],
+                            scale: [0, 1, 0.5],
+                            rotate: [0, 180]
+                        }}
+                        transition={{ 
+                            duration: 4 + Math.random() * 4,
+                            repeat: Infinity,
+                            delay: Math.random() * 5
+                        }}
+                        className={`absolute w-2 h-2 rounded-full ${i % 2 === 0 ? 'bg-indigo-400' : 'bg-emerald-400'} blur-[1px]`}
+                    />
+                ))}
 
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[120px] -z-10" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[120px] -z-10" />
 
-            <motion.div variants={itemVariants} className="mb-8 relative z-10">
-                <motion.div 
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.2, type: 'spring' }}
-                    className="w-20 h-20 bg-slate-900 rounded-[2rem] flex items-center justify-center text-white font-black text-2xl mb-10 shadow-2xl mx-auto border-4 border-white"
-                >
-                    fyo
+                <motion.div variants={itemVariants} className="mb-8 relative z-10">
+                    <motion.div 
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.2, type: 'spring' }}
+                        className="w-20 h-20 bg-slate-900 rounded-[2rem] flex items-center justify-center text-white font-black text-2xl mb-10 shadow-2xl mx-auto border-4 border-white"
+                    >
+                        fyo
+                    </motion.div>
+                    <motion.h1 
+                        layoutId="slide-title"
+                        className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 mb-6 leading-[0.9] drop-shadow-sm font-display uppercase"
+                    >
+                        {data.title}
+                    </motion.h1>
+                    <div className="flex items-center justify-center gap-6">
+                        <div className="h-1 w-12 bg-indigo-600 rounded-full" />
+                        <p className="text-lg text-indigo-600 font-black tracking-[0.4em] uppercase font-display">
+                            {data.subtitle}
+                        </p>
+                        <div className="h-1 w-12 bg-indigo-600 rounded-full" />
+                    </div>
                 </motion.div>
-                <motion.h1 
-                    layoutId="slide-title"
-                    className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 mb-6 leading-[0.9] drop-shadow-sm font-display uppercase"
-                >
-                    {data.title}
-                </motion.h1>
-                <div className="flex items-center justify-center gap-6">
-                    <div className="h-1 w-12 bg-indigo-600 rounded-full" />
-                    <p className="text-lg text-indigo-600 font-black tracking-[0.4em] uppercase font-display">
-                        {data.subtitle}
+
+                <motion.div variants={itemVariants} className="mb-12 max-w-2xl">
+                    <p className="text-lg md:text-xl font-bold text-slate-500 leading-relaxed tracking-tight italic">
+                        "{description}"
                     </p>
-                    <div className="h-1 w-12 bg-indigo-600 rounded-full" />
-                </div>
-            </motion.div>
+                </motion.div>
 
-            <motion.div variants={itemVariants} className="mb-12 max-w-2xl">
-                <p className="text-lg md:text-xl font-bold text-slate-500 leading-relaxed tracking-tight italic">
-                    "{description}"
-                </p>
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="w-full max-w-3xl relative z-50">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {contacts.map((contact: any, idx: number) => (
-                        <div key={idx} className="flex items-center gap-4 p-5 bg-white rounded-[2rem] border border-slate-100 shadow-xl group hover:border-indigo-200 hover:bg-slate-50 transition-all duration-500">
-                            <div className="p-4 bg-indigo-50 rounded-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
-                                <Mail size={24} />
+                <motion.div variants={itemVariants} className="w-full max-w-3xl relative z-50">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {contacts.map((contact: any, idx: number) => (
+                            <div key={idx} className="flex items-center gap-4 p-5 bg-white rounded-[2rem] border border-slate-100 shadow-xl group hover:border-indigo-200 hover:bg-slate-50 transition-all duration-500">
+                                <div className="p-4 bg-indigo-50 rounded-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
+                                    <Mail size={24} />
+                                </div>
+                                <div className="text-left">
+                                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">{contact.role}</span>
+                                    <span className="block text-sm font-black text-slate-800 tracking-tight group-hover:text-indigo-600 transition-colors">{contact.email}</span>
+                                </div>
                             </div>
-                            <div className="text-left">
-                                <span className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-1">{contact.role}</span>
-                                <span className="block text-sm font-black text-slate-800 tracking-tight group-hover:text-indigo-600 transition-colors">{contact.email}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
 
-            {onJumpToSlide && (
-                <div className="mt-16 flex flex-col md:flex-row items-center gap-6">
-                    <motion.button 
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.05, backgroundColor: '#4f46e5' }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => onJumpToSlide(0)}
-                        className="flex items-center gap-4 px-10 py-4 bg-slate-900 text-white rounded-full font-black text-[11px] transition-all shadow-2xl active:scale-95 font-display tracking-[0.3em] uppercase group"
-                    >
-                        <RotateCcw size={16} className="group-hover:rotate-180 transition-transform duration-700" />
-                        Reiniciar Presentación
-                    </motion.button>
+                {onJumpToSlide && (
+                    <div className="mt-16 flex flex-col md:flex-row items-center gap-6">
+                        <motion.button 
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.05, backgroundColor: '#4f46e5' }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => onJumpToSlide(0)}
+                            className="flex items-center gap-4 px-10 py-4 bg-slate-900 text-white rounded-full font-black text-[11px] transition-all shadow-2xl active:scale-95 font-display tracking-[0.3em] uppercase group"
+                        >
+                            <RotateCcw size={16} className="group-hover:rotate-180 transition-transform duration-700" />
+                            Reiniciar Presentación
+                        </motion.button>
 
-                    <motion.button 
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => window.print()}
-                        className="flex items-center gap-4 px-10 py-4 bg-white text-indigo-600 border-2 border-indigo-600 rounded-full font-black text-[11px] transition-all shadow-xl active:scale-95 font-display tracking-[0.3em] uppercase group"
-                    >
-                        <Printer size={18} className="group-hover:scale-110 transition-transform" />
-                        Imprimir Resumen Dinámicas
-                    </motion.button>
-                </div>
-            )}
+                        <motion.button 
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.05, y: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => window.print()}
+                            className="flex items-center gap-4 px-10 py-4 bg-white text-indigo-600 border-2 border-indigo-600 rounded-full font-black text-[11px] transition-all shadow-xl active:scale-95 font-display tracking-[0.3em] uppercase group"
+                        >
+                            <Printer size={18} className="group-hover:scale-110 transition-transform" />
+                            Imprimir Resumen Dinámicas
+                        </motion.button>
+                    </div>
+                )}
+            </div>
             
             {/* Hidden Print Layout - Only visible when printing */}
             <PrintSummary />
