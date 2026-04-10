@@ -7,6 +7,7 @@ import {
   Mail, RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Printer
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
+import { WordRaffle } from './WordRaffle';
 
 interface SlideProps {
   data: SlideData;
@@ -949,22 +950,17 @@ const PrintSummary = () => {
 
 
 // 10. Word Raffle Slide
-export const WordRaffleSlide: React.FC<SlideProps> = ({ data }) => {
+export const WordRaffleSlide: React.FC<SlideProps> = () => {
   return (
     <motion.div 
-      className="w-full h-full flex flex-col items-center justify-center py-4 pb-12" // Added pb-12
+      className="w-full h-full flex flex-col items-center justify-center py-4 pb-12"
       initial="hidden" 
       animate="show" 
       variants={containerVariants}
     >
       <motion.div variants={itemVariants} className="w-full h-full max-w-6xl px-6">
         <GlassCard className="w-full h-full overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] relative bg-white rounded-[2.5rem] border-4 border-white group">
-          <div className="absolute inset-0 bg-indigo-600 opacity-0 group-hover:opacity-5 transition-opacity pointer-events-none z-10" />
-          <iframe 
-            src={data.content.url} 
-            className="w-full h-full border-none relative z-0"
-            title="Word Raffle Tool"
-          />
+          <WordRaffle />
           {/* Decorative Frame Elements */}
           <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-slate-100 rounded-full z-20" />
         </GlassCard>

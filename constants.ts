@@ -129,9 +129,7 @@ export const SLIDES: SlideData[] = [
     title: 'DINÁMICA 1: Dime quién eres... 🎨',
     subtitle: 'Assessment Center fyo',
     theme: 'light',
-    content: {
-      url: '/dinamica1.html'
-    }
+    content: {}
   },
   {
     id: 'dinamica-2',
