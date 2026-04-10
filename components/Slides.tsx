@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { SlideData } from '../constants';
+import { SLIDES, SlideData } from '../constants';
 import { 
   Users, Calendar, GraduationCap, FileText, Flag, Heart, 
   BrainCircuit, Zap, ClipboardCheck, PencilRuler, Search, FileSignature, 
   Rocket, BarChart3, Compass, Target, Layers, Sparkles, DollarSign, Briefcase,
-  Mail, RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper
+  Mail, RotateCcw, Clock, Lightbulb, Quote, AlertCircle, Newspaper, Printer
 } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -720,19 +720,129 @@ export const ClosingSlide: React.FC<SlideProps> = ({ data, onJumpToSlide }) => {
             </motion.div>
 
             {onJumpToSlide && (
-                <motion.button 
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05, backgroundColor: '#4f46e5' }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => onJumpToSlide(0)}
-                    className="mt-16 flex items-center gap-4 px-10 py-4 bg-slate-900 text-white rounded-full font-black text-[11px] transition-all shadow-2xl active:scale-95 font-display tracking-[0.3em] uppercase group"
-                >
-                    <RotateCcw size={16} className="group-hover:rotate-180 transition-transform duration-700" />
-                    Reiniciar Presentación
-                </motion.button>
+                <div className="mt-16 flex flex-col md:flex-row items-center gap-6">
+                    <motion.button 
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.05, backgroundColor: '#4f46e5' }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => onJumpToSlide(0)}
+                        className="flex items-center gap-4 px-10 py-4 bg-slate-900 text-white rounded-full font-black text-[11px] transition-all shadow-2xl active:scale-95 font-display tracking-[0.3em] uppercase group"
+                    >
+                        <RotateCcw size={16} className="group-hover:rotate-180 transition-transform duration-700" />
+                        Reiniciar Presentación
+                    </motion.button>
+
+                    <motion.button 
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.05, y: -5 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => window.print()}
+                        className="flex items-center gap-4 px-10 py-4 bg-white text-indigo-600 border-2 border-indigo-600 rounded-full font-black text-[11px] transition-all shadow-xl active:scale-95 font-display tracking-[0.3em] uppercase group"
+                    >
+                        <Printer size={18} className="group-hover:scale-110 transition-transform" />
+                        Imprimir Resumen Dinámicas
+                    </motion.button>
+                </div>
             )}
+            
+            {/* Hidden Print Layout - Only visible when printing */}
+            <PrintSummary />
         </motion.div>
     );
+};
+
+const PrintSummary = () => {
+  const slide9 = SLIDES.find(s => s.id === 'dinamica-2');
+  const slide10 = SLIDES.find(s => s.id === 'dinamica-2-crisis');
+
+  if (!slide9 || !slide10) return null;
+
+  return (
+    <div className="hidden print:block fixed inset-0 z-[9999] bg-white w-[210mm] min-h-[297mm] p-[15mm] text-slate-900 font-sans mx-auto">
+      {/* Header */}
+      <div className="flex justify-between items-center border-b-4 border-indigo-600 pb-6 mb-8">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-lg shadow-lg">
+            fyo
+          </div>
+          <div>
+            <h1 className="text-3xl font-black tracking-tighter uppercase leading-none">Assessment Center</h1>
+            <p className="text-xs font-black text-indigo-600 tracking-[0.3em] uppercase mt-1">Programa JP 25-26</p>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Resumen de Dinámicas</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Confidencial - Uso Interno</p>
+        </div>
+      </div>
+
+      {/* Dinámica 2 - Fase 1 */}
+      <div className="mb-10">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md">
+            <Layers size={20} />
+          </div>
+          <h2 className="text-2xl font-black uppercase tracking-tight text-slate-900">Dinámica 2: Turbulencia en la Oficina</h2>
+        </div>
+        
+        <div className="bg-indigo-50/50 p-6 rounded-3xl border border-indigo-100 mb-8">
+          <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-3">Consigna de Construcción</h3>
+          <p className="text-sm font-bold leading-relaxed text-slate-700 whitespace-pre-line">
+            {slide9.content.consigna}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          {slide9.content.roles.map((role: any, i: number) => (
+            <div key={i} className="bg-white border-2 border-slate-100 p-5 rounded-2xl shadow-sm">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-2 h-2 rounded-full bg-indigo-600" />
+                <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{role.title}</h4>
+              </div>
+              <p className="text-[10px] font-bold leading-tight text-slate-500">{role.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Dinámica 2 - Fase 2 */}
+      <div className="mb-12">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-md">
+            <AlertCircle size={20} />
+          </div>
+          <h2 className="text-2xl font-black uppercase tracking-tight text-red-600">Fase 2: Gestión de Crisis</h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4">
+          {slide10.content.cards.map((card: any, i: number) => (
+            <div key={i} className="flex gap-6 items-stretch bg-red-50/30 border border-red-100 p-5 rounded-2xl">
+              <div className="w-1.5 bg-red-600 rounded-full shrink-0" />
+              <div>
+                <h4 className="text-[12px] font-black uppercase tracking-tight text-red-700 mb-2">{card.frontText}</h4>
+                <p className="text-[11px] font-bold leading-relaxed text-slate-600 italic">
+                  "{card.backText}"
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-auto pt-8 border-t-2 border-slate-100 flex justify-between items-end">
+        <div className="max-w-md">
+          <p className="text-[10px] font-bold text-slate-400 italic leading-tight">
+            "Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido."
+          </p>
+        </div>
+        <div className="text-right">
+          <div className="text-[11px] font-black text-indigo-600 uppercase tracking-[0.3em]">Equipo fyo</div>
+          <p className="text-[8px] font-bold text-slate-300 uppercase mt-1">Assessment Center JP 25-26</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 // 10. Word Raffle Slide
