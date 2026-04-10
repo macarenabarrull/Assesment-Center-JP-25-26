@@ -11,7 +11,8 @@ import {
   ObjectivesSlide,
   ClosingSlide,
   EcosystemCirclesSlide,
-  WordRaffleSlide
+  WordRaffleSlide,
+  InteractiveDynamicSlide
 } from './components/Slides';
 
 const App: React.FC = () => {
@@ -53,6 +54,8 @@ const App: React.FC = () => {
           return <EcosystemCirclesSlide data={data} />;
         case 'raffle':
           return <WordRaffleSlide data={data} />;
+        case 'interactive-dynamic':
+          return <InteractiveDynamicSlide data={data} />;
         case 'closing':
           return <ClosingSlide data={data} onJumpToSlide={jumpToSlide} />;
         default:

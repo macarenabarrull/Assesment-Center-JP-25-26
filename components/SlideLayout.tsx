@@ -264,7 +264,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </div>
 
       {/* Header - Minimalist & Elegant */}
-      <header className={`flex-none px-8 py-4 md:px-12 flex justify-between items-center z-20 print:hidden h-20 md:h-24 transition-all duration-700 ${isReadingMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <header className={`flex-none px-8 py-2 md:px-12 flex justify-between items-center z-20 print:hidden h-14 md:h-16 transition-all duration-700 ${isReadingMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
         <motion.div 
           layoutId="brand-header"
           className="flex items-center gap-4 group cursor-pointer"
@@ -346,7 +346,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </AnimatePresence>
 
       {/* Content Area - Optimized Spacing */}
-      <main className="flex-1 w-full max-w-[1100px] mx-auto px-16 md:px-32 pt-10 md:pt-16 relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
+      <main className="flex-1 w-full relative z-10 flex flex-col justify-center print:block print:max-w-none print:px-0 min-h-0">
         <AnimatePresence mode="wait" custom={direction}>
             <motion.div
                 key={currentSlide}
@@ -359,29 +359,31 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                     x: { type: "spring", stiffness: 150, damping: 25 },
                     opacity: { duration: 0.4 }
                 }}
-                className="w-full h-full flex flex-col justify-center"
+                className="w-full h-full flex flex-col justify-center overflow-hidden"
             >
                 {title && (
-                    <motion.div 
-                        initial={{ opacity: 0, y: -10, filter: 'blur(10px)' }}
-                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                        transition={{ delay: 0.1, duration: 0.8 }}
-                        className="mb-6 md:mb-10 print:mb-4 shrink-0"
-                    >
-                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 tracking-tighter leading-[0.95] drop-shadow-sm font-display uppercase">
-                        {title}
-                        </h1>
-                        {subtitle && (
-                            <div className="flex items-center gap-3 mt-2">
-                                <div className="h-0.5 w-6 bg-indigo-600 rounded-full"></div>
-                                <p className="text-slate-400 text-xs md:text-sm font-bold tracking-wide">
-                                    {subtitle}
-                                </p>
-                            </div>
-                        )}
-                    </motion.div>
+                    <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20 shrink-0">
+                        <motion.div 
+                            initial={{ opacity: 0, y: -10, filter: 'blur(10px)' }}
+                            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                            transition={{ delay: 0.1, duration: 0.8 }}
+                            className="mb-4 md:mb-8 print:mb-4"
+                        >
+                            <h1 className="text-2xl md:text-3xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-[0.9] drop-shadow-sm font-display uppercase">
+                            {title}
+                            </h1>
+                            {subtitle && (
+                                <div className="flex items-center gap-3 mt-3">
+                                    <div className="h-0.5 w-8 bg-indigo-600 rounded-full"></div>
+                                    <p className="text-slate-500 text-xs md:text-sm font-bold tracking-widest uppercase opacity-70">
+                                        {subtitle}
+                                    </p>
+                                </div>
+                            )}
+                        </motion.div>
+                    </div>
                 )}
-                <div className="w-full h-full flex flex-col justify-center print:block overflow-hidden py-2 custom-scrollbar">
+                <div className="w-full h-full flex flex-col justify-center print:block overflow-y-auto overflow-x-hidden py-4 custom-scrollbar relative">
                     {children}
                 </div>
             </motion.div>
@@ -520,7 +522,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </AnimatePresence>
 
       {/* Footer / Navigation Controls */}
-      <footer className={`flex-none px-8 py-4 md:px-12 md:py-6 flex justify-between items-center z-20 print:hidden h-20 md:h-24 transition-all duration-500 ${isReadingMode ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <footer className={`flex-none px-8 py-2 md:px-12 flex justify-between items-center z-20 print:hidden h-14 md:h-16 transition-all duration-500 ${isReadingMode ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
         {/* Pagination Dots - Premium Style */}
         <div className="flex gap-3">
             {Array.from({ length: totalSlides }).map((_, idx) => (
@@ -543,7 +545,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={onPrev}
             disabled={currentSlide === 0}
-            className="group p-4 rounded-full glass-border bg-white/40 backdrop-blur-xl hover:bg-white/60 disabled:opacity-20 transition-all shadow-sm active:scale-90"
+            className="group p-2.5 rounded-full glass-border bg-white/40 backdrop-blur-xl hover:bg-white/60 disabled:opacity-20 transition-all shadow-sm active:scale-90"
             >
             <ChevronLeft size={20} className="text-slate-600 group-hover:text-indigo-600 transition-colors" />
             </motion.button>
@@ -553,7 +555,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={onNext}
             disabled={currentSlide === totalSlides - 1}
-            className="group p-4 rounded-full bg-slate-900/90 backdrop-blur-xl hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90 glass-border"
+            className="group p-2.5 rounded-full bg-slate-900/90 backdrop-blur-xl hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90 glass-border"
             >
             <ChevronRight size={20} className="text-white transition-colors" />
             </motion.button>

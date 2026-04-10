@@ -35,25 +35,39 @@
         color: var(--brand-slate);
         overflow: hidden;
         /* Refined Fluid Typography */
-        font-size: clamp(14px, 0.6vw + 10px, 16px);
+        font-size: clamp(14px, 0.4vw + 12px, 18px);
+        line-height: 1.6;
         letter-spacing: -0.01em;
       }
 
       .font-display {
         font-family: 'Outfit', sans-serif;
         letter-spacing: -0.03em;
+        line-height: 1.1;
       }
 
       .font-space {
         font-family: 'Space Grotesk', sans-serif;
         letter-spacing: -0.02em;
+        line-height: 1.2;
       }
       
       /* Bento Grid Helper */
       .bento-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
         gap: 1.5rem;
+        align-items: stretch;
+      }
+
+      /* Responsive Spacing Utilities */
+      .section-spacing {
+        padding-top: clamp(2rem, 5vh, 5rem);
+        padding-bottom: clamp(2rem, 5vh, 5rem);
+      }
+
+      .content-gap {
+        gap: clamp(1rem, 3vh, 3rem);
       }
 
       /* Border Gradient Glassmorphism */
@@ -66,7 +80,7 @@
         inset: 0;
         border-radius: inherit;
         padding: 1px;
-        background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.05), rgba(79,70,229,0.2));
+        background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.2), rgba(79,70,229,0.4));
         -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;

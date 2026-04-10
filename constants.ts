@@ -2,7 +2,7 @@ export type IconKey = 'Compass' | 'Target' | 'BrainCircuit' | 'Layers' | 'Zap' |
 
 export interface SlideData {
   id: string;
-  type: 'cover' | 'image' | 'objectives' | 'info' | 'timeline' | 'grid' | 'table-granos' | 'table-capital' | 'mentoring-split' | 'academy-split' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'raffle';
+  type: 'cover' | 'image' | 'objectives' | 'info' | 'timeline' | 'grid' | 'table-granos' | 'table-capital' | 'mentoring-split' | 'academy-split' | 'closing' | 'tutor-content' | 'ecosystem-circles' | 'raffle' | 'interactive-dynamic';
   title?: string;
   subtitle?: string;
   content?: any;
@@ -30,11 +30,11 @@ export const SLIDES: SlideData[] = [
     content: {
       headers: ['Horario', 'Actividad', 'Duración'],
       rows: [
-        ['09:30 - 09:45', 'Presentacion institucional de fyo', '15 min'],
-        ['09:45 - 10:30', 'Dinámica 1: Dime quién eres...', '45 min'],
-        ['10:30 - 12:15', 'Dinamica 2: Un día como comercial', '105 min'],
-        ['12:15 - 12:45', '¡Tomemos un break!', '30 min'],
-        ['12:45 - 13:00', 'Entrevista individuales', '15 min']
+        ['09:30 - 09:45', 'PRESENTACION INSTITUCIONAL DE FYO', '15 min'],
+        ['09:45 - 10:30', 'DINÁMICA 1: DIME QUIÉN ERES...', '45 min'],
+        ['10:30 - 12:15', 'DINÁMICA 2: TURBULENCIA EN LA OFICINA', '105 min'],
+        ['12:15 - 12:45', '¡TOMÉMONOS UN DESCANSO!', '30 min'],
+        ['12:45 - 13:00', 'ENTREVISTA INDIVIDUALES', '15 min']
       ]
     }
   },
@@ -47,14 +47,14 @@ export const SLIDES: SlideData[] = [
     content: {
       mainText: 'En fyo trabajamos para ofrecer respuestas innovadoras y a medida, adaptadas a cada cliente.\n\nBuscamos ser una solución personalizada, innovadora y única.\n\nAsí fue como nos animamos a ser digitales en el mercado más tradicional de Argentina.',
       description: 'Desafiamos lo establecido para potenciar el futuro del agro.',
-      highlight: 'TRANSFORMAMOS EL PRESENTE PARA LIDERAR EL MAÑANA 🚀'
+      highlight: 'CREAMOS VALOR EN CADA ESLABÓN DEL AGRO 🚀'
     }
   },
   {
     id: 'ecosistema',
     type: 'ecosystem-circles',
     title: 'ECOSISTEMA INTEGRAL 🌐',
-    subtitle: 'Formamos lazos estratégicos para acompañar toda la cadena comercial del agro.',
+    subtitle: 'Ofrecemos un ecosistema que abarca toda la cadena comercial agro.',
     theme: 'light',
     content: {
       items: [
@@ -135,21 +135,52 @@ export const SLIDES: SlideData[] = [
   },
   {
     id: 'dinamica-2',
-    type: 'objectives',
-    title: 'DINÁMICA 2: CASO ESTRATÉGICO 💡',
-    subtitle: 'Resolución de desafíos reales del agro',
+    type: 'interactive-dynamic',
+    title: 'Dinámica 2: Turbulencia en la Oficina 🏢',
+    subtitle: 'FASE 1 - CONSTRUCCIÓN',
     theme: 'light',
     content: {
-      duration: '60 MINUTOS',
-      objective: 'Evaluar visión estratégica, trabajo colaborativo y toma de decisiones bajo presión.',
-      consigna: 'En equipos, analicen el escenario de mercado planteado y construyan una solución innovadora utilizando los recursos disponibles.',
-      competencies: ['Visión de Negocio', 'Trabajo Colaborativo', 'Liderazgo', 'Adaptabilidad']
+      phase: 1,
+      consigna: '¡Bienvenidos al Directorio!\nAcaban de fundar su propia agencia de viajes. Tienen 40 minutos para definir la identidad de su marca (Nombre y Eslogan) y estructurar la logística del gran viaje de su temporada.',
+      rolesIntro: 'Para que la agencia funcione, cada miembro del equipo debe asumir obligatoriamente uno de los siguientes roles. Elijan sabiamente quién ocupa cada silla:',
+      roles: [
+        { name: 'CEO', title: 'Director Comercial', desc: 'Toma la decisión final si hay empate. Es la cara visible de la empresa y quien lidera la presentación.', icon: 'Users' },
+        { name: 'CMO', title: 'Director de Marketing', desc: 'El guardián de la marca. Su objetivo es definir cómo la marca conecta con el público, lidera la estrategia de ventas, precios y productos.', icon: 'DollarSign' },
+        { name: 'COO', title: 'Director de Operaciones', desc: 'El encargado de la logística. Habla con proveedores, aerolíneas, hoteles y busca alternativas si un vuelo se cancela o un hotel cierra.', icon: 'Layers' },
+        { name: 'CCO', title: 'Director de Comunicación', desc: 'El responsable de hablar con los clientes. Tiene que tener el tacto para calmar a la gente enojada y venderles soluciones alternativas.', icon: 'Mail' }
+      ],
+      tips: [
+        'El tiempo vuela. No se estanquen en elegir el nombre perfecto; el negocio tiene que avanzar.',
+        'Piensen en el cliente, pero protejan la rentabilidad de su agencia.',
+        'Escúchense. Un equipo desalineado pierde clientes.'
+      ],
+      cards: [
+        { id: 1, color: 'bg-indigo-600', frontText: 'Fiebre mundialista', backText: 'Viaje a Estados Unidos para el Mundial. Paquete premium que incluye entradas a 3 partidos, hoteles 5 estrellas y traslados internos.' },
+        { id: 2, color: 'bg-emerald-600', frontText: 'Aventura exótica', backText: 'Viaje al Sudeste Asiático (Tailandia, Vietnam, Bali). Paquete enfocado en turismo aventura, espiritualidad y playas paradisíacas por 21 días.' },
+        { id: 3, color: 'bg-amber-600', frontText: 'Lujo europeo', backText: 'Un tour súper exclusivo por Europa (París, Alpes Suizos, Roma) diseñado para 50 clientes VIP de altísimo poder adquisitivo (CEOs, celebridades).' }
+      ]
+    }
+  },
+  {
+    id: 'dinamica-2-crisis',
+    type: 'interactive-dynamic',
+    title: 'Dinámica 2: Turbulencia en la Oficina 🏢',
+    subtitle: 'FASE 2 - GESTIÓN DE CRISIS',
+    theme: 'light',
+    content: {
+      phase: 2,
+      alertText: '¡ÚLTIMO MOMENTO!',
+      cards: [
+        { id: 1, color: 'bg-red-600', frontText: 'Fiebre mundialista', backText: 'Tensión geopolítica extrema. Irán insinúa un posible atentado en las sedes del Mundial. Las aerolíneas están cancelando vuelos por precaución, el pánico es generalizado y los clientes están saturando las líneas exigiendo garantías de seguridad.' },
+        { id: 2, color: 'bg-red-700', frontText: 'Aventura exótica', backText: 'Estalla un conflicto bélico relámpago en una región vecina que cierra el espacio aéreo de dos de los tres países del paquete. El 80% de los clientes exige la baja inmediata y el reembolso total, pero sus proveedores locales (hoteles y guías) no aceptan devoluciones.' },
+        { id: 3, color: 'bg-red-800', frontText: 'Lujo europeo', backText: 'Un apagón informático global masivo paraliza el sistema financiero y de radares europeos. Sus 50 clientes VIP están varados en el Aeropuerto de Ezeiza; no hay vuelos, las tarjetas de crédito corporativas de la agencia no pasan para emitir reservas de emergencia y los clientes están furiosos amenazando con demandas millonarias.' }
+      ]
     }
   },
   {
     id: 'break-cover',
     type: 'cover',
-    title: '¡Tomemos un descanso! ☕',
+    title: '¡TOMÉMONOS UN DESCANSO! ☕',
     theme: 'light',
     content: {
       highlight: 'Break',
