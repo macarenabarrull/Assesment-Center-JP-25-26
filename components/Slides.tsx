@@ -760,171 +760,171 @@ const PrintSummary = () => {
   return (
     <div className="hidden print:block bg-white w-full text-slate-900 font-sans p-0 m-0">
       {/* PAGE 1: Dinámica 2 - Fase 1 */}
-      <div className="w-full mx-auto flex flex-col" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
-        {/* Header */}
-        <div className="flex justify-between items-end border-b border-slate-300 pb-6 mb-8">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-lg">
+      <div className="w-full mx-auto flex flex-col min-h-screen" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
+        {/* Header - Candidate Guide Style */}
+        <div className="flex justify-between items-center border-b-2 border-slate-900 pb-4 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-base">
               fyo
             </div>
             <div>
-              <h1 className="text-2xl font-black tracking-tight uppercase leading-none text-slate-900">Assessment Center</h1>
-              <p className="text-[10px] font-black text-indigo-600 tracking-[0.3em] uppercase mt-1">Programa JP 25-26 | Pág. 1</p>
+              <h1 className="text-xl font-black tracking-tight uppercase leading-none text-slate-900">Guía del Candidato</h1>
+              <p className="text-[9px] font-black text-indigo-600 tracking-[0.2em] uppercase mt-0.5">Assessment Center | Dinámica 2: Fase 1</p>
             </div>
           </div>
           <div className="text-right">
-            <div className="px-3 py-1 border border-slate-200 rounded-md inline-block">
-              <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Confidencial</p>
-            </div>
+            <div className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1">Página 1 de 2</div>
+            <div className="px-2 py-0.5 bg-slate-100 rounded text-[7px] font-black text-slate-500 uppercase">Confidencial</div>
           </div>
         </div>
 
-        {/* Dinámica 2 - Fase 1 */}
+        {/* Content Phase 1 */}
         <section className="flex-1">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">
-              <Layers size={18} />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center text-white">
+                <Layers size={14} />
+              </div>
+              <h2 className="text-base font-black uppercase tracking-tight text-slate-900">Construcción y Logística</h2>
             </div>
-            <div>
-              <h2 className="text-xl font-black uppercase tracking-tight text-slate-900 leading-none">Dinámica 2: Turbulencia en la Oficina</h2>
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Fase 1: Construcción de Marca y Logística</p>
+            <div className="flex items-center gap-2 px-3 py-1 border border-slate-200 rounded-full">
+              <Clock size={12} className="text-slate-400" />
+              <span className="text-[9px] font-black text-slate-600 uppercase">Duración: 105 min</span>
             </div>
           </div>
           
-          <div className="space-y-6">
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-600" />
-              <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                <Compass size={14} />
-                Consigna General de Trabajo
-              </h3>
-              <p className="text-sm font-bold leading-relaxed text-slate-700 whitespace-pre-line italic">
+          <div className="space-y-5">
+            {/* Consigna */}
+            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+              <h3 className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-2">Consigna General</h3>
+              <p className="text-[11px] font-bold leading-relaxed text-slate-700 italic">
                 "{slide9.content.consigna}"
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            {/* Roles */}
+            <div className="grid grid-cols-2 gap-3">
               {slide9.content.roles.map((role: any, i: number) => (
-                <div key={i} className="bg-white border border-slate-200 p-4 rounded-xl">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
-                      {i === 0 && <Users size={14} />}
-                      {i === 1 && <DollarSign size={14} />}
-                      {i === 2 && <Layers size={14} />}
-                      {i === 3 && <Mail size={14} />}
-                    </div>
-                    <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-tight">{role.title}</h4>
-                  </div>
-                  <p className="text-[9px] font-bold leading-snug text-slate-500">{role.desc}</p>
+                <div key={i} className="border border-slate-200 p-3 rounded-lg">
+                  <h4 className="text-[10px] font-black text-slate-900 uppercase mb-1 flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                    {role.title}
+                  </h4>
+                  <p className="text-[8px] font-bold leading-tight text-slate-500">{role.desc}</p>
                 </div>
               ))}
             </div>
 
-            <div className="bg-white border-2 border-indigo-600 p-6 rounded-2xl relative overflow-hidden">
-              <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
-                <Sparkles size={14} />
-                Claves para el Éxito del Equipo
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Tips */}
+            <div className="bg-white border-2 border-slate-100 p-4 rounded-xl">
+              <h3 className="text-[9px] font-black text-slate-900 uppercase tracking-[0.2em] mb-3">Recomendaciones para el equipo</h3>
+              <div className="grid grid-cols-3 gap-4">
                 {slide9.content.tips.map((tip: string, i: number) => (
-                  <div key={i} className="flex gap-3 items-start p-3 bg-indigo-50 rounded-xl border border-indigo-100">
-                    <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 font-black text-[10px]">
-                      {i + 1}
-                    </div>
-                    <p className="text-[10px] font-bold leading-tight text-indigo-900">{tip}</p>
+                  <div key={i} className="flex gap-2 items-start">
+                    <div className="text-indigo-600 font-black text-[10px] mt-0.5">•</div>
+                    <p className="text-[9px] font-bold leading-tight text-slate-600">{tip}</p>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Notes Section - Functional Improvement */}
+            <div className="mt-8 pt-6 border-t border-dashed border-slate-300">
+              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Espacio para anotaciones personales</h3>
+              <div className="space-y-4">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="border-b border-slate-100 h-4 w-full" />
                 ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Footer Page 1 */}
-        <div className="mt-8 pt-6 border-t border-slate-200 flex justify-between items-center">
-          <p className="text-[9px] font-bold text-slate-400 italic">
-            "Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido."
-          </p>
-          <div className="text-right">
-            <div className="text-xs font-black text-indigo-600 uppercase tracking-[0.2em]">Equipo fyo</div>
-          </div>
+        {/* Footer */}
+        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
+          <p className="text-[8px] font-bold text-slate-300 italic">fyo Assessment Center JP 25-26 | No compartir este documento</p>
+          <div className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">fyo</div>
         </div>
       </div>
 
       {/* PAGE 2: Dinámica 2 - Fase 2 */}
-      <div className="w-full mx-auto flex flex-col" style={{ breakBefore: 'page', pageBreakBefore: 'always' }}>
+      <div className="w-full mx-auto flex flex-col min-h-screen" style={{ breakBefore: 'page', pageBreakBefore: 'always' }}>
         {/* Header Page 2 */}
-        <div className="flex justify-between items-end border-b border-slate-300 pb-6 mb-8">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-lg">
+        <div className="flex justify-between items-center border-b-2 border-slate-900 pb-4 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-base">
               fyo
             </div>
             <div>
-              <h1 className="text-2xl font-black tracking-tight uppercase leading-none text-slate-900">Assessment Center</h1>
-              <p className="text-[10px] font-black text-red-600 tracking-[0.3em] uppercase mt-1">Programa JP 25-26 | Pág. 2</p>
+              <h1 className="text-xl font-black tracking-tight uppercase leading-none text-slate-900">Guía del Candidato</h1>
+              <p className="text-[9px] font-black text-red-600 tracking-[0.2em] uppercase mt-0.5">Assessment Center | Dinámica 2: Fase 2</p>
             </div>
           </div>
           <div className="text-right">
-            <div className="px-3 py-1 border border-slate-200 rounded-md inline-block">
-              <p className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">Confidencial</p>
-            </div>
+            <div className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1">Página 2 de 2</div>
+            <div className="px-2 py-0.5 bg-red-50 rounded text-[7px] font-black text-red-600 uppercase">Urgente</div>
           </div>
         </div>
 
-        {/* Dinámica 2 - Fase 2 */}
+        {/* Content Phase 2 */}
         <section className="flex-1">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white">
-              <AlertCircle size={18} />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-red-600 rounded flex items-center justify-center text-white">
+                <AlertCircle size={14} />
+              </div>
+              <h2 className="text-base font-black uppercase tracking-tight text-red-600">Gestión de Crisis</h2>
             </div>
-            <div>
-              <h2 className="text-xl font-black uppercase tracking-tight text-red-600 leading-none">Fase 2: Gestión de Crisis</h2>
-              <p className="text-[9px] font-bold text-red-400 uppercase tracking-[0.2em] mt-1">Escenarios de Alta Complejidad</p>
+            <div className="flex items-center gap-2 px-3 py-1 border border-red-100 rounded-full">
+              <Clock size={12} className="text-red-400" />
+              <span className="text-[9px] font-black text-red-600 uppercase">Tiempo Real</span>
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="bg-red-50 p-6 rounded-2xl border border-red-100 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1.5 h-full bg-red-600" />
-              <h3 className="text-[10px] font-black text-red-600 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                <AlertCircle size={14} />
-                Contexto de Crisis
-              </h3>
-              <p className="text-[11px] font-bold leading-relaxed text-slate-700">
-                La resolución requiere agilidad, visión estratégica y una comunicación impecable bajo presión.
+          <div className="space-y-5">
+            <div className="bg-red-50/30 p-5 rounded-xl border border-red-100">
+              <h3 className="text-[9px] font-black text-red-600 uppercase tracking-[0.2em] mb-2">Contexto Crítico</h3>
+              <p className="text-[10px] font-bold leading-relaxed text-slate-700">
+                Durante esta fase, el equipo enfrentará situaciones imprevistas que pondrán a prueba su capacidad de reacción y toma de decisiones estratégica.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               {slide10.content.cards.map((card: any, i: number) => (
-                <div key={i} className="flex gap-6 items-center bg-white border border-slate-200 p-6 rounded-2xl relative overflow-hidden shadow-sm">
-                  <div className="absolute top-0 left-0 w-2 h-full bg-red-600" />
-                  <div className="shrink-0 w-24 text-center">
-                    <div className="text-[9px] font-black text-red-600 uppercase tracking-[0.2em] mb-1">Escenario</div>
-                    <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-600 font-black text-lg mx-auto mb-2">
-                      {i + 1}
+                <div key={i} className="flex gap-4 items-center border border-slate-200 p-4 rounded-xl">
+                  <div className="shrink-0 w-12 text-center">
+                    <div className="text-[10px] font-black text-red-600 uppercase mb-1">{i + 1}</div>
+                    <div className="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center text-red-600">
+                      <Zap size={14} />
                     </div>
-                    <h4 className="text-[11px] font-black uppercase tracking-tighter text-slate-900 leading-tight">{card.frontText}</h4>
                   </div>
-                  <div className="h-16 w-px bg-slate-100" />
+                  <div className="h-10 w-px bg-slate-100" />
                   <div className="flex-1">
-                    <p className="text-[11px] font-bold leading-relaxed text-slate-700 italic bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <h4 className="text-[10px] font-black uppercase text-slate-900 mb-1">{card.frontText}</h4>
+                    <p className="text-[9px] font-bold leading-snug text-slate-500 italic">
                       "{card.backText}"
                     </p>
                   </div>
                 </div>
               ))}
             </div>
+
+            {/* Notes Section for Phase 2 */}
+            <div className="mt-8 pt-6 border-t border-dashed border-slate-300">
+              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Plan de Acción y Resoluciones</h3>
+              <div className="space-y-4">
+                {[...Array(8)].map((_, i) => (
+                  <div key={i} className="border-b border-slate-100 h-4 w-full" />
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Footer Page 2 */}
-        <div className="mt-8 pt-6 border-t border-slate-200 flex justify-between items-center">
-          <p className="text-[9px] font-bold text-slate-400 italic">
-            "Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido."
-          </p>
-          <div className="text-right">
-            <div className="text-xs font-black text-indigo-600 uppercase tracking-[0.2em]">Equipo fyo</div>
-          </div>
+        {/* Footer */}
+        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
+          <p className="text-[8px] font-bold text-slate-300 italic">fyo Assessment Center JP 25-26 | Confidencial</p>
+          <div className="text-[9px] font-black text-red-600 uppercase tracking-widest italic">Crisis Management</div>
         </div>
       </div>
     </div>
