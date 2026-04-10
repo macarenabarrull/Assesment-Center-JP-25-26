@@ -758,87 +758,132 @@ const PrintSummary = () => {
   if (!slide9 || !slide10) return null;
 
   return (
-    <div className="hidden print:block fixed inset-0 z-[9999] bg-white w-[210mm] min-h-[297mm] p-[15mm] text-slate-900 font-sans mx-auto">
-      {/* Header */}
-      <div className="flex justify-between items-center border-b-4 border-indigo-600 pb-6 mb-8">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-lg shadow-lg">
-            fyo
-          </div>
-          <div>
-            <h1 className="text-3xl font-black tracking-tighter uppercase leading-none">Assessment Center</h1>
-            <p className="text-xs font-black text-indigo-600 tracking-[0.3em] uppercase mt-1">Programa JP 25-26</p>
-          </div>
-        </div>
-        <div className="text-right">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Resumen de Dinámicas</p>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Confidencial - Uso Interno</p>
-        </div>
-      </div>
-
-      {/* Dinámica 2 - Fase 1 */}
-      <div className="mb-10">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md">
-            <Layers size={20} />
-          </div>
-          <h2 className="text-2xl font-black uppercase tracking-tight text-slate-900">Dinámica 2: Turbulencia en la Oficina</h2>
-        </div>
-        
-        <div className="bg-indigo-50/50 p-6 rounded-3xl border border-indigo-100 mb-8">
-          <h3 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-3">Consigna de Construcción</h3>
-          <p className="text-sm font-bold leading-relaxed text-slate-700 whitespace-pre-line">
-            {slide9.content.consigna}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          {slide9.content.roles.map((role: any, i: number) => (
-            <div key={i} className="bg-white border-2 border-slate-100 p-5 rounded-2xl shadow-sm">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-2 h-2 rounded-full bg-indigo-600" />
-                <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{role.title}</h4>
-              </div>
-              <p className="text-[10px] font-bold leading-tight text-slate-500">{role.desc}</p>
+    <div className="hidden print:block bg-white w-full text-slate-900 font-sans p-0 m-0">
+      <div className="max-w-[210mm] mx-auto p-[10mm] md:p-[20mm] min-h-screen flex flex-col">
+        {/* Header */}
+        <div className="flex justify-between items-end border-b-2 border-slate-200 pb-8 mb-10">
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg">
+              fyo
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Dinámica 2 - Fase 2 */}
-      <div className="mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-md">
-            <AlertCircle size={20} />
+            <div>
+              <h1 className="text-4xl font-black tracking-tighter uppercase leading-none text-slate-900">Assessment Center</h1>
+              <div className="flex items-center gap-3 mt-2">
+                <div className="h-1 w-8 bg-indigo-600 rounded-full" />
+                <p className="text-[11px] font-black text-indigo-600 tracking-[0.4em] uppercase">Programa JP 25-26</p>
+              </div>
+            </div>
           </div>
-          <h2 className="text-2xl font-black uppercase tracking-tight text-red-600">Fase 2: Gestión de Crisis</h2>
+          <div className="text-right">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Guía de Dinámicas</p>
+            <div className="px-3 py-1 bg-slate-100 rounded-full inline-block">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Confidencial</p>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
-          {slide10.content.cards.map((card: any, i: number) => (
-            <div key={i} className="flex gap-6 items-stretch bg-red-50/30 border border-red-100 p-5 rounded-2xl">
-              <div className="w-1.5 bg-red-600 rounded-full shrink-0" />
-              <div>
-                <h4 className="text-[12px] font-black uppercase tracking-tight text-red-700 mb-2">{card.frontText}</h4>
-                <p className="text-[11px] font-bold leading-relaxed text-slate-600 italic">
+        {/* Dinámica 2 - Fase 1 */}
+        <section className="mb-12 break-inside-avoid">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-100">
+              <Layers size={24} />
+            </div>
+            <div>
+              <h2 className="text-2xl font-black uppercase tracking-tight text-slate-900 leading-none">Dinámica 2: Turbulencia en la Oficina</h2>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">Fase 1: Construcción de Marca y Logística</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-2 h-full bg-indigo-600" />
+                <h3 className="text-[11px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                  <Compass size={14} />
+                  Consigna General
+                </h3>
+                <p className="text-base font-bold leading-relaxed text-slate-700 whitespace-pre-line italic">
+                  "{slide9.content.consigna}"
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {slide9.content.roles.map((role: any, i: number) => (
+                  <div key={i} className="bg-white border border-slate-200 p-5 rounded-2xl hover:border-indigo-200 transition-colors">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-8 h-8 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                        {i === 0 && <Users size={16} />}
+                        {i === 1 && <DollarSign size={16} />}
+                        {i === 2 && <Layers size={16} />}
+                        {i === 3 && <Mail size={16} />}
+                      </div>
+                      <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-tight">{role.title}</h4>
+                    </div>
+                    <p className="text-[10px] font-bold leading-tight text-slate-500">{role.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-indigo-600 text-white p-8 rounded-[2rem] shadow-xl shadow-indigo-100 flex flex-col gap-6">
+              <h3 className="text-[11px] font-black uppercase tracking-[0.2em] opacity-80">Tips de Éxito</h3>
+              <ul className="space-y-4">
+                {slide9.content.tips.map((tip: string, i: number) => (
+                  <li key={i} className="flex gap-3 items-start">
+                    <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <Sparkles size={10} />
+                    </div>
+                    <p className="text-[11px] font-bold leading-snug">{tip}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Dinámica 2 - Fase 2 */}
+        <section className="mb-12 break-inside-avoid">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-red-100">
+              <AlertCircle size={24} />
+            </div>
+            <div>
+              <h2 className="text-2xl font-black uppercase tracking-tight text-red-600 leading-none">Fase 2: Gestión de Crisis</h2>
+              <p className="text-[10px] font-bold text-red-400 uppercase tracking-[0.2em] mt-1">Escenarios de Alta Complejidad</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6">
+            {slide10.content.cards.map((card: any, i: number) => (
+              <div key={i} className="flex gap-8 items-center bg-white border-2 border-red-50 p-8 rounded-[2rem] relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-3 h-full bg-red-600" />
+                <div className="shrink-0 w-24 text-center">
+                  <div className="text-[10px] font-black text-red-600 uppercase tracking-widest mb-1">Caso 0{i+1}</div>
+                  <h4 className="text-[13px] font-black uppercase tracking-tighter text-slate-900 leading-tight">{card.frontText}</h4>
+                </div>
+                <div className="h-12 w-px bg-slate-100" />
+                <p className="text-[12px] font-bold leading-relaxed text-slate-600 italic flex-1">
                   "{card.backText}"
                 </p>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
+            ))}
+          </div>
+        </section>
 
-      {/* Footer */}
-      <div className="mt-auto pt-8 border-t-2 border-slate-100 flex justify-between items-end">
-        <div className="max-w-md">
-          <p className="text-[10px] font-bold text-slate-400 italic leading-tight">
-            "Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido."
-          </p>
-        </div>
-        <div className="text-right">
-          <div className="text-[11px] font-black text-indigo-600 uppercase tracking-[0.3em]">Equipo fyo</div>
-          <p className="text-[8px] font-bold text-slate-300 uppercase mt-1">Assessment Center JP 25-26</p>
+        {/* Footer */}
+        <div className="mt-auto pt-10 border-t-2 border-slate-100 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
+              <Heart size={18} />
+            </div>
+            <p className="text-[10px] font-bold text-slate-400 italic max-w-xs">
+              "Transformamos el futuro del agro junto a las personas que se animan a desafiar lo establecido."
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="text-sm font-black text-indigo-600 uppercase tracking-[0.4em] font-display">Equipo fyo</div>
+            <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-1">Assessment Center JP 25-26</p>
+          </div>
         </div>
       </div>
     </div>
