@@ -14,6 +14,8 @@ interface SlideLayoutProps {
   onNext: () => void;
   onPrev: () => void;
   onJumpToSlide: (index: number) => void;
+  isProjectorMode: boolean;
+  onToggleProjectorMode: () => void;
   title?: string;
   subtitle?: string;
   direction?: number;
@@ -26,6 +28,8 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
   onNext, 
   onPrev,
   onJumpToSlide,
+  isProjectorMode,
+  onToggleProjectorMode,
   title,
   subtitle,
   direction = 0
@@ -36,12 +40,20 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
   const [showTouchHint, setShowTouchHint] = useState(false);
   const [isReadingMode, setIsReadingMode] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isProjectorMode, setIsProjectorMode] = useState(false);
   
   // Force light mode always
   useEffect(() => {
     setIsDarkMode(false);
   }, []);
+
+  // TV Mode Class Toggle
+  useEffect(() => {
+    if (isProjectorMode) {
+      document.body.classList.add('tv-mode');
+    } else {
+      document.body.classList.remove('tv-mode');
+    }
+  }, [isProjectorMode]);
   
   // Parallax Logic
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -110,13 +122,13 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       } else if (e.key.toLowerCase() === 'r') {
         setIsReadingMode(prev => !prev);
       } else if (e.key.toLowerCase() === 'p') {
-        setIsProjectorMode(prev => !prev);
+        onToggleProjectorMode();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onNext, onPrev]);
+  }, [onNext, onPrev, onToggleProjectorMode]);
 
   // Wake Lock Logic
   const wakeLock = useRef<any>(null);
@@ -285,13 +297,13 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setIsProjectorMode(!isProjectorMode)}
+                onClick={onToggleProjectorMode}
                 className={`p-2.5 transition-all rounded-full border ${
                   isProjectorMode 
                   ? 'bg-amber-500 text-white border-amber-400 shadow-lg' 
                   : 'text-slate-400 hover:text-amber-600 hover:bg-white border-transparent'
                 }`}
-                title="Modo Proyector (Alta Legibilidad)"
+                title={isProjectorMode ? "Desactivar Modo TV/Proyector" : "Activar Modo TV/Proyector (Alta Legibilidad)"}
               >
                 <Compass size={18} className={isProjectorMode ? 'animate-spin-slow' : ''} />
               </motion.button>
@@ -369,13 +381,13 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                             transition={{ delay: 0.1, duration: 0.8 }}
                             className="mb-4 md:mb-8 print:mb-4"
                         >
-                            <h1 className="text-2xl md:text-3xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-[0.9] drop-shadow-sm font-display uppercase">
+                            <h1 className={`text-2xl md:text-3xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-[0.9] drop-shadow-sm font-display uppercase ${isProjectorMode ? 'lg:text-7xl' : ''}`}>
                             {title}
                             </h1>
                             {subtitle && (
                                 <div className="flex items-center gap-3 mt-3">
-                                    <div className="h-0.5 w-8 bg-indigo-600 rounded-full"></div>
-                                    <p className="text-slate-500 text-xs md:text-sm font-bold tracking-widest uppercase opacity-70">
+                                    <div className={`h-0.5 bg-indigo-600 rounded-full ${isProjectorMode ? 'w-12 h-1' : 'w-8'}`}></div>
+                                    <p className={`text-slate-500 font-bold tracking-widest uppercase opacity-70 ${isProjectorMode ? 'text-base md:text-lg' : 'text-xs md:text-sm'}`}>
                                         {subtitle}
                                     </p>
                                 </div>
@@ -530,10 +542,11 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
                     key={idx}
                     whileHover={{ scale: 1.2 }}
                     onClick={() => onJumpToSlide(idx)}
-                    className={`h-1 rounded-full transition-all duration-700 ease-out
+                    className={`rounded-full transition-all duration-700 ease-out
+                        ${isProjectorMode ? 'h-2' : 'h-1'}
                         ${idx === currentSlide 
-                            ? 'w-10 bg-indigo-600' 
-                            : 'w-2 bg-slate-200 hover:bg-indigo-200'}`}
+                            ? (isProjectorMode ? 'w-14 bg-indigo-600' : 'w-10 bg-indigo-600')
+                            : (isProjectorMode ? 'w-3 bg-slate-200 hover:bg-indigo-200' : 'w-2 bg-slate-200 hover:bg-indigo-200')}`}
                 />
             ))}
         </div>
@@ -545,9 +558,9 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={onPrev}
             disabled={currentSlide === 0}
-            className="group p-2.5 rounded-full glass-border bg-white/40 backdrop-blur-xl hover:bg-white/60 disabled:opacity-20 transition-all shadow-sm active:scale-90"
+            className={`group rounded-full glass-border bg-white/40 backdrop-blur-xl hover:bg-white/60 disabled:opacity-20 transition-all shadow-sm active:scale-90 ${isProjectorMode ? 'p-4' : 'p-2.5'}`}
             >
-            <ChevronLeft size={20} className="text-slate-600 group-hover:text-indigo-600 transition-colors" />
+            <ChevronLeft size={isProjectorMode ? 24 : 20} className="text-slate-600 group-hover:text-indigo-600 transition-colors" />
             </motion.button>
 
             <motion.button 
@@ -555,9 +568,9 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={onNext}
             disabled={currentSlide === totalSlides - 1}
-            className="group p-2.5 rounded-full bg-slate-900/90 backdrop-blur-xl hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90 glass-border"
+            className={`group rounded-full bg-slate-900/90 backdrop-blur-xl hover:bg-indigo-700 disabled:opacity-20 transition-all shadow-xl active:scale-90 glass-border ${isProjectorMode ? 'p-4' : 'p-2.5'}`}
             >
-            <ChevronRight size={20} className="text-white transition-colors" />
+            <ChevronRight size={isProjectorMode ? 24 : 20} className="text-white transition-colors" />
             </motion.button>
         </div>
       </footer>

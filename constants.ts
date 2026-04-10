@@ -33,8 +33,8 @@ export const SLIDES: SlideData[] = [
         ['09:30 - 09:45', 'PRESENTACION INSTITUCIONAL DE FYO', '15 min'],
         ['09:45 - 10:30', 'DINÁMICA 1: DIME QUIÉN ERES...', '45 min'],
         ['10:30 - 12:15', 'DINÁMICA 2: TURBULENCIA EN LA OFICINA', '105 min'],
-        ['12:15 - 12:45', '¡TOMÉMONOS UN DESCANSO!', '30 min'],
-        ['12:45 - 13:00', 'ENTREVISTA INDIVIDUALES', '15 min']
+        ['12:15 - 12:35', '¡TOMÉMONOS UN DESCANSO!', '20 min'],
+        ['12:35 - 12:55', 'ENTREVISTA INDIVIDUALES', '20 min']
       ]
     }
   },

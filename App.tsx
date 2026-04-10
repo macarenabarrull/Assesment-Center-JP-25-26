@@ -18,6 +18,7 @@ import {
 const App: React.FC = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 for prev, 1 for next
+  const [isProjectorMode, setIsProjectorMode] = useState(false);
 
   const nextSlide = useCallback(() => {
     setDirection(1);
@@ -33,6 +34,10 @@ const App: React.FC = () => {
     setDirection(index > currentSlideIndex ? 1 : -1);
     setCurrentSlideIndex(index);
   }, [currentSlideIndex]);
+
+  const toggleProjectorMode = useCallback(() => {
+    setIsProjectorMode(prev => !prev);
+  }, []);
 
   const renderSlide = (data: SlideData) => {
       switch (data.type) {
@@ -73,6 +78,8 @@ const App: React.FC = () => {
       onNext={nextSlide}
       onPrev={prevSlide}
       onJumpToSlide={jumpToSlide}
+      isProjectorMode={isProjectorMode}
+      onToggleProjectorMode={toggleProjectorMode}
       title={currentSlideData.type !== 'cover' && currentSlideData.type !== 'closing' ? currentSlideData.title : undefined}
       subtitle={currentSlideData.type !== 'cover' && currentSlideData.type !== 'closing' ? currentSlideData.subtitle : undefined}
       direction={direction}
