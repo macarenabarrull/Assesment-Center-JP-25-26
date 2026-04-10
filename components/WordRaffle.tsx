@@ -37,16 +37,6 @@ const COLORS = [
     '#a1a1aa', // Zinc
 ];
 
-const CATEGORY_STYLES: Record<string, { gradient: string; shadow: string }> = {
-    sports: { gradient: 'from-indigo-500 to-blue-600', shadow: 'shadow-indigo-500/20' },
-    politics: { gradient: 'from-slate-600 to-slate-800', shadow: 'shadow-slate-800/20' },
-    travel: { gradient: 'from-teal-500 to-emerald-600', shadow: 'shadow-teal-500/20' },
-    emotions: { gradient: 'from-rose-400 to-rose-600', shadow: 'shadow-rose-400/20' },
-    business: { gradient: 'from-slate-800 to-black', shadow: 'shadow-black/20' },
-    music: { gradient: 'from-violet-500 to-purple-700', shadow: 'shadow-violet-500/20' },
-    misc: { gradient: 'from-gray-400 to-gray-600', shadow: 'shadow-gray-400/20' }
-};
-
 interface WordItem {
     text: string;
     cat: string;
@@ -63,6 +53,7 @@ export const WordRaffle: React.FC = () => {
     const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
     const [isAnimating, setIsAnimating] = useState(false);
     const [status, setStatus] = useState('');
+    const [showCelebration, setShowCelebration] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const init = useCallback(() => {
@@ -110,11 +101,12 @@ export const WordRaffle: React.FC = () => {
 
         if (selectedIndices.length > 0) {
             setStatus("Reiniciando...");
+            setShowCelebration(false);
             setSelectedIndices([]);
             await new Promise(r => setTimeout(r, 600));
         }
 
-        setStatus("Sorteando...");
+        setStatus("Escaneando nube...");
         
         // Select 5 random indices from different categories
         const newSelected: number[] = [];
@@ -148,8 +140,10 @@ export const WordRaffle: React.FC = () => {
 
         // Staggered selection with a "searching" feel
         for (let i = 1; i <= newSelected.length; i++) {
-            await new Promise(r => setTimeout(r, 600));
+            setStatus(i === 5 ? "¡Sorteo completo!" : `Buscando palabra ${i}...`);
+            await new Promise(r => setTimeout(r, 800));
             setSelectedIndices(newSelected.slice(0, i));
+            if (i === 5) setShowCelebration(true);
         }
 
         setStatus("");
@@ -175,6 +169,51 @@ export const WordRaffle: React.FC = () => {
                 ref={containerRef}
                 className="w-full max-w-6xl flex-1 bg-white/40 backdrop-blur-3xl rounded-[3rem] border border-white/60 shadow-[0_40px_80px_rgba(0,0,0,0.05),inset_0_0_0_1px_rgba(255,255,255,0.5)] relative overflow-hidden flex items-center justify-center mb-6"
             >
+                {/* Scanning Line Effect */}
+                {isAnimating && selectedIndices.length < 5 && (
+                    <motion.div 
+                        className="absolute inset-0 z-10 pointer-events-none overflow-hidden"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                    >
+                        <motion.div 
+                            className="w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent shadow-[0_0_20px_rgba(99,102,241,0.5)]"
+                            animate={{ top: ['0%', '100%'] }}
+                            transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                            style={{ position: 'absolute' }}
+                        />
+                    </motion.div>
+                )}
+
+                {/* Celebration Sparkles */}
+                {showCelebration && (
+                    <div className="absolute inset-0 z-20 pointer-events-none">
+                        {[...Array(20)].map((_, i) => (
+                            <motion.div
+                                key={i}
+                                className="absolute w-1 h-1 bg-indigo-400 rounded-full"
+                                initial={{ 
+                                    x: '50%', 
+                                    y: '50%', 
+                                    scale: 0,
+                                    opacity: 1 
+                                }}
+                                animate={{ 
+                                    x: `${Math.random() * 100}%`, 
+                                    y: `${Math.random() * 100}%`,
+                                    scale: [0, 1.5, 0],
+                                    opacity: [0, 1, 0]
+                                }}
+                                transition={{ 
+                                    duration: 2 + Math.random() * 2,
+                                    repeat: Infinity,
+                                    delay: Math.random() * 2
+                                }}
+                            />
+                        ))}
+                    </div>
+                )}
+
                 <div className="absolute top-10 right-12 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] z-10 flex items-center gap-2">
                     <div className={`w-1.5 h-1.5 rounded-full ${isAnimating ? 'bg-indigo-500 animate-pulse' : 'bg-emerald-500'}`} />
                     {selectedIndices.length > 0 ? `${selectedIndices.length} / 5` : 'Nube Dinámica'}
@@ -189,9 +228,9 @@ export const WordRaffle: React.FC = () => {
                         return (
                             <motion.div
                                 key={idx}
-                                className={`absolute whitespace-nowrap px-5 py-2.5 rounded-full font-bold transition-all duration-700 flex items-center justify-center ${
+                                className={`absolute whitespace-nowrap px-6 py-3 rounded-full font-black transition-all duration-700 flex items-center justify-center ${
                                     isSelected 
-                                    ? 'z-50 text-white shadow-[0_20px_40px_-10px_rgba(15,23,42,0.3)] border border-white/20 bg-gradient-to-br from-slate-800 to-slate-950' 
+                                    ? 'z-50 text-white shadow-[0_30px_60px_-10px_rgba(0,0,0,0.5)] border border-indigo-500/40 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-black' 
                                     : 'text-slate-400 bg-white/5 backdrop-blur-sm border border-white/5'
                                 }`}
                                 initial={false}
@@ -200,30 +239,31 @@ export const WordRaffle: React.FC = () => {
                                     top: isSelected ? `${positions[selectionIdx].y}%` : `${item.y}%`,
                                     x: isSelected ? '-50%' : [0, 12, -12, 0],
                                     y: isSelected ? '-50%' : [0, -12, 12, 0],
-                                    scale: isSelected ? 1.25 : isDimmed ? 0.5 : 1,
+                                    scale: isSelected ? 1.3 : isDimmed ? 0.4 : 1,
                                     opacity: isDimmed ? 0.02 : isSelected ? 1 : 0.6,
-                                    filter: isDimmed ? 'blur(10px)' : 'blur(0px)',
-                                    fontSize: isSelected ? 'clamp(1rem, 3vw, 1.3rem)' : `clamp(0.65rem, 1.5vw, ${item.size}rem)`,
-                                    letterSpacing: isSelected ? '-0.01em' : '0em',
+                                    filter: isDimmed ? 'blur(12px)' : 'blur(0px)',
+                                    fontSize: isSelected ? 'clamp(1.1rem, 4vw, 1.6rem)' : `clamp(0.65rem, 1.5vw, ${item.size}rem)`,
+                                    letterSpacing: isSelected ? '0.05em' : '0em',
                                 }}
                                 whileHover={isSelected ? { 
-                                    scale: 1.3, 
-                                    rotate: 0.5,
-                                    transition: { type: 'spring', stiffness: 400, damping: 15 }
+                                    scale: 1.35, 
+                                    rotate: 1,
+                                    transition: { type: 'spring', stiffness: 400, damping: 10 }
                                 } : !isAnimating && !isDimmed ? { 
-                                    scale: 1.05, 
-                                    backgroundColor: 'rgba(255,255,255,0.15)',
+                                    scale: 1.1, 
+                                    x: [0, 5, -5, 0],
+                                    backgroundColor: 'rgba(255,255,255,0.2)',
                                     color: '#4f46e5',
                                     zIndex: 20
                                 } : {}}
                                 transition={{
-                                    x: isSelected ? { type: 'spring', stiffness: 150, damping: 20 } : { repeat: Infinity, duration: item.duration, ease: "easeInOut", delay: item.delay },
-                                    y: isSelected ? { type: 'spring', stiffness: 150, damping: 20 } : { repeat: Infinity, duration: item.duration + 1.5, ease: "easeInOut", delay: item.delay },
-                                    scale: { type: 'spring', stiffness: 300, damping: 25 },
+                                    x: isSelected ? { type: 'spring', stiffness: 150, damping: 15 } : { repeat: Infinity, duration: item.duration, ease: "easeInOut", delay: item.delay },
+                                    y: isSelected ? { type: 'spring', stiffness: 150, damping: 15 } : { repeat: Infinity, duration: item.duration + 1.5, ease: "easeInOut", delay: item.delay },
+                                    scale: { type: 'spring', stiffness: 300, damping: 20 },
                                     opacity: { duration: 0.6 },
                                     filter: { duration: 0.6 },
-                                    left: { type: 'spring', stiffness: 90, damping: 22 },
-                                    top: { type: 'spring', stiffness: 90, damping: 22 },
+                                    left: { type: 'spring', stiffness: 80, damping: 18 },
+                                    top: { type: 'spring', stiffness: 80, damping: 18 },
                                 }}
                                 style={{
                                     pointerEvents: isAnimating || isDimmed ? 'none' : 'auto'
@@ -232,14 +272,14 @@ export const WordRaffle: React.FC = () => {
                                 {item.text}
                                 {isSelected && (
                                     <>
-                                        {/* Subtle Glossy Reflection */}
-                                        <div className="absolute top-0.5 left-3 right-3 h-1/4 bg-gradient-to-b from-white/10 to-transparent rounded-full pointer-events-none" />
+                                        {/* Premium Glossy Reflection */}
+                                        <div className="absolute top-0.5 left-4 right-4 h-1/3 bg-gradient-to-b from-white/20 to-transparent rounded-full pointer-events-none" />
                                         
-                                        {/* Refined Shine */}
+                                        {/* Refined Shine Effect */}
                                         <motion.div 
-                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
                                             animate={{ x: ['-150%', '250%'] }}
-                                            transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut', repeatDelay: 1.5 }}
+                                            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut', repeatDelay: 1 }}
                                         />
                                     </>
                                 )}
@@ -250,8 +290,8 @@ export const WordRaffle: React.FC = () => {
             </div>
 
             <div className="flex flex-col items-center gap-2 pb-2">
-                <div className={`text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] h-4 transition-opacity ${status ? 'opacity-100' : 'opacity-0'}`}>
-                    {status}
+                <div className={`text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] h-4 transition-all duration-500 ${status || showCelebration ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                    {showCelebration ? "¡Dinámica lista para comenzar!" : status}
                 </div>
                 <motion.button
                     whileHover={{ scale: 1.05, y: -4 }}
