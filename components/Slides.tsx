@@ -766,7 +766,7 @@ const PrintSummary = () => {
       <div className="w-full mx-auto flex flex-col min-h-screen" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
         {/* Header - Candidate Guide Style */}
         <div className="flex justify-between items-center border-b-2 border-slate-900 pb-4 mb-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-left">
             <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-base">
               fyo
             </div>
@@ -790,19 +790,15 @@ const PrintSummary = () => {
         {/* Content Phase 1 */}
         <section className="flex-1">
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-left">
               <div className="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center text-white">
                 <Layers size={14} />
               </div>
               <h2 className="text-base font-black uppercase tracking-tight text-slate-900">Construcción y Logística</h2>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1 border border-slate-200 rounded-full">
-              <Clock size={12} className="text-slate-400" />
-              <span className="text-[9px] font-black text-slate-600 uppercase">Duración: 105 min</span>
-            </div>
           </div>
           
-          <div className="space-y-5">
+          <div className="space-y-5 text-left">
             {/* Consigna */}
             <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
               <h3 className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
@@ -817,7 +813,7 @@ const PrintSummary = () => {
             {/* Roles */}
             <div className="grid grid-cols-2 gap-3">
               {slide9.content.roles.map((role: any, i: number) => (
-                <div key={i} className="border border-slate-200 p-3 rounded-lg flex flex-col justify-between">
+                <div key={i} className="border border-slate-200 p-3 rounded-lg flex flex-col justify-between text-left">
                   <h4 className="text-[10px] font-black text-slate-900 uppercase mb-1 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
                     {role.title}
@@ -828,7 +824,7 @@ const PrintSummary = () => {
             </div>
 
             {/* Tips */}
-            <div className="bg-white border-2 border-slate-100 p-4 rounded-xl">
+            <div className="bg-white border-2 border-slate-100 p-4 rounded-xl text-left">
               <h3 className="text-[9px] font-black text-slate-900 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
                 <Sparkles size={12} className="text-indigo-600" />
                 Recomendaciones para el equipo
@@ -844,7 +840,7 @@ const PrintSummary = () => {
             </div>
 
             {/* Notes Section */}
-            <div className="mt-8 pt-6 border-t border-dashed border-slate-300">
+            <div className="mt-8 pt-6 border-t border-dashed border-slate-300 text-left">
               <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
                 <ClipboardCheck size={12} />
                 Espacio para anotaciones personales
@@ -859,7 +855,7 @@ const PrintSummary = () => {
         </section>
 
         {/* Footer */}
-        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
+        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center text-left">
           <p className="text-[8px] font-bold text-slate-300 italic">fyo Assessment Center JP 25-26 | No compartir este documento</p>
           <div className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">fyo</div>
         </div>
@@ -869,7 +865,7 @@ const PrintSummary = () => {
       <div className="w-full mx-auto flex flex-col min-h-screen" style={{ breakBefore: 'page', pageBreakBefore: 'always' }}>
         {/* Header Page 2 */}
         <div className="flex justify-between items-center border-b-2 border-slate-900 pb-4 mb-6">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-left">
             <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-base">
               fyo
             </div>
@@ -887,19 +883,15 @@ const PrintSummary = () => {
         {/* Content Phase 2 */}
         <section className="flex-1">
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-left">
               <div className="w-6 h-6 bg-red-600 rounded flex items-center justify-center text-white">
                 <AlertCircle size={14} />
               </div>
               <h2 className="text-base font-black uppercase tracking-tight text-red-600">Gestión de Crisis</h2>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1 border border-red-100 rounded-full">
-              <Clock size={12} className="text-red-400" />
-              <span className="text-[9px] font-black text-red-600 uppercase">Tiempo Real</span>
-            </div>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-5 text-left">
             <div className="bg-red-50/30 p-5 rounded-xl border border-red-100">
               <h3 className="text-[9px] font-black text-red-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
                 <Zap size={12} />
@@ -912,7 +904,7 @@ const PrintSummary = () => {
 
             <div className="grid grid-cols-1 gap-3">
               {slide10.content.cards.map((card: any, i: number) => (
-                <div key={i} className="flex gap-4 items-center border border-slate-200 p-4 rounded-xl">
+                <div key={i} className="flex gap-4 items-center border border-slate-200 p-4 rounded-xl text-left">
                   <div className="shrink-0 w-12 text-center">
                     <div className="text-[10px] font-black text-red-600 uppercase mb-1">{i + 1}</div>
                     <div className="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center text-red-600">
@@ -931,7 +923,7 @@ const PrintSummary = () => {
             </div>
 
             {/* Notes Section for Phase 2 */}
-            <div className="mt-8 pt-6 border-t border-dashed border-slate-300">
+            <div className="mt-8 pt-6 border-t border-dashed border-slate-300 text-left">
               <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
                 <ClipboardCheck size={12} />
                 Plan de Acción y Resoluciones
@@ -946,14 +938,15 @@ const PrintSummary = () => {
         </section>
 
         {/* Footer */}
-        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
+        <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center text-left">
           <p className="text-[8px] font-bold text-slate-300 italic">fyo Assessment Center JP 25-26 | Confidencial</p>
-          <div className="text-[9px] font-black text-red-600 uppercase tracking-widest italic">Crisis Management</div>
+          <div className="text-[9px] font-black text-red-600 uppercase tracking-widest italic text-right">Crisis Management</div>
         </div>
       </div>
     </div>
   );
 };
+
 
 // 10. Word Raffle Slide
 export const WordRaffleSlide: React.FC<SlideProps> = ({ data }) => {
