@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { SLIDES, SlideData } from './constants';
 import { SlideLayout } from './components/SlideLayout';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { 
   CoverSlide, 
   ImageSlide,
@@ -72,20 +73,22 @@ const App: React.FC = () => {
 
   // Normal View
   return (
-    <SlideLayout
-      currentSlide={currentSlideIndex}
-      totalSlides={SLIDES.length}
-      onNext={nextSlide}
-      onPrev={prevSlide}
-      onJumpToSlide={jumpToSlide}
-      isProjectorMode={isProjectorMode}
-      onToggleProjectorMode={toggleProjectorMode}
-      title={currentSlideData.type !== 'cover' && currentSlideData.type !== 'closing' ? currentSlideData.title : undefined}
-      subtitle={currentSlideData.type !== 'cover' && currentSlideData.type !== 'closing' ? currentSlideData.subtitle : undefined}
-      direction={direction}
-    >
-      {renderSlide(currentSlideData)}
-    </SlideLayout>
+    <ErrorBoundary>
+      <SlideLayout
+        currentSlide={currentSlideIndex}
+        totalSlides={SLIDES.length}
+        onNext={nextSlide}
+        onPrev={prevSlide}
+        onJumpToSlide={jumpToSlide}
+        isProjectorMode={isProjectorMode}
+        onToggleProjectorMode={toggleProjectorMode}
+        title={currentSlideData.type !== 'cover' && currentSlideData.type !== 'closing' ? currentSlideData.title : undefined}
+        subtitle={currentSlideData.type !== 'cover' && currentSlideData.type !== 'closing' ? currentSlideData.subtitle : undefined}
+        direction={direction}
+      >
+        {renderSlide(currentSlideData)}
+      </SlideLayout>
+    </ErrorBoundary>
   );
 };
 

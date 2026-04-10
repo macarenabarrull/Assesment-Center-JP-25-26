@@ -191,7 +191,7 @@ export const WordRaffle: React.FC = () => {
                                     scale: isSelected ? 1.5 : isDimmed ? 0.6 : 1,
                                     opacity: isDimmed ? 0.05 : 1,
                                     filter: isDimmed ? 'blur(4px)' : 'blur(0px)',
-                                    fontSize: isSelected ? '1.4rem' : `${item.size}rem`,
+                                    fontSize: isSelected ? 'clamp(1rem, 4vw, 1.4rem)' : `clamp(0.6rem, 2vw, ${item.size}rem)`,
                                     backgroundColor: isSelected ? '#4f46e5' : 'transparent',
                                     color: isSelected ? '#ffffff' : item.color,
                                 }}
