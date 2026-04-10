@@ -141,7 +141,7 @@ export const SLIDES: SlideData[] = [
     theme: 'light',
     content: {
       phase: 1,
-      consigna: '¡Bienvenidos al Directorio!\nAcaban de fundar su propia agencia de viajes. Tienen 40 minutos para definir la identidad de su marca (Nombre y Eslogan) y estructurar la logística del gran viaje de su temporada.',
+      consigna: '¡Bienvenidos al Directorio!\nAcaban de fundar su propia agencia de viajes. Tienen 30 minutos para definir la identidad de su marca (Nombre y Eslogan) y estructurar la logística del gran viaje de su temporada.',
       rolesIntro: 'Para que la agencia funcione, cada miembro del equipo debe asumir obligatoriamente uno de los siguientes roles. Elijan sabiamente quién ocupa cada silla:',
       roles: [
         { name: 'CEO', title: 'Director Comercial', desc: 'Toma la decisión final si hay empate. Es la cara visible de la empresa y quien lidera la presentación.', icon: 'Users' },
