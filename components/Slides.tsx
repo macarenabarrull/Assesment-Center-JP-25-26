@@ -765,7 +765,7 @@ const PrintSummary = () => {
       {/* PAGE 1: Dinámica 2 - Fase 1 */}
       <div className="w-full mx-auto flex flex-col min-h-screen" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
         {/* Header - Candidate Guide Style */}
-        <div className="flex justify-between items-center border-b-2 border-slate-900 pb-4 mb-6">
+        <div className="flex justify-between items-center border-b-2 border-slate-900 pb-4 mb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center text-white font-black text-base">
               fyo
@@ -779,6 +779,12 @@ const PrintSummary = () => {
             <div className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1">Página 1 de 2</div>
             <div className="px-2 py-0.5 bg-slate-100 rounded text-[7px] font-black text-slate-500 uppercase">Confidencial</div>
           </div>
+        </div>
+
+        {/* Candidate Info Field */}
+        <div className="flex items-center gap-2 mb-6 border-b border-slate-200 pb-2">
+          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Nombre del Candidato:</span>
+          <div className="flex-1 border-b border-slate-300 h-4" />
         </div>
 
         {/* Content Phase 1 */}
@@ -799,7 +805,10 @@ const PrintSummary = () => {
           <div className="space-y-5">
             {/* Consigna */}
             <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
-              <h3 className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-2">Consigna General</h3>
+              <h3 className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                <Compass size={12} />
+                Consigna General
+              </h3>
               <p className="text-[11px] font-bold leading-relaxed text-slate-700 italic">
                 "{slide9.content.consigna}"
               </p>
@@ -808,7 +817,7 @@ const PrintSummary = () => {
             {/* Roles */}
             <div className="grid grid-cols-2 gap-3">
               {slide9.content.roles.map((role: any, i: number) => (
-                <div key={i} className="border border-slate-200 p-3 rounded-lg">
+                <div key={i} className="border border-slate-200 p-3 rounded-lg flex flex-col justify-between">
                   <h4 className="text-[10px] font-black text-slate-900 uppercase mb-1 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
                     {role.title}
@@ -820,7 +829,10 @@ const PrintSummary = () => {
 
             {/* Tips */}
             <div className="bg-white border-2 border-slate-100 p-4 rounded-xl">
-              <h3 className="text-[9px] font-black text-slate-900 uppercase tracking-[0.2em] mb-3">Recomendaciones para el equipo</h3>
+              <h3 className="text-[9px] font-black text-slate-900 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
+                <Sparkles size={12} className="text-indigo-600" />
+                Recomendaciones para el equipo
+              </h3>
               <div className="grid grid-cols-3 gap-4">
                 {slide9.content.tips.map((tip: string, i: number) => (
                   <div key={i} className="flex gap-2 items-start">
@@ -831,12 +843,15 @@ const PrintSummary = () => {
               </div>
             </div>
 
-            {/* Notes Section - Functional Improvement */}
+            {/* Notes Section */}
             <div className="mt-8 pt-6 border-t border-dashed border-slate-300">
-              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Espacio para anotaciones personales</h3>
+              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <ClipboardCheck size={12} />
+                Espacio para anotaciones personales
+              </h3>
               <div className="space-y-4">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="border-b border-slate-100 h-4 w-full" />
+                  <div key={i} className="border-b border-slate-100 h-5 w-full" />
                 ))}
               </div>
             </div>
@@ -886,7 +901,10 @@ const PrintSummary = () => {
 
           <div className="space-y-5">
             <div className="bg-red-50/30 p-5 rounded-xl border border-red-100">
-              <h3 className="text-[9px] font-black text-red-600 uppercase tracking-[0.2em] mb-2">Contexto Crítico</h3>
+              <h3 className="text-[9px] font-black text-red-600 uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+                <Zap size={12} />
+                Contexto Crítico
+              </h3>
               <p className="text-[10px] font-bold leading-relaxed text-slate-700">
                 Durante esta fase, el equipo enfrentará situaciones imprevistas que pondrán a prueba su capacidad de reacción y toma de decisiones estratégica.
               </p>
@@ -914,10 +932,13 @@ const PrintSummary = () => {
 
             {/* Notes Section for Phase 2 */}
             <div className="mt-8 pt-6 border-t border-dashed border-slate-300">
-              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Plan de Acción y Resoluciones</h3>
+              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <ClipboardCheck size={12} />
+                Plan de Acción y Resoluciones
+              </h3>
               <div className="space-y-4">
                 {[...Array(8)].map((_, i) => (
-                  <div key={i} className="border-b border-slate-100 h-4 w-full" />
+                  <div key={i} className="border-b border-slate-100 h-5 w-full" />
                 ))}
               </div>
             </div>
