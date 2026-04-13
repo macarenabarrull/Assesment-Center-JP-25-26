@@ -138,9 +138,17 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       try {
         if ('wakeLock' in navigator && (navigator as any).wakeLock) {
           wakeLock.current = await (navigator as any).wakeLock.request('screen');
+          
+          // Re-request on visibility change
+          const handleVisibilityChange = async () => {
+            if (wakeLock.current !== null && document.visibilityState === 'visible') {
+              wakeLock.current = await (navigator as any).wakeLock.request('screen');
+            }
+          };
+          document.addEventListener('visibilitychange', handleVisibilityChange);
+          return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
         }
       } catch (err: any) {
-        // Silently fail for permission errors in restricted environments (like iframes)
         if (err.name !== 'NotAllowedError' && err.name !== 'SecurityError') {
           console.warn(`WakeLock failed: ${err.name}, ${err.message}`);
         }
@@ -215,7 +223,7 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
 
   return (
     <div 
-        className={`h-screen w-full flex flex-col relative overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 print:h-auto print:overflow-visible transition-colors duration-1000 ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'}`}
+        className={`h-[100dvh] w-full flex flex-col relative overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 print:h-auto print:overflow-visible transition-colors duration-1000 ${isDarkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'}`}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -276,67 +284,67 @@ export const SlideLayout: React.FC<SlideLayoutProps> = ({
       </div>
 
       {/* Header - Minimalist & Elegant */}
-      <header className={`flex-none px-8 py-2 md:px-12 flex justify-between items-center z-20 print:hidden h-14 md:h-16 transition-all duration-700 ${isReadingMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
+      <header className={`flex-none px-4 md:px-12 flex justify-between items-center z-20 print:hidden h-14 md:h-16 transition-all duration-700 ${isReadingMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
         <motion.div 
           layoutId="brand-header"
-          className="flex items-center gap-4 group cursor-pointer"
+          className="flex items-center gap-2 md:gap-4 group cursor-pointer"
           onClick={() => onJumpToSlide(0)}
         >
           {/* Fyo Logo */}
-          <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black text-sm shadow-lg group-hover:bg-indigo-600 transition-colors">
+          <div className="w-8 h-8 md:w-10 md:h-10 bg-slate-900 rounded-lg md:rounded-xl flex items-center justify-center text-white font-black text-xs md:text-sm shadow-lg group-hover:bg-indigo-600 transition-colors">
             fyo
           </div>
-          <div className="h-8 w-px bg-slate-200 mx-1"></div>
+          <div className="h-6 md:h-8 w-px bg-slate-200 mx-0.5 md:mx-1"></div>
           <div className="flex flex-col leading-tight">
-             <span className="text-[10px] md:text-[11px] font-black tracking-[0.25em] text-slate-900 uppercase">Jóvenes Profesionales</span>
-             <span className="text-[9px] md:text-[10px] text-slate-400 font-bold tracking-widest uppercase">Assessment Center</span>
+             <span className="text-[8px] md:text-[11px] font-black tracking-[0.15em] md:tracking-[0.25em] text-slate-900 uppercase">Jóvenes Profesionales</span>
+             <span className="text-[7px] md:text-[10px] text-slate-400 font-bold tracking-widest uppercase">Assessment Center</span>
           </div>
         </motion.div>
         
-        <div className="flex items-center gap-2 md:gap-4 bg-white/60 backdrop-blur-2xl p-2 rounded-full border border-white shadow-xl">
+        <div className="flex items-center gap-1.5 md:gap-4 bg-white/60 backdrop-blur-2xl p-1.5 md:p-2 rounded-full border border-white shadow-xl">
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onToggleProjectorMode}
-                className={`p-2.5 transition-all rounded-full border ${
+                className={`p-1.5 md:p-2.5 transition-all rounded-full border ${
                   isProjectorMode 
                   ? 'bg-amber-500 text-white border-amber-400 shadow-lg' 
                   : 'text-slate-400 hover:text-amber-600 hover:bg-white border-transparent'
                 }`}
                 title={isProjectorMode ? "Desactivar Modo TV/Proyector" : "Activar Modo TV/Proyector (Alta Legibilidad)"}
               >
-                <Compass size={18} className={isProjectorMode ? 'animate-spin-slow' : ''} />
+                <Compass size={16} className={isProjectorMode ? 'animate-spin-slow' : ''} />
               </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setIsReadingMode(true)}
-                className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-white border border-transparent"
+                className="p-1.5 md:p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-white border border-transparent"
                 title="Modo Lectura (Foco)"
               >
-                <Keyboard size={18} />
+                <Keyboard size={16} />
               </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setShowIndex(!showIndex)}
-                className={`p-2.5 transition-all rounded-full border ${
+                className={`p-1.5 md:p-2.5 transition-all rounded-full border ${
                   showIndex 
                   ? 'bg-slate-900 text-white border-slate-800 shadow-xl' 
                   : 'text-slate-400 hover:text-indigo-600 hover:bg-white border-transparent'
                 }`}
                 title="Índice de diapositivas"
               >
-                <Sparkles size={18} className={showIndex ? 'animate-pulse' : ''} />
+                <Sparkles size={16} className={showIndex ? 'animate-pulse' : ''} />
               </motion.button>
             <motion.button 
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleFullscreen}
-              className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-white border border-transparent"
+              className="p-1.5 md:p-2.5 text-slate-400 hover:text-indigo-600 transition-all rounded-full hover:bg-white border border-transparent"
               title={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
             >
-              {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+              {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
             </motion.button>
         </div>
       </header>

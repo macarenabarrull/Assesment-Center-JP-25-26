@@ -212,7 +212,7 @@ export const WordRaffle: React.FC = () => {
                         return (
                             <motion.div
                                 key={idx}
-                                className={`absolute whitespace-nowrap px-4 py-2 rounded-full font-black transition-all duration-700 flex items-center justify-center ${
+                                className={`absolute whitespace-nowrap px-3 py-1.5 md:px-4 md:py-2 rounded-full font-black transition-all duration-700 flex items-center justify-center ${
                                     isSelected 
                                     ? 'z-50 text-white shadow-[0_15px_30px_-5px_rgba(79,70,229,0.4)] border border-white/40 bg-gradient-to-br from-indigo-500 via-violet-600 to-purple-800 font-display' 
                                     : 'text-slate-400 bg-white/5 backdrop-blur-sm border border-white/5'
@@ -226,7 +226,7 @@ export const WordRaffle: React.FC = () => {
                                     scale: isSelected ? 1.05 : isDimmed ? 0.6 : 0.8,
                                     opacity: isDimmed ? 0.2 : isSelected ? 1 : 0.55,
                                     filter: isDimmed ? 'blur(12px)' : isSelected ? 'blur(0px)' : 'blur(6px)',
-                                    fontSize: isSelected ? 'clamp(0.9rem, 3vw, 1.2rem)' : `clamp(0.6rem, 1.2vw, ${item.size}rem)`,
+                                    fontSize: isSelected ? 'clamp(0.75rem, 4vw, 1.2rem)' : `clamp(0.5rem, 2vw, ${item.size}rem)`,
                                     letterSpacing: isSelected ? '0.01em' : '0em',
                                 }}
                                 whileHover={isSelected ? { 

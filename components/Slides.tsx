@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SLIDES, SlideData } from '../constants';
 import { 
   Users, Calendar, GraduationCap, FileText, Flag, Heart, 
@@ -121,22 +121,22 @@ export const CoverSlide: React.FC<SlideProps> = ({ data }) => {
             ))}
         </div>
 
-        <GlassCard theme={data.theme} className="p-10 md:p-16 flex flex-col items-center border-white/20 shadow-lg relative overflow-visible bg-white/30 backdrop-blur-2xl">
-            <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-40 h-1 bg-gradient-to-r from-transparent via-${isAssessment ? 'rose' : isBreak ? 'amber' : 'indigo'}-500 to-transparent rounded-b-full`} />
+        <GlassCard theme={data.theme} className="p-6 md:p-16 flex flex-col items-center border-white/20 shadow-lg relative overflow-visible bg-white/30 backdrop-blur-2xl">
+            <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-20 md:w-40 h-1 bg-gradient-to-r from-transparent via-${isAssessment ? 'rose' : isBreak ? 'amber' : 'indigo'}-500 to-transparent rounded-b-full`} />
             
             <motion.div 
                 layoutId="brand-tag"
                 variants={itemVariants} 
-                className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-slate-100/50 bg-white/80 shadow-md text-slate-400 text-[9px] font-black tracking-[0.4em] uppercase mb-8"
+                className="inline-flex items-center gap-2 md:gap-3 px-3 md:px-5 py-1.5 md:py-2 rounded-full border border-slate-100/50 bg-white/80 shadow-md text-slate-400 text-[7px] md:text-[9px] font-black tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 md:mb-8"
             >
-                <div className={`h-2 w-2 rounded-full ${isAssessment ? 'bg-rose-500' : isBreak ? 'bg-amber-500' : 'bg-indigo-500'} animate-pulse`} />
+                <div className={`h-1.5 w-1.5 md:h-2 md:w-2 rounded-full ${isAssessment ? 'bg-rose-500' : isBreak ? 'bg-amber-500' : 'bg-indigo-500'} animate-pulse`} />
                 {isAssessment ? 'Evaluación' : isBreak ? 'Descanso' : 'fyo'}
             </motion.div>
             
             <motion.h1 
                 layoutId="slide-title"
                 variants={itemVariants} 
-                className="text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter text-slate-900 mb-6 leading-[0.85] font-display uppercase drop-shadow-sm"
+                className="text-3xl md:text-6xl lg:text-8xl font-black tracking-tighter text-slate-900 mb-4 md:mb-6 leading-[0.85] font-display uppercase drop-shadow-sm"
             >
                 {(data.title || '').split(' ').map((word, i) => {
                     const isSpecial = word.toUpperCase().includes('JP') || word.toUpperCase().includes('FYO') || word.toUpperCase().includes('ASSESSMENT');
@@ -248,22 +248,22 @@ export const TableCapitalSlide: React.FC<SlideProps> = ({ data }) => {
                 <GlassCard className="overflow-hidden shadow-2xl relative bg-white/60 backdrop-blur-2xl rounded-[2rem]">
                     <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-600 via-cyan-400 to-indigo-600 animate-gradient-x" />
                     <div 
-                        className="grid border-b border-slate-100/50 text-[9px] font-black uppercase tracking-[0.3em] font-display bg-slate-50/80"
+                        className="grid border-b border-slate-100/50 text-[7px] md:text-[9px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-display bg-slate-50/80"
                         style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
                     >
                         {headers.map((header: string, i: number) => (
-                            <div key={i} className="p-4 md:p-5 text-center text-slate-400">{header}</div>
+                            <div key={i} className="p-2 md:p-5 text-center text-slate-400">{header}</div>
                         ))}
                     </div>
                     {rows.map((row: string[], idx: number) => (
                         <div 
                             key={idx} 
-                            className="grid border-b border-slate-50/50 hover:bg-white/80 transition-all duration-500 text-[11px] md:text-xs group"
+                            className="grid border-b border-slate-50/50 hover:bg-white/80 transition-all duration-500 text-[9px] md:text-xs group"
                             style={{ gridTemplateColumns: `repeat(${colCount}, minmax(0, 1fr))` }}
                         >
-                            <div className="p-4 md:p-5 font-mono flex items-center justify-center font-black text-indigo-600 bg-indigo-50/40 group-hover:bg-indigo-100/60 transition-colors border-r border-slate-50/50">{row[0]}</div>
+                            <div className="p-2 md:p-5 font-mono flex items-center justify-center font-black text-indigo-600 bg-indigo-50/40 group-hover:bg-indigo-100/60 transition-colors border-r border-slate-50/50">{row[0]}</div>
                             {row.slice(1).map((cell, i) => (
-                                <div key={i} className="p-4 md:p-5 flex items-center justify-center border-l border-slate-50/50 text-center font-bold tracking-tight text-slate-600 group-hover:text-slate-900">
+                                <div key={i} className="p-2 md:p-5 flex items-center justify-center border-l border-slate-50/50 text-center font-bold tracking-tight text-slate-600 group-hover:text-slate-900">
                                     {cell}
                                 </div>
                             ))}
@@ -461,6 +461,20 @@ export const GridSlide: React.FC<SlideProps> = ({ data }) => {
 // 9. Ecosystem Circles Slide
 export const EcosystemCirclesSlide: React.FC<SlideProps> = ({ data }) => {
     const { items } = data.content;
+    const [radius, setRadius] = useState(180);
+    
+    useEffect(() => {
+        const updateRadius = () => {
+            const width = window.innerWidth;
+            if (width > 1280) setRadius(220);
+            else if (width > 768) setRadius(180);
+            else setRadius(120);
+        };
+        updateRadius();
+        window.addEventListener('resize', updateRadius);
+        return () => window.removeEventListener('resize', updateRadius);
+    }, []);
+
     return (
         <motion.div className="flex flex-col justify-center items-center h-full py-8 max-w-7xl mx-auto px-6" initial="hidden" animate="show" variants={containerVariants}>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full">
@@ -510,7 +524,7 @@ export const EcosystemCirclesSlide: React.FC<SlideProps> = ({ data }) => {
                             className="absolute inset-0 bg-indigo-500 rounded-full blur-3xl" 
                         />
                         
-                        <div className="w-24 h-24 md:w-40 md:h-40 rounded-full bg-slate-900 flex items-center justify-center text-white font-black text-xl md:text-3xl shadow-[0_0_50px_rgba(79,70,229,0.5)] border-4 md:border-8 border-white relative overflow-hidden group">
+                        <div className="w-20 h-20 md:w-40 md:h-40 rounded-full bg-slate-900 flex items-center justify-center text-white font-black text-sm md:text-3xl shadow-[0_0_50px_rgba(79,70,229,0.5)] border-2 md:border-8 border-white relative overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             <motion.span
                                 animate={{ 
@@ -528,8 +542,6 @@ export const EcosystemCirclesSlide: React.FC<SlideProps> = ({ data }) => {
                     {/* Static Nodes with Connecting Lines */}
                     {items.map((item: any, i: number) => {
                         const angle = (i * (360 / items.length) - 90) * (Math.PI / 180);
-                        // Responsive radius
-                        const radius = typeof window !== 'undefined' ? (window.innerWidth > 1280 ? 220 : window.innerWidth > 768 ? 180 : 140) : 180;
                         const x = Math.cos(angle) * radius;
                         const y = Math.sin(angle) * radius;
 
