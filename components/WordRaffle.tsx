@@ -141,7 +141,7 @@ export const WordRaffle: React.FC = () => {
         // Staggered selection with a "searching" feel
         for (let i = 1; i <= newSelected.length; i++) {
             setStatus(i === 5 ? "¡Sorteo completo!" : `Buscando palabra ${i}...`);
-            await new Promise(r => setTimeout(r, 800));
+            await new Promise(r => setTimeout(r, 450));
             setSelectedIndices(newSelected.slice(0, i));
             if (i === 5) setShowCelebration(true);
         }
@@ -151,11 +151,11 @@ export const WordRaffle: React.FC = () => {
     };
 
     const positions = [
-        { x: 50, y: 22 }, // Top Center
-        { x: 22, y: 48 }, // Middle Left
-        { x: 78, y: 48 }, // Middle Right
-        { x: 32, y: 78 }, // Bottom Left-ish
-        { x: 68, y: 78 }  // Bottom Right-ish
+        { x: 50, y: 20 }, // Top Center
+        { x: 20, y: 45 }, // Middle Left
+        { x: 80, y: 45 }, // Middle Right
+        { x: 30, y: 75 }, // Bottom Left-ish
+        { x: 70, y: 75 }  // Bottom Right-ish
     ];
 
     return (
@@ -169,22 +169,6 @@ export const WordRaffle: React.FC = () => {
                 ref={containerRef}
                 className="w-full max-w-6xl flex-1 bg-white/40 backdrop-blur-3xl rounded-[3rem] border border-white/60 shadow-[0_40px_80px_rgba(0,0,0,0.05),inset_0_0_0_1px_rgba(255,255,255,0.5)] relative overflow-hidden flex items-center justify-center mb-6"
             >
-                {/* Scanning Line Effect */}
-                {isAnimating && selectedIndices.length < 5 && (
-                    <motion.div 
-                        className="absolute inset-0 z-10 pointer-events-none overflow-hidden"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                    >
-                        <motion.div 
-                            className="w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent shadow-[0_0_20px_rgba(99,102,241,0.5)]"
-                            animate={{ top: ['0%', '100%'] }}
-                            transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                            style={{ position: 'absolute' }}
-                        />
-                    </motion.div>
-                )}
-
                 {/* Celebration Sparkles */}
                 {showCelebration && (
                     <div className="absolute inset-0 z-20 pointer-events-none">
@@ -228,42 +212,41 @@ export const WordRaffle: React.FC = () => {
                         return (
                             <motion.div
                                 key={idx}
-                                className={`absolute whitespace-nowrap px-6 py-3 rounded-full font-black transition-all duration-700 flex items-center justify-center ${
+                                className={`absolute whitespace-nowrap px-4 py-2 rounded-full font-black transition-all duration-700 flex items-center justify-center ${
                                     isSelected 
-                                    ? 'z-50 text-white shadow-[0_30px_60px_-10px_rgba(0,0,0,0.5)] border border-indigo-500/40 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-black' 
+                                    ? 'z-50 text-white shadow-[0_15px_30px_-5px_rgba(79,70,229,0.4)] border border-white/40 bg-gradient-to-br from-indigo-500 via-violet-600 to-purple-800 font-display' 
                                     : 'text-slate-400 bg-white/5 backdrop-blur-sm border border-white/5'
                                 }`}
                                 initial={false}
                                 animate={{
                                     left: isSelected ? `${positions[selectionIdx].x}%` : `${item.x}%`,
                                     top: isSelected ? `${positions[selectionIdx].y}%` : `${item.y}%`,
-                                    x: isSelected ? '-50%' : [0, 12, -12, 0],
-                                    y: isSelected ? '-50%' : [0, -12, 12, 0],
-                                    scale: isSelected ? 1.3 : isDimmed ? 0.4 : 1,
-                                    opacity: isDimmed ? 0.02 : isSelected ? 1 : 0.6,
-                                    filter: isDimmed ? 'blur(12px)' : 'blur(0px)',
-                                    fontSize: isSelected ? 'clamp(1.1rem, 4vw, 1.6rem)' : `clamp(0.65rem, 1.5vw, ${item.size}rem)`,
-                                    letterSpacing: isSelected ? '0.05em' : '0em',
+                                    x: isSelected ? '-50%' : [0, 15, -15, 0],
+                                    y: isSelected ? '-50%' : [0, -15, 15, 0],
+                                    scale: isSelected ? 1.05 : isDimmed ? 0.4 : 0.8,
+                                    opacity: isDimmed ? 0.05 : isSelected ? 1 : 0.25,
+                                    filter: isDimmed ? 'blur(15px)' : isSelected ? 'blur(0px)' : 'blur(10px)',
+                                    fontSize: isSelected ? 'clamp(0.9rem, 3vw, 1.2rem)' : `clamp(0.6rem, 1.2vw, ${item.size}rem)`,
+                                    letterSpacing: isSelected ? '0.01em' : '0em',
                                 }}
                                 whileHover={isSelected ? { 
-                                    scale: 1.35, 
-                                    rotate: 1,
-                                    transition: { type: 'spring', stiffness: 400, damping: 10 }
-                                } : !isAnimating && !isDimmed ? { 
                                     scale: 1.1, 
-                                    x: [0, 5, -5, 0],
-                                    backgroundColor: 'rgba(255,255,255,0.2)',
-                                    color: '#4f46e5',
+                                    rotate: 1,
+                                    transition: { type: 'spring', stiffness: 500, damping: 15 }
+                                } : !isAnimating && !isDimmed ? { 
+                                    scale: 0.9, 
+                                    opacity: 0.3,
+                                    filter: 'blur(5px)',
                                     zIndex: 20
                                 } : {}}
                                 transition={{
-                                    x: isSelected ? { type: 'spring', stiffness: 150, damping: 15 } : { repeat: Infinity, duration: item.duration, ease: "easeInOut", delay: item.delay },
-                                    y: isSelected ? { type: 'spring', stiffness: 150, damping: 15 } : { repeat: Infinity, duration: item.duration + 1.5, ease: "easeInOut", delay: item.delay },
-                                    scale: { type: 'spring', stiffness: 300, damping: 20 },
-                                    opacity: { duration: 0.6 },
-                                    filter: { duration: 0.6 },
-                                    left: { type: 'spring', stiffness: 80, damping: 18 },
-                                    top: { type: 'spring', stiffness: 80, damping: 18 },
+                                    x: isSelected ? { type: 'spring', stiffness: 200, damping: 20 } : { repeat: Infinity, duration: item.duration, ease: "easeInOut", delay: item.delay },
+                                    y: isSelected ? { type: 'spring', stiffness: 200, damping: 20 } : { repeat: Infinity, duration: item.duration + 1.5, ease: "easeInOut", delay: item.delay },
+                                    scale: { type: 'spring', stiffness: 400, damping: 25 },
+                                    opacity: { duration: 0.4 },
+                                    filter: { duration: 0.4 },
+                                    left: { type: 'spring', stiffness: 120, damping: 20 },
+                                    top: { type: 'spring', stiffness: 120, damping: 20 },
                                 }}
                                 style={{
                                     pointerEvents: isAnimating || isDimmed ? 'none' : 'auto'
