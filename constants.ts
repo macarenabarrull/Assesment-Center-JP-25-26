@@ -30,11 +30,11 @@ export const SLIDES: SlideData[] = [
     content: {
       headers: ['Horario', 'Actividad', 'Duración'],
       rows: [
-        ['09:30 - 09:45', 'PRESENTACION INSTITUCIONAL DE FYO', '15 min'],
+        ['09:30 - 09:45', 'PRESENTACIÓN INSTITUCIONAL DE FYO', '15 min'],
         ['09:45 - 10:30', 'DINÁMICA 1: DIME QUIÉN ERES...', '45 min'],
         ['10:30 - 12:15', 'DINÁMICA 2: TURBULENCIA EN LA OFICINA', '105 min'],
         ['12:15 - 12:35', '¡TOMÉMONOS UN DESCANSO!', '20 min'],
-        ['12:35 - 12:55', 'ENTREVISTA INDIVIDUALES', '20 min']
+        ['12:35 - 12:55', 'ENTREVISTAS INDIVIDUALES', '20 min']
       ]
     }
   },
@@ -126,7 +126,7 @@ export const SLIDES: SlideData[] = [
   {
     id: 'dinamica-1',
     type: 'raffle',
-    title: 'DINÁMICA 1: Dime quién eres... 🎨',
+    title: 'DINÁMICA 1: DIME QUIÉN ERES... 🎨',
     subtitle: 'Assessment Center fyo',
     theme: 'light',
     content: {}
@@ -134,7 +134,7 @@ export const SLIDES: SlideData[] = [
   {
     id: 'dinamica-2',
     type: 'interactive-dynamic',
-    title: 'Dinámica 2: Turbulencia en la Oficina 🏢',
+    title: 'DINÁMICA 2: TURBULENCIA EN LA OFICINA 🏢',
     subtitle: 'FASE 1 - CONSTRUCCIÓN',
     theme: 'light',
     content: {
@@ -162,7 +162,7 @@ export const SLIDES: SlideData[] = [
   {
     id: 'dinamica-2-crisis',
     type: 'interactive-dynamic',
-    title: 'Dinámica 2: Turbulencia en la Oficina 🏢',
+    title: 'DINÁMICA 2: TURBULENCIA EN LA OFICINA 🏢',
     subtitle: 'FASE 2 - GESTIÓN DE CRISIS',
     theme: 'light',
     content: {

@@ -224,8 +224,8 @@ export const WordRaffle: React.FC = () => {
                                     x: isSelected ? '-50%' : [0, 15, -15, 0],
                                     y: isSelected ? '-50%' : [0, -15, 15, 0],
                                     scale: isSelected ? 1.05 : isDimmed ? 0.4 : 0.8,
-                                    opacity: isDimmed ? 0.05 : isSelected ? 1 : 0.25,
-                                    filter: isDimmed ? 'blur(15px)' : isSelected ? 'blur(0px)' : 'blur(10px)',
+                                    opacity: isDimmed ? 0.05 : isSelected ? 1 : 0.4,
+                                    filter: isDimmed ? 'blur(15px)' : isSelected ? 'blur(0px)' : 'blur(8px)',
                                     fontSize: isSelected ? 'clamp(0.9rem, 3vw, 1.2rem)' : `clamp(0.6rem, 1.2vw, ${item.size}rem)`,
                                     letterSpacing: isSelected ? '0.01em' : '0em',
                                 }}
